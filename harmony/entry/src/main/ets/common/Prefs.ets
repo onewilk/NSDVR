@@ -44,6 +44,8 @@ PersistentStorage.persistProp(LANGUAGE_INDEX_KEY, 0);
 
 export const APP_NAME = 'NSDVR';
 export const SYSDVR_GITHUB = 'https://github.com/exelix11/SysDVR';
+// 本应用的开源仓库（关于页“开源代码”）
+export const PROJECT_GITHUB = 'https://github.com/onewilk/NSDVR';
 export const IJKPLAYER_REPO = 'https://gitcode.com/CPF-ApplicationTPC/ohos_ijkplayer';
 
 /** 串流模式，数值与 native 层 connect() 的 mode 一致 */

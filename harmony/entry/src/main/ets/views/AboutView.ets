@@ -4,7 +4,7 @@ import { promptAction } from '@kit.ArkUI';
 import { util } from '@kit.ArkTS';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { productViewManager } from '@kit.StoreKit';
-import { APP_NAME, Breakpoint, IJKPLAYER_REPO, SYSDVR_GITHUB } from '../common/Prefs';
+import { APP_NAME, Breakpoint, IJKPLAYER_REPO, PROJECT_GITHUB, SYSDVR_GITHUB } from '../common/Prefs';
 import { tr } from '../common/I18n';
 import { Card, NavRow } from './Widgets';
 
@@ -175,6 +175,10 @@ export struct AboutView {
         }
         .width('100%')
         .padding({ top: 24, bottom: 8 })
+
+        Card({ title: tr('about_source_title'), subtitle: tr('about_source_sub') }) {
+          this.LinkRow($r('sys.symbol.link'), tr('about_source_link'), PROJECT_GITHUB)
+        }
 
         Card() {
           NavRow({

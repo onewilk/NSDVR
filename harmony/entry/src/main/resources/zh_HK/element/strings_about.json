@@ -87,6 +87,18 @@
     {
       "name": "about_store_failed",
       "value": "暫時無法開啟應用市場詳情頁"
+    },
+    {
+      "name": "about_source_title",
+      "value": "開源程式碼"
+    },
+    {
+      "name": "about_source_sub",
+      "value": "本應用以 GPL-2.0 授權開源，歡迎到 GitHub 查看原始碼或回報問題"
+    },
+    {
+      "name": "about_source_link",
+      "value": "NSDVR（GitHub）"
     }
   ]
 }

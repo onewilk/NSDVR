@@ -87,6 +87,18 @@
     {
       "name": "about_store_failed",
       "value": "暂时无法打开应用市场详情页"
+    },
+    {
+      "name": "about_source_title",
+      "value": "开源代码"
+    },
+    {
+      "name": "about_source_sub",
+      "value": "本应用以 GPL-2.0 协议开源，欢迎在 GitHub 查看源码或反馈问题"
+    },
+    {
+      "name": "about_source_link",
+      "value": "NSDVR（GitHub）"
     }
   ]
 }

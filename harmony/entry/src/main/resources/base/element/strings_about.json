@@ -87,6 +87,18 @@
     {
       "name": "about_store_failed",
       "value": "Can't open the AppGallery page right now"
+    },
+    {
+      "name": "about_source_title",
+      "value": "Source code"
+    },
+    {
+      "name": "about_source_sub",
+      "value": "NSDVR is open source under GPL-2.0. Browse the code or report issues on GitHub."
+    },
+    {
+      "name": "about_source_link",
+      "value": "NSDVR (GitHub)"
     }
   ]
 }
