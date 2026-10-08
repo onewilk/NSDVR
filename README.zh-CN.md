@@ -265,3 +265,5 @@ Live View Kit（自定义胶囊和卡片样式的实况窗）需要在 AppGaller
 ## 许可证
 
 GPL-2.0，与 SysDVR 相同（协议实现参考了 SysDVR 的文档和源码）。第三方组件：libopus（BSD-3-Clause）、ijkplayer / FFmpeg（LGPL-2.1+，以动态库形式随包分发）。
+
+`tools/ext_vectors/` 的测试向量里有一小段 CC BY 3.0 授权的音乐，出处和说明见该目录的 README。

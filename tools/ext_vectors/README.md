@@ -54,3 +54,11 @@ sysmodule's encoder code (`sysmodule/source/next/next_audio.c`, libopus 1.6.1 fi
 - Control message: switch to ADPCM: `53 44 56 58 02 00 00 00`
 
 `manifest.json` lists every file with sizes and frame counts.
+
+## Audio credit
+
+The input is a 1.024 s excerpt (from 30.0 s) of
+[Raspberrymusic – Aliens (trailer music; cinematic epic electronic classical music)](https://commons.wikimedia.org/wiki/File:Raspberrymusic_-_Aliens_(trailer_music;_cinematic_epic_electronic_classical_music).flac)
+from Wikimedia Commons, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Changes: cut to
+1.024 s and converted to 48 kHz 16-bit stereo; the other files in this directory are that excerpt encoded and decoded
+with the codecs above.

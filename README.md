@@ -268,3 +268,5 @@ The client includes an experimental, backward-compatible protocol extension (aud
 ## License
 
 GPL-2.0, the same as SysDVR (the protocol implementation follows SysDVR's documentation and source). Third-party components: libopus (BSD-3-Clause), ijkplayer / FFmpeg (LGPL-2.1+, shipped as dynamic libraries).
+
+The test vectors in `tools/ext_vectors/` contain a short excerpt of a CC BY 3.0 music track; credit and details are in its README.
