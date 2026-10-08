@@ -2,11 +2,17 @@
 
 **English** | [简体中文](README.zh-CN.md)
 
-NSDVR receives the [SysDVR](https://github.com/exelix11/SysDVR) stream from a Nintendo Switch on HarmonyOS NSDVR phones, tablets, PCs and foldables.
+NSDVR receives the [SysDVR](https://github.com/exelix11/SysDVR) stream from a Nintendo Switch on HarmonyOS NEXT phones, tablets, PCs and foldables.
 It supports all three SysDVR streaming modes and adds HarmonyOS-specific improvements: a dedicated 5 GHz hotspot, adaptive smoothing, freeze on frame loss, picture enhancement, network acceleration and background streaming with a live notification.
 It works with the official SysDVR sysmodule; nothing needs to change on the Switch.
 
 > NSDVR is an unofficial third-party client. It is not affiliated with or endorsed by Nintendo or the SysDVR project. SysDVR itself runs on a Switch with custom firmware.
+
+<p align="center">
+  <img src="screenshot/en_1_stream.jpg" width="260" alt="Stream page">
+  &nbsp;
+  <img src="screenshot/en_2_settings.jpg" width="260" alt="Settings page">
+</p>
 
 | Mode | Transport | Playback pipeline | Notes |
 |---|---|---|---|
@@ -71,6 +77,7 @@ harmony/entry/src/main/ets/
 | `tools/test_e2e.sh` | End-to-end protocol tests and unit tests |
 | `tools/ohos/` | Offline checks without DevEco: native cross-compile, ArkTS type check and linter |
 | `docs/nsdvr-ext-protocol.md` | Experimental protocol extension |
+| `screenshot/` | Screenshots shown in this README |
 | `.github/workflows/build.yml` | CI: tests and unsigned builds, published to Releases for `v*` tags |
 
 ## Getting started

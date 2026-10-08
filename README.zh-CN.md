@@ -2,11 +2,17 @@
 
 [English](README.md) | **简体中文**
 
-NSDVR 在 HarmonyOS NSDVR 手机、平板、PC 和折叠屏上接收 Nintendo Switch 的 [SysDVR](https://github.com/exelix11/SysDVR) 串流。
+NSDVR 在 HarmonyOS NEXT 手机、平板、PC 和折叠屏上接收 Nintendo Switch 的 [SysDVR](https://github.com/exelix11/SysDVR) 串流。
 它完整支持 SysDVR 的三种串流模式，并利用鸿蒙系统能力做了多项体验优化：专用 5 GHz 热点、自适应平滑、丢帧定格、画质增强、网络加速，以及带实况窗的后台保持。
 配合官方 SysDVR sysmodule 使用，Switch 端不需要任何改动。
 
 > NSDVR 是非官方的第三方客户端，与任天堂及 SysDVR 项目没有隶属或背书关系。SysDVR 本身需要运行在装有自制系统的 Switch 上。
+
+<p align="center">
+  <img src="screenshot/zh_1_stream.jpg" width="260" alt="串流页">
+  &nbsp;
+  <img src="screenshot/zh_2_settings.jpg" width="260" alt="配置页">
+</p>
 
 | 模式 | 传输 | 播放管线 | 说明 |
 |---|---|---|---|
@@ -71,6 +77,7 @@ harmony/entry/src/main/ets/
 | `tools/test_e2e.sh` | 端到端协议测试和单元测试 |
 | `tools/ohos/` | 不开 DevEco 的离线检查：native 交叉编译、ArkTS 类型检查与 linter |
 | `docs/nsdvr-ext-protocol.zh-CN.md` | 实验扩展协议 |
+| `screenshot/` | README 里展示的截图 |
 | `.github/workflows/build.yml` | CI：测试和未签名构建，`v*` 标签发布到 Releases |
 
 ## 快速开始
