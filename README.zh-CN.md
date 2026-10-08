@@ -9,9 +9,24 @@ NSDVR 在 HarmonyOS NEXT 手机、平板、PC 和折叠屏上接收 Nintendo Swi
 > NSDVR 是非官方的第三方客户端，与任天堂及 SysDVR 项目没有隶属或背书关系。SysDVR 本身需要运行在装有自制系统的 Switch 上。
 
 <p align="center">
-  <img src="screenshot/zh_1_stream.jpg" width="260" alt="串流页">
+  <img src="screenshot/zh_phone_1_stream.jpg" width="230" alt="串流页">
   &nbsp;
-  <img src="screenshot/zh_2_settings.jpg" width="260" alt="配置页">
+  <img src="screenshot/zh_phone_2_settings.jpg" width="230" alt="配置页">
+  <br><sub>手机</sub>
+</p>
+
+<p align="center">
+  <img src="screenshot/zh_tablet_1_stream.jpg" width="420" alt="串流页">
+  &nbsp;
+  <img src="screenshot/zh_tablet_2_settings.jpg" width="420" alt="配置页">
+  <br><sub>平板</sub>
+</p>
+
+<p align="center">
+  <img src="screenshot/zh_pc_1_stream.jpg" width="420" alt="串流页">
+  &nbsp;
+  <img src="screenshot/zh_pc_2_settings.jpg" width="420" alt="配置页">
+  <br><sub>PC</sub>
 </p>
 
 | 模式 | 传输 | 播放管线 | 说明 |

@@ -9,9 +9,24 @@ It works with the official SysDVR sysmodule; nothing needs to change on the Swit
 > NSDVR is an unofficial third-party client. It is not affiliated with or endorsed by Nintendo or the SysDVR project. SysDVR itself runs on a Switch with custom firmware.
 
 <p align="center">
-  <img src="screenshot/en_1_stream.jpg" width="260" alt="Stream page">
+  <img src="screenshot/en_phone_1_stream.jpg" width="230" alt="Stream page">
   &nbsp;
-  <img src="screenshot/en_2_settings.jpg" width="260" alt="Settings page">
+  <img src="screenshot/en_phone_2_settings.jpg" width="230" alt="Settings page">
+  <br><sub>Phone</sub>
+</p>
+
+<p align="center">
+  <img src="screenshot/en_tablet_1_stream.jpg" width="420" alt="Stream page">
+  &nbsp;
+  <img src="screenshot/en_tablet_2_settings.jpg" width="420" alt="Settings page">
+  <br><sub>Tablet</sub>
+</p>
+
+<p align="center">
+  <img src="screenshot/en_pc_1_stream.jpg" width="420" alt="Stream page">
+  &nbsp;
+  <img src="screenshot/en_pc_2_settings.jpg" width="420" alt="Settings page">
+  <br><sub>PC</sub>
 </p>
 
 | Mode | Transport | Playback pipeline | Notes |
