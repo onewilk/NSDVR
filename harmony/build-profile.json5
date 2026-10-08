@@ -1,0 +1,59 @@
+{
+  app: {
+    // 签名配置不入库：在 DevEco Studio 的 File > Project Structure > Signing Configs 里自动生成调试签名，
+    // 或按 AGC 发布证书配置 release 签名（本地修改，不要提交）
+    signingConfigs: [],
+    products: [
+      {
+        name: 'default',
+        compatibleSdkVersion: '5.0.0(12)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            caseSensitiveCheck: true,
+            useNormalizedOHMUrl: true,
+          },
+          nativeCompiler: 'BiSheng',
+        },
+        targetSdkVersion: '26.0.0',
+      },
+      {
+        // 上架用的发布构建：签名配置在本地添加（见上方说明）
+        name: 'release',
+        compatibleSdkVersion: '5.0.0(12)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            caseSensitiveCheck: true,
+            useNormalizedOHMUrl: true,
+          },
+          nativeCompiler: 'BiSheng',
+        },
+        targetSdkVersion: '26.0.0',
+      },
+    ],
+    buildModeSet: [
+      {
+        name: 'debug',
+      },
+      {
+        name: 'release',
+      },
+    ],
+  },
+  modules: [
+    {
+      name: 'entry',
+      srcPath: './entry',
+      targets: [
+        {
+          name: 'default',
+          applyToProducts: [
+            'default',
+            'release',
+          ],
+        },
+      ],
+    },
+  ],
+}

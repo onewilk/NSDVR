@@ -1,0 +1,272 @@
+{
+  "string": [
+    {
+      "name": "cfg_hs_rebuild_failed",
+      "value": "Couldn't rebuild the hotspot with the new settings: %s"
+    },
+    {
+      "name": "cfg_hs_rebuilt",
+      "value": "Hotspot rebuilt with the new settings. Reconnect the console once."
+    },
+    {
+      "name": "cfg_hs_current",
+      "value": "Current hotspot"
+    },
+    {
+      "name": "cfg_hs_ssid_line",
+      "value": "Network name: %s"
+    },
+    {
+      "name": "cfg_hs_pass_line",
+      "value": "Password: %s"
+    },
+    {
+      "name": "cfg_hs_custom_title",
+      "value": "Custom network name and password"
+    },
+    {
+      "name": "cfg_hs_ssid_hint",
+      "value": "Network name, e.g. DIRECT-SysDVR"
+    },
+    {
+      "name": "cfg_hs_pass_hint",
+      "value": "Password: 8–63 letters, digits or symbols"
+    },
+    {
+      "name": "cfg_hs_random",
+      "value": "Random"
+    },
+    {
+      "name": "cfg_hs_edit_note",
+      "value": "After changing, reconnect the console to the new network. If the hotspot is on, it's rebuilt automatically."
+    },
+    {
+      "name": "cfg_hs_auto_title",
+      "value": "Turn on hotspot when the app opens"
+    },
+    {
+      "name": "cfg_hs_auto_desc",
+      "value": "No need to turn it on manually each time. Won't create a duplicate if it's already running."
+    },
+    {
+      "name": "cfg_hs_save",
+      "value": "Save"
+    },
+    {
+      "name": "cfg_hs_title",
+      "value": "Device hotspot"
+    },
+    {
+      "name": "cfg_hs_desc",
+      "value": "Your phone creates a 5 GHz hotspot for the console (channels 36–48, WPA2). No router in between, so the connection is more stable with lower latency."
+    },
+    {
+      "name": "cfg_hs_settings",
+      "value": "Hotspot settings"
+    },
+    {
+      "name": "cfg_hs_settings_desc",
+      "value": "View name and password, customize, turn on automatically"
+    },
+    {
+      "name": "cfg_hs_sheet_title",
+      "value": "Hotspot settings"
+    },
+    {
+      "name": "cfg_opt_title",
+      "value": "Streaming options"
+    },
+    {
+      "name": "cfg_opt_subtitle",
+      "value": "You can also change these while playing via the Settings button (top right), without reconnecting."
+    },
+    {
+      "name": "cfg_opt_audio",
+      "value": "Play audio"
+    },
+    {
+      "name": "cfg_opt_audio_desc",
+      "value": "In TCP Bridge, turning it off stops audio transmission and saves ~1.5 Mbps; other modes just mute locally."
+    },
+    {
+      "name": "cfg_opt_smooth",
+      "value": "Smoothing"
+    },
+    {
+      "name": "cfg_opt_smooth_desc",
+      "value": "Low latency: ≤80ms buffer, for playing; Smoothness: ≤300ms buffer, for watching"
+    },
+    {
+      "name": "cfg_opt_netopt",
+      "value": "Network optimization"
+    },
+    {
+      "name": "cfg_opt_netopt_desc",
+      "value": "TCP quick ACK + Huawei Network Boost (real-time gaming scene, high-priority connections)"
+    },
+    {
+      "name": "cfg_opt_screen_off",
+      "value": "Turn off device screen while streaming"
+    },
+    {
+      "name": "cfg_opt_screen_off_desc",
+      "value": "Saves power and reduces heat; the screen turns back on after disconnecting (SysDVR 6.0+)"
+    },
+    {
+      "name": "cfg_opt_keep_alive",
+      "value": "Keep alive in background"
+    },
+    {
+      "name": "cfg_opt_keep_alive_desc",
+      "value": "Keeps receiving without rendering, shows a Live View in the notification bar, and resumes within a second when you return"
+    },
+    {
+      "name": "cfg_opt_stats",
+      "value": "Show statistics"
+    },
+    {
+      "name": "cfg_opt_stats_desc",
+      "value": "Shows frame rate, bitrate, buffering, etc. while playing, for troubleshooting stutter"
+    },
+    {
+      "name": "hs_err_wlan_off",
+      "value": "Turn on WLAN first (it must be on, but doesn't need to be connected to a network)"
+    },
+    {
+      "name": "hs_err_system_hotspot",
+      "value": "Turn off the system personal hotspot first; the two conflict"
+    },
+    {
+      "name": "hs_err_wlan_state",
+      "value": "Couldn't read WLAN status (%d)"
+    },
+    {
+      "name": "hs_try_item",
+      "value": "%s: %s"
+    },
+    {
+      "name": "hs_channel_n",
+      "value": "channel %d"
+    },
+    {
+      "name": "hs_channel_auto",
+      "value": "auto"
+    },
+    {
+      "name": "hs_started",
+      "value": "On: %s channel %d · WPA2"
+    },
+    {
+      "name": "hs_tried_before",
+      "value": " (tried before: %s)"
+    },
+    {
+      "name": "hs_sep",
+      "value": "; "
+    },
+    {
+      "name": "hs_channel_mismatch",
+      "value": "requested channel %d, got channel %d"
+    },
+    {
+      "name": "hs_err_no_channel",
+      "value": "Couldn't create it on a channel the console supports: %s"
+    },
+    {
+      "name": "hs_err_create",
+      "value": "Group creation failed (%d)"
+    },
+    {
+      "name": "hs_err_timeout",
+      "value": "Timed out creating the group"
+    },
+    {
+      "name": "hs_err_ssid_empty",
+      "value": "Network name can't be empty"
+    },
+    {
+      "name": "hs_err_ssid_long",
+      "value": "Network name too long: max 32 bytes (a Chinese character counts as 3)"
+    },
+    {
+      "name": "hs_err_pass",
+      "value": "Password must be 8–63 letters, digits or symbols (WPA2 requirement)"
+    },
+    {
+      "name": "hs_still_running",
+      "value": "The device hotspot is still running (it wasn't turned off last time)"
+    },
+    {
+      "name": "hs_creating",
+      "value": "Creating a 5 GHz hotspot (trying channels 36/40/44/48)…"
+    },
+    {
+      "name": "hs_fallback_24",
+      "value": "5 GHz failed (%s); switched to 2.4 GHz. "
+    },
+    {
+      "name": "hs_closed",
+      "value": "Off"
+    },
+    {
+      "name": "hs_reclaimed",
+      "value": "The device hotspot was turned off (WLAN was turned off, or the system reclaimed it)"
+    },
+    {
+      "name": "hs_summary_on",
+      "value": "On · %s · channel %d · %d device(s) connected"
+    },
+    {
+      "name": "hs_detail_band",
+      "value": "Band: %s · channel %d (%d MHz) · WPA2"
+    },
+    {
+      "name": "hs_detail_clients",
+      "value": "Connected devices: %d"
+    },
+    {
+      "name": "hs_detail_ip",
+      "value": " · this phone: %s"
+    },
+    {
+      "name": "hs_detail_switch_steps",
+      "value": "On the console: System Settings → Internet → Internet Settings, choose this network and enter the password"
+    },
+    {
+      "name": "hs_warn_sta",
+      "value": "Your phone is still connected to “%s” (%s, channel %d), which is on a different channel from the device hotspot (channel %d). The Wi-Fi chip has to hop between them, causing dropped frames and audio. Disconnect it in WLAN settings (keep WLAN itself on; turning WLAN off also turns off the hotspot)."
+    },
+    {
+      "name": "cfg_hs_close",
+      "value": "Close"
+    },
+    {
+      "name": "hs_auto_started",
+      "value": "Device hotspot turned on automatically"
+    },
+    {
+      "name": "hs_auto_failed",
+      "value": "Couldn't turn on the device hotspot automatically: %s"
+    },
+    {
+      "name": "cfg_hs_unsaved",
+      "value": "Changes not saved yet. Tap Save at the top right to apply them."
+    },
+    {
+      "name": "cfg_opt_freeze",
+      "value": "Freeze on frame loss"
+    },
+    {
+      "name": "cfg_opt_freeze_desc",
+      "value": "When network hiccups cause dropped frames, hold the last intact frame until the next keyframe instead of showing corrupted video"
+    },
+    {
+      "name": "cfg_opt_enhance",
+      "value": "Picture enhancement"
+    },
+    {
+      "name": "cfg_opt_enhance_desc",
+      "value": "Uses the system's video detail enhancement to upscale 720p to your screen resolution for a sharper picture on large screens. Standard is fast; High looks better but takes longer. Falls back to direct output if unsupported"
+    }
+  ]
+}

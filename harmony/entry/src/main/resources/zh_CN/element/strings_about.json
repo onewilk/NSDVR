@@ -1,0 +1,92 @@
+{
+  "string": [
+    {
+      "name": "about_version",
+      "value": "版本 %s"
+    },
+    {
+      "name": "about_desc",
+      "value": "基于鸿蒙系统能力的 SysDVR 客户端：完整支持 TCP Bridge、USB、RTSP 三种串流模式，并提供专用热点、平滑模式、网络加速、后台保持等体验优化。"
+    },
+    {
+      "name": "about_guide_title",
+      "value": "使用说明"
+    },
+    {
+      "name": "about_guide_desc",
+      "value": "三种串流模式的上手步骤、各选项的作用和常见问题"
+    },
+    {
+      "name": "about_thanks_title",
+      "value": "鸣谢"
+    },
+    {
+      "name": "about_thanks_sub",
+      "value": "本应用基于以下开源项目，感谢作者和社区的付出"
+    },
+    {
+      "name": "about_sysdvr_link",
+      "value": "SysDVR（GitHub）"
+    },
+    {
+      "name": "about_sysdvr_note",
+      "value": "SysDVR 由 exelix11 开发。游戏机端的安装方法、兼容的系统版本，请以 SysDVR 项目主页为准。"
+    },
+    {
+      "name": "about_ijk_name",
+      "value": "ijkplayer（OpenHarmony 版）"
+    },
+    {
+      "name": "about_licenses_title",
+      "value": "开源许可"
+    },
+    {
+      "name": "about_lic_sysdvr_note",
+      "value": "游戏机端串流系统模块，本应用实现了它的客户端协议"
+    },
+    {
+      "name": "about_lic_ijk_note",
+      "value": "RTSP 模式的播放器"
+    },
+    {
+      "name": "about_lic_ffmpeg_note",
+      "value": "ijkplayer 使用的音视频库"
+    },
+    {
+      "name": "about_privacy_title",
+      "value": "隐私说明"
+    },
+    {
+      "name": "about_privacy_body",
+      "value": "本应用不收集、不上传任何个人信息，没有账号和统计分析。网络和 USB 连接只发生在本机与您的游戏机之间；统计信息只保存在本机应用目录中，卸载即删除。"
+    },
+    {
+      "name": "about_disclaimer_title",
+      "value": "免责声明"
+    },
+    {
+      "name": "about_disclaimer_body",
+      "value": "本应用是面向 SysDVR 提供的鸿蒙原生客户端实现。"
+    },
+    {
+      "name": "about_open_failed",
+      "value": "无法打开浏览器，请手动访问 %s"
+    },
+    {
+      "name": "about_feedback_title",
+      "value": "反馈与评分"
+    },
+    {
+      "name": "about_feedback_desc",
+      "value": "到华为应用市场给我们打分、写下建议或遇到的问题"
+    },
+    {
+      "name": "about_store_unavailable",
+      "value": "暂时无法打开应用市场详情页（应用上架后可用）"
+    },
+    {
+      "name": "about_store_failed",
+      "value": "暂时无法打开应用市场详情页"
+    }
+  ]
+}

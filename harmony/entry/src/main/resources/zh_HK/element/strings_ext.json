@@ -1,0 +1,196 @@
+{
+  "string": [
+    {
+      "name": "ext_card_title",
+      "value": "實驗功能"
+    },
+    {
+      "name": "ext_card_subtitle",
+      "value": "需要伺服器支援；播放中也可以在快速設定裡調整，立即生效，無需重新連線"
+    },
+    {
+      "name": "ext_codec",
+      "value": "音訊編碼"
+    },
+    {
+      "name": "ext_codec_desc",
+      "value": "壓縮音訊可節省 Wi-Fi 頻寬：PCM 約 1.5 Mbps，24 kHz 約 0.77 Mbps，ADPCM 約 0.38 Mbps，Opus 依所選位元率"
+    },
+    {
+      "name": "ext_codec_pcm",
+      "value": "PCM（原始）"
+    },
+    {
+      "name": "ext_codec_24k",
+      "value": "PCM 24 kHz"
+    },
+    {
+      "name": "ext_opus_kbps",
+      "value": "Opus 位元率"
+    },
+    {
+      "name": "ext_opus_kbps_desc",
+      "value": "位元率越高音質越好，佔用頻寬也越多"
+    },
+    {
+      "name": "ext_opus_complexity",
+      "value": "Opus 複雜度"
+    },
+    {
+      "name": "ext_opus_complexity_desc",
+      "value": "越高音質越好，遊戲機編碼耗時也越多"
+    },
+    {
+      "name": "ext_opus_frame",
+      "value": "Opus 訊框長度"
+    },
+    {
+      "name": "ext_opus_frame_desc",
+      "value": "10 ms 延遲更低，位元率開銷略大"
+    },
+    {
+      "name": "ext_kbps_value",
+      "value": "%d kbps"
+    },
+    {
+      "name": "ext_ms_value",
+      "value": "%d ms"
+    },
+    {
+      "name": "ext_combo_opus",
+      "value": "Opus %d kbps · 複雜度 %d · %d ms"
+    },
+    {
+      "name": "ext_rotate",
+      "value": "自動輪換比較"
+    },
+    {
+      "name": "ext_rotate_desc",
+      "value": "播放時依下方的組合輪流切換並循環，統計浮層和 stats.csv 依組合記錄"
+    },
+    {
+      "name": "ext_rotate_duration",
+      "value": "每組時長"
+    },
+    {
+      "name": "ext_rotate_plan",
+      "value": "輪換組合（%d 組）"
+    },
+    {
+      "name": "ext_rotate_empty",
+      "value": "還沒有組合"
+    },
+    {
+      "name": "ext_rotate_add",
+      "value": "加入目前設定"
+    },
+    {
+      "name": "ext_rotate_reset",
+      "value": "恢復預設組合"
+    },
+    {
+      "name": "ext_rotate_remove",
+      "value": "刪除這一組"
+    },
+    {
+      "name": "ext_rotate_exists",
+      "value": "清單裡已有這一組"
+    },
+    {
+      "name": "ext_rotate_need_two",
+      "value": "至少需要兩組才能輪換"
+    },
+    {
+      "name": "ext_dev_row",
+      "value": "開發者選項"
+    },
+    {
+      "name": "ext_dev_row_desc",
+      "value": "伺服器不支援時也顯示實驗功能，方便查看介面"
+    },
+    {
+      "name": "ext_dev_on",
+      "value": "開發者選項已開啟"
+    },
+    {
+      "name": "ext_dev_off",
+      "value": "開發者選項已關閉"
+    },
+    {
+      "name": "ext_dev_taps",
+      "value": "再點 %d 次開啟開發者選項"
+    },
+    {
+      "name": "ext_dev_taps_off",
+      "value": "再點 %d 次關閉開發者選項"
+    },
+    {
+      "name": "ext_unsupported",
+      "value": "目前的伺服器不支援"
+    },
+    {
+      "name": "ext_quick_codec_desc",
+      "value": "立即切換，不中斷連線"
+    },
+    {
+      "name": "ext_quick_rotating",
+      "value": "自動輪換中"
+    },
+    {
+      "name": "ext_quick_rotate_desc",
+      "value": "依設定頁的組合每 %d 分鐘切換一次"
+    },
+    {
+      "name": "ext_quick_rotate_state",
+      "value": "第 %d/%d 組 · 剩餘 %s"
+    },
+    {
+      "name": "ext_stats_audio",
+      "value": "音訊編碼 %s · 實際 %d kbps · 遊戲機編碼佔即時 %s"
+    },
+    {
+      "name": "ext_stats_pending",
+      "value": "（切換中）"
+    },
+    {
+      "name": "ext_stats_not_applied",
+      "value": "（伺服器未採用要求的編碼）"
+    },
+    {
+      "name": "ext_stats_dec_err",
+      "value": " · 解碼錯誤 %d"
+    },
+    {
+      "name": "ext_stats_send",
+      "value": "遊戲機傳送 阻塞 %s ms/s（單次峰值 %s ms）· 超過 20 ms %d 次（累計 %d）· grc 斷檔 %d（累計 %d，其中傳送慢 %d）"
+    },
+    {
+      "name": "ext_stats_cpu",
+      "value": "遊戲機 3 號核心閒置 %s · SysDVR CPU %s · TOS 視訊 %s 音訊 %s"
+    },
+    {
+      "name": "ext_stats_rotate",
+      "value": "自動輪換 第 %d/%d 組（%s）· 剩餘 %s"
+    },
+    {
+      "name": "ext_stats_unsupported",
+      "value": "實驗功能：目前的伺服器不支援"
+    },
+    {
+      "name": "about_lic_opus_note",
+      "value": "音訊解碼（libopus）"
+    },
+    {
+      "name": "about_lic_view",
+      "value": "查看完整授權"
+    },
+    {
+      "name": "about_lic_sheet_title",
+      "value": "%s 授權"
+    },
+    {
+      "name": "about_lic_load_failed",
+      "value": "無法讀取授權全文"
+    }
+  ]
+}

@@ -1,0 +1,432 @@
+{
+  "string": [
+    {
+      "name": "app_scope_not_rtsp",
+      "value": "RTSP 不可用"
+    },
+    {
+      "name": "app_scope_tcp_only",
+      "value": "仅 TCP Bridge"
+    },
+    {
+      "name": "app_mode_tcp_sub",
+      "value": "Wi-Fi 无线"
+    },
+    {
+      "name": "app_mode_tcp_desc",
+      "value": "自动发现，省带宽、延迟低"
+    },
+    {
+      "name": "app_mode_usb_sub",
+      "value": "数据线直连"
+    },
+    {
+      "name": "app_mode_usb_desc",
+      "value": "不受无线干扰，更稳定"
+    },
+    {
+      "name": "app_mode_rtsp_sub",
+      "value": "通用协议"
+    },
+    {
+      "name": "app_mode_rtsp_desc",
+      "value": "兼容性好"
+    },
+    {
+      "name": "app_tip_usb",
+      "value": "需要：SysDVR 设为 USB 模式、掌机模式（不插底座）。请用 OTG 转接头（本机端 C 公 → A 母）加 USB-A 转 C 数据线连接游戏机；C-C 线直连时本机会变成从设备，检测不到游戏机。"
+    },
+    {
+      "name": "app_tip_rtsp",
+      "value": "RTSP 兼容性好，但没有 NAL 重放、更费带宽，平滑模式、后台保持不可用。连不上时可以先点“检测连接”，或重新启动游戏。"
+    },
+    {
+      "name": "app_tip_tcp",
+      "value": "推荐在「配置」里打开设备专用热点，让游戏机直连手机（5 GHz）。手机 WLAN 保持打开，但不要再连其他 Wi-Fi。"
+    },
+    {
+      "name": "app_off",
+      "value": "关闭"
+    },
+    {
+      "name": "app_smooth_latency",
+      "value": "延迟优先"
+    },
+    {
+      "name": "app_smooth_fluent",
+      "value": "流畅优先"
+    },
+    {
+      "name": "app_minutes",
+      "value": "%d 分钟"
+    },
+    {
+      "name": "app_hours",
+      "value": "%d 小时"
+    },
+    {
+      "name": "app_tab_stream",
+      "value": "串流"
+    },
+    {
+      "name": "app_tab_settings",
+      "value": "配置"
+    },
+    {
+      "name": "app_tab_about",
+      "value": "关于"
+    },
+    {
+      "name": "app_toast_locked",
+      "value": "屏幕已锁定，点击锁形图标解锁"
+    },
+    {
+      "name": "app_connecting",
+      "value": "正在连接 %s …"
+    },
+    {
+      "name": "app_toast_usb_detached",
+      "value": "USB 设备已断开"
+    },
+    {
+      "name": "app_toast_keepalive_unavailable",
+      "value": "后台保持不可用（%s），切到后台将断开"
+    },
+    {
+      "name": "app_toast_start_failed",
+      "value": "启动失败：%s"
+    },
+    {
+      "name": "app_toast_keepalive_off",
+      "value": "后台保持已关闭，切到后台将断开"
+    },
+    {
+      "name": "app_toast_resume_failed",
+      "value": "恢复画面失败：%s"
+    },
+    {
+      "name": "app_live_receiving",
+      "value": "后台接收中"
+    },
+    {
+      "name": "app_live_reconnecting",
+      "value": "重连中"
+    },
+    {
+      "name": "app_live_title_bg",
+      "value": "%s 后台保持连接"
+    },
+    {
+      "name": "app_live_text_bg",
+      "value": "%s · %s · 已收 %s MB · %s 后断开"
+    },
+    {
+      "name": "app_live_title_fg",
+      "value": "%s 串流中"
+    },
+    {
+      "name": "app_live_text_fg",
+      "value": "%s · 前台播放"
+    },
+    {
+      "name": "app_live_btn_open",
+      "value": "回到画面"
+    },
+    {
+      "name": "app_live_btn_stop",
+      "value": "停止串流"
+    },
+    {
+      "name": "app_stats_video",
+      "value": "视频 %s  收 %d / 显 %d fps · %d kbps · 丢弃 %d"
+    },
+    {
+      "name": "app_stats_smooth",
+      "value": " · 平滑（%s）%d ms（迟到 %d）"
+    },
+    {
+      "name": "app_stats_audio_off_tcp",
+      "value": "音频 关闭（不接收，省约 1.5 Mbps）"
+    },
+    {
+      "name": "app_stats_audio_off",
+      "value": "音频 关闭（静音）"
+    },
+    {
+      "name": "app_stats_audio",
+      "value": "音频 %s  缓冲 %d / 目标 %d ms · 欠载 %d · %s通路"
+    },
+    {
+      "name": "app_stats_audio_fast",
+      "value": "低时延"
+    },
+    {
+      "name": "app_stats_audio_normal",
+      "value": "普通"
+    },
+    {
+      "name": "app_stats_link_network",
+      "value": "网络"
+    },
+    {
+      "name": "app_stats_net",
+      "value": "%s %s Mbps · 重放命中 %d · 重同步 %d · 重连 %d"
+    },
+    {
+      "name": "app_stats_netopt_on",
+      "value": "网络优化 开（快速确认 · 加速：%s）"
+    },
+    {
+      "name": "app_stats_netopt_off",
+      "value": "网络优化 关"
+    },
+    {
+      "name": "app_stats_transport",
+      "value": "传输：%s"
+    },
+    {
+      "name": "app_stats_gop",
+      "value": "缓存 GOP %d 包 / %d KB · 上次恢复追帧 %s"
+    },
+    {
+      "name": "app_stats_decoder_hw",
+      "value": "硬解"
+    },
+    {
+      "name": "app_stats_decoder_sw",
+      "value": "软解"
+    },
+    {
+      "name": "app_stats_rtsp_video",
+      "value": "视频 %s  解码 %s / 显 %s fps · %d kbps · %s"
+    },
+    {
+      "name": "app_stats_rtsp_buffer",
+      "value": "缓冲 视频 %d ms / 音频 %d ms · 丢帧率 %s"
+    },
+    {
+      "name": "app_stats_rtsp_misc",
+      "value": "音频 %s · 重连 %d · 播放器 ijkplayer（RTP over TCP）"
+    },
+    {
+      "name": "app_on",
+      "value": "开"
+    },
+    {
+      "name": "app_muted",
+      "value": "静音"
+    },
+    {
+      "name": "app_guide_title",
+      "value": "使用说明"
+    },
+    {
+      "name": "app_lock_screen",
+      "value": "锁定屏幕"
+    },
+    {
+      "name": "app_unlock_screen",
+      "value": "解锁屏幕"
+    },
+    {
+      "name": "app_btn_settings",
+      "value": "设置"
+    },
+    {
+      "name": "app_btn_disconnect",
+      "value": "断开"
+    },
+    {
+      "name": "app_quick_title",
+      "value": "快捷设置（即时生效）"
+    },
+    {
+      "name": "app_quick_audio",
+      "value": "播放声音"
+    },
+    {
+      "name": "app_quick_audio_desc_tcp",
+      "value": "关闭后停止传输音频，省约 1.5 Mbps"
+    },
+    {
+      "name": "app_quick_smooth",
+      "value": "平滑模式"
+    },
+    {
+      "name": "app_quick_smooth_desc",
+      "value": "延迟优先 ≤80ms 适合玩游戏；流畅优先 ≤300ms 适合观看"
+    },
+    {
+      "name": "app_quick_netopt",
+      "value": "网络优化"
+    },
+    {
+      "name": "app_quick_netopt_desc",
+      "value": "快速确认 + 华为网络加速，可开关对比"
+    },
+    {
+      "name": "app_quick_stats",
+      "value": "显示统计信息"
+    },
+    {
+      "name": "app_quick_keepalive",
+      "value": "切后台保持连接"
+    },
+    {
+      "name": "app_boost_off",
+      "value": "未启用"
+    },
+    {
+      "name": "app_boost_old",
+      "value": "系统版本过低，不支持"
+    },
+    {
+      "name": "app_boost_scene",
+      "value": "已声明实时游戏场景"
+    },
+    {
+      "name": "app_boost_unavailable",
+      "value": "不可用（%d）"
+    },
+    {
+      "name": "app_boost_flow_failed",
+      "value": "数据流标记失败（%d）"
+    },
+    {
+      "name": "app_boost_flows",
+      "value": "%d 条连接已标记高优先级"
+    },
+    {
+      "name": "app_cfg_title",
+      "value": "配置"
+    },
+    {
+      "name": "app_cfg_subtitle",
+      "value": "专用热点、串流选项和外观"
+    },
+    {
+      "name": "app_other_title",
+      "value": "其他设置"
+    },
+    {
+      "name": "app_dark_follow",
+      "value": "深色模式跟随系统"
+    },
+    {
+      "name": "app_dark_follow_desc",
+      "value": "关闭后可以单独为本应用选择浅色或深色"
+    },
+    {
+      "name": "app_dark",
+      "value": "深色模式"
+    },
+    {
+      "name": "app_dark_desc_follow",
+      "value": "当前跟随系统"
+    },
+    {
+      "name": "app_dark_desc_app",
+      "value": "仅对本应用生效"
+    },
+    {
+      "name": "app_language",
+      "value": "语言"
+    },
+    {
+      "name": "app_language_desc",
+      "value": "切换后界面立即刷新"
+    },
+    {
+      "name": "app_lang_system",
+      "value": "跟随系统"
+    },
+    {
+      "name": "app_tip_tcp_nohotspot",
+      "value": "推荐让游戏机和本机连接同一个 5 GHz 网络，避免访客网络；信号越好越流畅。"
+    },
+    {
+      "name": "app_tip_usb_pc",
+      "value": "需要：SysDVR 设为 USB 模式、掌机模式（不插底座）。用 USB 数据线把游戏机底部的 USB-C 口连到本机的 USB 口即可。"
+    },
+    {
+      "name": "app_enhance_standard",
+      "value": "标准"
+    },
+    {
+      "name": "app_enhance_high",
+      "value": "高"
+    },
+    {
+      "name": "app_quick_freeze",
+      "value": "丢帧时定格"
+    },
+    {
+      "name": "app_quick_freeze_desc",
+      "value": "停在完好的画面等关键帧，不花屏"
+    },
+    {
+      "name": "app_quick_enhance",
+      "value": "画质增强"
+    },
+    {
+      "name": "app_quick_enhance_desc",
+      "value": "720p 放大到屏幕分辨率；开关时画面会刷新一次"
+    },
+    {
+      "name": "app_toast_enhance_unavailable",
+      "value": "画质增强未启用：%s"
+    },
+    {
+      "name": "app_stats_loss",
+      "value": "丢帧 %d 次（估计 %d 帧）· 断档 %d / 错误包 %d / 缓存未命中 %d / 失步 %d / 超大包 %d"
+    },
+    {
+      "name": "app_stats_freeze",
+      "value": "\n定格 %d 次 · 累计 %s s · 最近 %s · 超时放弃 %d%s"
+    },
+    {
+      "name": "app_stats_frozen_now",
+      "value": "（定格中）"
+    },
+    {
+      "name": "app_stats_freeze_off",
+      "value": "\n丢帧定格已关闭"
+    },
+    {
+      "name": "app_stats_intervals",
+      "value": " · 帧间隔 %s ms · 关键帧间隔 %s"
+    },
+    {
+      "name": "app_stats_render",
+      "value": "刷新 %d Hz · 顺延上屏 %d / 跳过 %d · 卡顿 %d 次 · 上屏抖动 %s ms · 最长间隔 %d ms"
+    },
+    {
+      "name": "app_stats_enhance_on",
+      "value": "画质增强：%s · 处理耗时 %s ms"
+    },
+    {
+      "name": "app_stats_enhance_off",
+      "value": "画质增强未生效：%s"
+    },
+    {
+      "name": "app_stats_channel_only",
+      "value": "专用热点 %d 信道"
+    },
+    {
+      "name": "app_stats_channel_same",
+      "value": "专用热点 %d 信道 · 手机 WLAN 同信道"
+    },
+    {
+      "name": "app_stats_channel_diff",
+      "value": "专用热点 %d 信道 · 手机 WLAN %d 信道（不同信道，会周期性掉帧）"
+    },
+    {
+      "name": "app_stats_mem",
+      "value": "游戏机内存：系统池剩余 %s MB / 共 %s MB（小程序池剩余 %s / %s MB）"
+    },
+    {
+      "name": "app_stats_mem_none",
+      "value": "游戏机内存：未提供（SysDVR 版本较旧或不在协议 03）"
+    }
+  ]
+}

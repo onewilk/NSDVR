@@ -1,0 +1,32 @@
+{
+  "apiType": "stageMode",
+  "buildOption": {
+    "externalNativeOptions": {
+      "path": "./src/main/cpp/CMakeLists.txt",
+      "arguments": "",
+      "cppFlags": "",
+      // x86_64 用于模拟器调试界面；模拟器没有硬件解码，画面需真机验证
+      "abiFilters": ["arm64-v8a", "x86_64"]
+    }
+  },
+  // 发布包只保留真机的 arm64-v8a：x86_64 只给模拟器用（包括 ijkplayer 自带的 x86_64 库），去掉后包体约减半
+  "buildOptionSet": [
+    {
+      "name": "release",
+      "externalNativeOptions": {
+        "path": "./src/main/cpp/CMakeLists.txt",
+        "arguments": "",
+        "cppFlags": "",
+        "abiFilters": ["arm64-v8a"]
+      },
+      "nativeLib": {
+        "filter": {
+          "excludes": ["**/x86_64/*.so", "**/x86_64/*.so.*"]
+        }
+      }
+    }
+  ],
+  "targets": [
+    { "name": "default" }
+  ]
+}

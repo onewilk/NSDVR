@@ -1,0 +1,432 @@
+{
+  "string": [
+    {
+      "name": "app_scope_not_rtsp",
+      "value": "RTSP 不可用"
+    },
+    {
+      "name": "app_scope_tcp_only",
+      "value": "僅 TCP Bridge"
+    },
+    {
+      "name": "app_mode_tcp_sub",
+      "value": "Wi-Fi 無線"
+    },
+    {
+      "name": "app_mode_tcp_desc",
+      "value": "自動發現，省頻寬、延遲低"
+    },
+    {
+      "name": "app_mode_usb_sub",
+      "value": "傳輸線直連"
+    },
+    {
+      "name": "app_mode_usb_desc",
+      "value": "不受無線干擾，更穩定"
+    },
+    {
+      "name": "app_mode_rtsp_sub",
+      "value": "通用協定"
+    },
+    {
+      "name": "app_mode_rtsp_desc",
+      "value": "相容性佳"
+    },
+    {
+      "name": "app_tip_usb",
+      "value": "需要：SysDVR 設為 USB 模式、掌機模式（不插底座）。請用 OTG 轉接頭（本機端 C 公 → A 母）加 USB-A 轉 C 傳輸線連接遊戲機；C-C 線直連時本機會變成從裝置，偵測不到遊戲機。"
+    },
+    {
+      "name": "app_tip_rtsp",
+      "value": "RTSP 相容性佳，但沒有 NAL 重播、更耗頻寬，平滑模式、背景保持不可用。連不上時可以先點「檢測連線」，或重新啟動遊戲。"
+    },
+    {
+      "name": "app_tip_tcp",
+      "value": "建議在「設定」裡開啟裝置專用熱點，讓遊戲機直連手機（5 GHz）。手機 WLAN 保持開啟，但不要再連其他 Wi-Fi。"
+    },
+    {
+      "name": "app_off",
+      "value": "關閉"
+    },
+    {
+      "name": "app_smooth_latency",
+      "value": "延遲優先"
+    },
+    {
+      "name": "app_smooth_fluent",
+      "value": "流暢優先"
+    },
+    {
+      "name": "app_minutes",
+      "value": "%d 分鐘"
+    },
+    {
+      "name": "app_hours",
+      "value": "%d 小時"
+    },
+    {
+      "name": "app_tab_stream",
+      "value": "串流"
+    },
+    {
+      "name": "app_tab_settings",
+      "value": "設定"
+    },
+    {
+      "name": "app_tab_about",
+      "value": "關於"
+    },
+    {
+      "name": "app_toast_locked",
+      "value": "螢幕已鎖定，點擊鎖形圖示解鎖"
+    },
+    {
+      "name": "app_connecting",
+      "value": "正在連線 %s …"
+    },
+    {
+      "name": "app_toast_usb_detached",
+      "value": "USB 裝置已中斷連線"
+    },
+    {
+      "name": "app_toast_keepalive_unavailable",
+      "value": "背景保持不可用（%s），切到背景將中斷連線"
+    },
+    {
+      "name": "app_toast_start_failed",
+      "value": "啟動失敗：%s"
+    },
+    {
+      "name": "app_toast_keepalive_off",
+      "value": "背景保持已關閉，切到背景將中斷連線"
+    },
+    {
+      "name": "app_toast_resume_failed",
+      "value": "恢復畫面失敗：%s"
+    },
+    {
+      "name": "app_live_receiving",
+      "value": "背景接收中"
+    },
+    {
+      "name": "app_live_reconnecting",
+      "value": "重新連線中"
+    },
+    {
+      "name": "app_live_title_bg",
+      "value": "%s 背景保持連線"
+    },
+    {
+      "name": "app_live_text_bg",
+      "value": "%s · %s · 已接收 %s MB · %s 後中斷連線"
+    },
+    {
+      "name": "app_live_title_fg",
+      "value": "%s 串流中"
+    },
+    {
+      "name": "app_live_text_fg",
+      "value": "%s · 前景播放"
+    },
+    {
+      "name": "app_live_btn_open",
+      "value": "回到畫面"
+    },
+    {
+      "name": "app_live_btn_stop",
+      "value": "停止串流"
+    },
+    {
+      "name": "app_stats_video",
+      "value": "視訊 %s  收 %d / 顯示 %d fps · %d kbps · 丟棄 %d"
+    },
+    {
+      "name": "app_stats_smooth",
+      "value": " · 平滑（%s）%d ms（遲到 %d）"
+    },
+    {
+      "name": "app_stats_audio_off_tcp",
+      "value": "音訊 關閉（不接收，省約 1.5 Mbps）"
+    },
+    {
+      "name": "app_stats_audio_off",
+      "value": "音訊 關閉（靜音）"
+    },
+    {
+      "name": "app_stats_audio",
+      "value": "音訊 %s  緩衝 %d / 目標 %d ms · 欠載 %d · %s通路"
+    },
+    {
+      "name": "app_stats_audio_fast",
+      "value": "低延遲"
+    },
+    {
+      "name": "app_stats_audio_normal",
+      "value": "一般"
+    },
+    {
+      "name": "app_stats_link_network",
+      "value": "網路"
+    },
+    {
+      "name": "app_stats_net",
+      "value": "%s %s Mbps · 重播命中 %d · 重新同步 %d · 重新連線 %d"
+    },
+    {
+      "name": "app_stats_netopt_on",
+      "value": "網路最佳化 開（快速確認 · 加速：%s）"
+    },
+    {
+      "name": "app_stats_netopt_off",
+      "value": "網路最佳化 關"
+    },
+    {
+      "name": "app_stats_transport",
+      "value": "傳輸：%s"
+    },
+    {
+      "name": "app_stats_gop",
+      "value": "快取 GOP %d 包 / %d KB · 上次恢復追幀 %s"
+    },
+    {
+      "name": "app_stats_decoder_hw",
+      "value": "硬體解碼"
+    },
+    {
+      "name": "app_stats_decoder_sw",
+      "value": "軟體解碼"
+    },
+    {
+      "name": "app_stats_rtsp_video",
+      "value": "視訊 %s  解碼 %s / 顯示 %s fps · %d kbps · %s"
+    },
+    {
+      "name": "app_stats_rtsp_buffer",
+      "value": "緩衝 視訊 %d ms / 音訊 %d ms · 丟幀率 %s"
+    },
+    {
+      "name": "app_stats_rtsp_misc",
+      "value": "音訊 %s · 重新連線 %d · 播放器 ijkplayer（RTP over TCP）"
+    },
+    {
+      "name": "app_on",
+      "value": "開"
+    },
+    {
+      "name": "app_muted",
+      "value": "靜音"
+    },
+    {
+      "name": "app_guide_title",
+      "value": "使用說明"
+    },
+    {
+      "name": "app_lock_screen",
+      "value": "鎖定螢幕"
+    },
+    {
+      "name": "app_unlock_screen",
+      "value": "解鎖螢幕"
+    },
+    {
+      "name": "app_btn_settings",
+      "value": "設定"
+    },
+    {
+      "name": "app_btn_disconnect",
+      "value": "中斷"
+    },
+    {
+      "name": "app_quick_title",
+      "value": "快速設定（立即生效）"
+    },
+    {
+      "name": "app_quick_audio",
+      "value": "播放聲音"
+    },
+    {
+      "name": "app_quick_audio_desc_tcp",
+      "value": "關閉後停止傳送音訊，省約 1.5 Mbps"
+    },
+    {
+      "name": "app_quick_smooth",
+      "value": "平滑模式"
+    },
+    {
+      "name": "app_quick_smooth_desc",
+      "value": "延遲優先 ≤80ms 適合玩遊戲；流暢優先 ≤300ms 適合觀看"
+    },
+    {
+      "name": "app_quick_netopt",
+      "value": "網路最佳化"
+    },
+    {
+      "name": "app_quick_netopt_desc",
+      "value": "快速確認 + 華為網路加速，可開關比較"
+    },
+    {
+      "name": "app_quick_stats",
+      "value": "顯示統計資訊"
+    },
+    {
+      "name": "app_quick_keepalive",
+      "value": "切到背景保持連線"
+    },
+    {
+      "name": "app_boost_off",
+      "value": "未啟用"
+    },
+    {
+      "name": "app_boost_old",
+      "value": "系統版本過低，不支援"
+    },
+    {
+      "name": "app_boost_scene",
+      "value": "已宣告即時遊戲場景"
+    },
+    {
+      "name": "app_boost_unavailable",
+      "value": "不可用（%d）"
+    },
+    {
+      "name": "app_boost_flow_failed",
+      "value": "資料流標記失敗（%d）"
+    },
+    {
+      "name": "app_boost_flows",
+      "value": "%d 條連線已標記高優先級"
+    },
+    {
+      "name": "app_cfg_title",
+      "value": "設定"
+    },
+    {
+      "name": "app_cfg_subtitle",
+      "value": "專用熱點、串流選項與外觀"
+    },
+    {
+      "name": "app_other_title",
+      "value": "其他設定"
+    },
+    {
+      "name": "app_dark_follow",
+      "value": "深色模式跟隨系統"
+    },
+    {
+      "name": "app_dark_follow_desc",
+      "value": "關閉後可單獨為本應用程式選擇淺色或深色"
+    },
+    {
+      "name": "app_dark",
+      "value": "深色模式"
+    },
+    {
+      "name": "app_dark_desc_follow",
+      "value": "目前跟隨系統"
+    },
+    {
+      "name": "app_dark_desc_app",
+      "value": "僅對本應用程式生效"
+    },
+    {
+      "name": "app_language",
+      "value": "語言"
+    },
+    {
+      "name": "app_language_desc",
+      "value": "切換後介面立即重新整理"
+    },
+    {
+      "name": "app_lang_system",
+      "value": "跟隨系統"
+    },
+    {
+      "name": "app_tip_tcp_nohotspot",
+      "value": "建議讓遊戲機與本機連接同一個 5 GHz 網路，避免訪客網路；訊號越好越流暢。"
+    },
+    {
+      "name": "app_tip_usb_pc",
+      "value": "需要：SysDVR 設為 USB 模式、掌機模式（不插底座）。用 USB 傳輸線把遊戲機底部的 USB-C 接口連到本機的 USB 接口即可。"
+    },
+    {
+      "name": "app_enhance_standard",
+      "value": "標準"
+    },
+    {
+      "name": "app_enhance_high",
+      "value": "高"
+    },
+    {
+      "name": "app_quick_freeze",
+      "value": "掉幀時定格"
+    },
+    {
+      "name": "app_quick_freeze_desc",
+      "value": "停在完整的畫面等關鍵影格，不花屏"
+    },
+    {
+      "name": "app_quick_enhance",
+      "value": "畫質增強"
+    },
+    {
+      "name": "app_quick_enhance_desc",
+      "value": "720p 放大到螢幕解析度；開關時畫面會重新整理一次"
+    },
+    {
+      "name": "app_toast_enhance_unavailable",
+      "value": "畫質增強未啟用：%s"
+    },
+    {
+      "name": "app_stats_loss",
+      "value": "掉幀 %d 次（估計 %d 格）· 斷檔 %d / 錯誤包 %d / 快取未命中 %d / 失步 %d / 超大包 %d"
+    },
+    {
+      "name": "app_stats_freeze",
+      "value": "\n定格 %d 次 · 累計 %s s · 最近 %s · 逾時放棄 %d%s"
+    },
+    {
+      "name": "app_stats_frozen_now",
+      "value": "（定格中）"
+    },
+    {
+      "name": "app_stats_freeze_off",
+      "value": "\n掉幀定格已關閉"
+    },
+    {
+      "name": "app_stats_intervals",
+      "value": " · 影格間隔 %s ms · 關鍵影格間隔 %s"
+    },
+    {
+      "name": "app_stats_render",
+      "value": "更新 %d Hz · 順延上屏 %d / 略過 %d · 卡頓 %d 次 · 上屏抖動 %s ms · 最長間隔 %d ms"
+    },
+    {
+      "name": "app_stats_enhance_on",
+      "value": "畫質增強：%s · 處理耗時 %s ms"
+    },
+    {
+      "name": "app_stats_enhance_off",
+      "value": "畫質增強未生效：%s"
+    },
+    {
+      "name": "app_stats_channel_only",
+      "value": "專用熱點 %d 頻道"
+    },
+    {
+      "name": "app_stats_channel_same",
+      "value": "專用熱點 %d 頻道 · 手機 WLAN 同頻道"
+    },
+    {
+      "name": "app_stats_channel_diff",
+      "value": "專用熱點 %d 頻道 · 手機 WLAN %d 頻道（不同頻道，會週期性掉幀）"
+    },
+    {
+      "name": "app_stats_mem",
+      "value": "遊戲機記憶體：系統池剩餘 %s MB / 共 %s MB（小程式池剩餘 %s / %s MB）"
+    },
+    {
+      "name": "app_stats_mem_none",
+      "value": "遊戲機記憶體：未提供（SysDVR 版本較舊或不是協定 03）"
+    }
+  ]
+}

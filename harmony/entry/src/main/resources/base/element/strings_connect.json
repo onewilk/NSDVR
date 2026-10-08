@@ -1,0 +1,240 @@
+{
+  "string": [
+    {
+      "name": "connect_subtitle",
+      "value": "Stream your games to HarmonyOS devices"
+    },
+    {
+      "name": "connect_how_to",
+      "value": "How to use"
+    },
+    {
+      "name": "connect_recommended",
+      "value": "Recommended"
+    },
+    {
+      "name": "connect_hotspot_on_view",
+      "value": "Device hotspot is on · View"
+    },
+    {
+      "name": "connect_hotspot_turn_on",
+      "value": "Turn on device hotspot"
+    },
+    {
+      "name": "connect_invalid_ip",
+      "value": "Enter a valid IP address, e.g. 192.168.1.23"
+    },
+    {
+      "name": "connect_lan_title",
+      "value": "Devices on your network"
+    },
+    {
+      "name": "connect_lan_subtitle",
+      "value": "SysDVR broadcasts every 2 seconds. This device must be on the same network as the console."
+    },
+    {
+      "name": "connect_discovery_unavailable",
+      "value": "Auto discovery unavailable"
+    },
+    {
+      "name": "connect_discovery_port_busy",
+      "value": "UDP port 19999 is in use. Enter the console's IP below."
+    },
+    {
+      "name": "connect_searching",
+      "value": "Searching…"
+    },
+    {
+      "name": "connect_device_name",
+      "value": "SysDVR %s (protocol %s)"
+    },
+    {
+      "name": "connect_button",
+      "value": "Connect"
+    },
+    {
+      "name": "connect_manual_ip_hint",
+      "value": "Enter IP manually, e.g. 192.168.1.23"
+    },
+    {
+      "name": "rtsp_probe_running",
+      "value": "Testing (about 4 seconds)…"
+    },
+    {
+      "name": "rtsp_probe_ok",
+      "value": "OK: ready to play"
+    },
+    {
+      "name": "rtsp_address_title",
+      "value": "Console address"
+    },
+    {
+      "name": "rtsp_address_subtitle",
+      "value": "In RTSP mode the console doesn't broadcast. Enter its IP (shown in SysDVR Settings)."
+    },
+    {
+      "name": "rtsp_ip_hint",
+      "value": "Console IP, e.g. 192.168.1.23"
+    },
+    {
+      "name": "rtsp_will_open",
+      "value": "Will open %s (RTP over TCP)"
+    },
+    {
+      "name": "rtsp_probe_button",
+      "value": "Test connection"
+    },
+    {
+      "name": "rtsp_paused_background",
+      "value": "Paused (in background)"
+    },
+    {
+      "name": "rtsp_playing",
+      "value": "Playing via RTSP"
+    },
+    {
+      "name": "rtsp_interrupted",
+      "value": "Connection lost (%s)"
+    },
+    {
+      "name": "rtsp_failed",
+      "value": "Connection failed (%s)"
+    },
+    {
+      "name": "rtsp_retrying",
+      "value": "Retrying (attempt %d): make sure SysDVR is in RTSP mode and a game is running"
+    },
+    {
+      "name": "rtsp_connecting",
+      "value": "Connecting to %s"
+    },
+    {
+      "name": "rtsp_reconnect_in",
+      "value": "%s. Reconnecting in %d s…"
+    },
+    {
+      "name": "usb_external_none",
+      "value": "External USB devices: none"
+    },
+    {
+      "name": "usb_external_list",
+      "value": "External USB devices:"
+    },
+    {
+      "name": "usb_endpoints",
+      "value": "Interface %d · IN 0x%s / OUT 0x%s · packet size %d bytes"
+    },
+    {
+      "name": "usb_transport",
+      "value": "Transfer: %s"
+    },
+    {
+      "name": "usb_card_title",
+      "value": "USB device"
+    },
+    {
+      "name": "usb_card_subtitle",
+      "value": "Detected automatically when plugged in"
+    },
+    {
+      "name": "usb_not_detected",
+      "value": "No SysDVR device detected (VID 18D1 / PID 4EE0)"
+    },
+    {
+      "name": "usb_diag_show",
+      "value": "Show diagnostics"
+    },
+    {
+      "name": "usb_diag_hide",
+      "value": "Hide diagnostics"
+    },
+    {
+      "name": "usb_diag_log",
+      "value": "Diagnostic log: files/usb.log"
+    },
+    {
+      "name": "usb_device_title",
+      "value": "SysDVR (USB)"
+    },
+    {
+      "name": "usb_authorized",
+      "value": "Authorized"
+    },
+    {
+      "name": "usb_unauthorized",
+      "value": "Not authorized"
+    },
+    {
+      "name": "usb_device_ids",
+      "value": "VID %s · PID %s · port %s"
+    },
+    {
+      "name": "usb_read_info",
+      "value": "Read device info"
+    },
+    {
+      "name": "usb_scan_device",
+      "value": "%s · class %d · port %s"
+    },
+    {
+      "name": "usb_hint_list_failed",
+      "value": "Couldn't read the USB device list (%s). This device may not support USB host mode."
+    },
+    {
+      "name": "usb_hint_no_devices",
+      "value": "No USB devices detected: this device is currently acting as the console's USB device (with a C-to-C cable the console becomes the host).\nUse an OTG adapter (USB-C male → USB-A female on this device) plus a USB-A to USB-C cable to the console's bottom port; the OTG adapter keeps this device as USB host.\nChanging only the power direction (e.g. reverse charging) doesn't make the phone the host."
+    },
+    {
+      "name": "usb_hint_nintendo",
+      "value": "A console (VID 057E) was found, but it isn't SysDVR. Open SysDVR Settings on the console, set the mode to USB and apply. If another homebrew app is using USB (e.g. MTP, Goldleaf), close it first."
+    },
+    {
+      "name": "usb_hint_no_sysdvr",
+      "value": "This device is the USB host, but no SysDVR device is present. Make sure SysDVR is set to USB mode, the console is in handheld mode (not docked), and the cable is in the console's bottom USB-C port."
+    },
+    {
+      "name": "usb_err_no_right",
+      "value": "Permission to use the USB device was not granted"
+    },
+    {
+      "name": "usb_err_no_iface",
+      "value": "SysDVR data interface not found on the device"
+    },
+    {
+      "name": "usb_err_no_bulk",
+      "value": "The device interface has no bulk endpoints"
+    },
+    {
+      "name": "usb_err_open_service",
+      "value": "The USB service failed to open the device"
+    },
+    {
+      "name": "usb_err_open",
+      "value": "Failed to open the USB device: %s"
+    },
+    {
+      "name": "usb_transport_direct",
+      "value": "Direct USB access (usbfs)"
+    },
+    {
+      "name": "usb_transport_direct_claimed",
+      "value": "Direct USB access (usbfs, interface claimed by system service)"
+    },
+    {
+      "name": "usb_transport_compat",
+      "value": "System USB service (compatibility mode)"
+    },
+    {
+      "name": "usb_transport_compat_note",
+      "value": "This device doesn't allow apps to access USB data directly, so the system USB service is used instead. Video and audio are not affected."
+    },
+    {
+      "name": "usb_unsupported",
+      "value": "This device doesn't support USB host mode, so USB streaming isn't available. Use TCP Bridge or RTSP instead."
+    },
+    {
+      "name": "usb_hint_no_devices_pc",
+      "value": "No USB devices detected. Connect the console's bottom USB-C port to this computer with a cable, and make sure the console is in handheld mode (not docked)."
+    }
+  ]
+}

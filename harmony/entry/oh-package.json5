@@ -1,0 +1,13 @@
+{
+  "name": "entry",
+  "version": "1.0.0",
+  "description": "NSDVR: SysDVR client for HarmonyOS",
+  "main": "",
+  "author": "",
+  "license": "GPL-2.0",
+  "dependencies": {
+    "libentry.so": "file:./src/main/cpp/types/libentry",
+    // RTSP 模式的播放器（基于 FFmpeg，LGPLv2.1+）
+    "@ohos/ijkplayer": "2.0.11"
+  }
+}

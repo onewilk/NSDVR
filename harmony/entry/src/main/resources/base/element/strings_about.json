@@ -1,0 +1,92 @@
+{
+  "string": [
+    {
+      "name": "about_version",
+      "value": "Version %s"
+    },
+    {
+      "name": "about_desc",
+      "value": "A SysDVR client built on HarmonyOS capabilities: full support for TCP Bridge, USB and RTSP streaming, plus a dedicated device hotspot, smoothing, network boost and background keep-alive."
+    },
+    {
+      "name": "about_guide_title",
+      "value": "User guide"
+    },
+    {
+      "name": "about_guide_desc",
+      "value": "Getting started, what each option does, and FAQ"
+    },
+    {
+      "name": "about_thanks_title",
+      "value": "Acknowledgements"
+    },
+    {
+      "name": "about_thanks_sub",
+      "value": "This app is built on the following open-source projects. Thanks to their authors and communities."
+    },
+    {
+      "name": "about_sysdvr_link",
+      "value": "SysDVR (GitHub)"
+    },
+    {
+      "name": "about_sysdvr_note",
+      "value": "SysDVR is developed by exelix11. For installation on the console and supported firmware versions, refer to the SysDVR project page."
+    },
+    {
+      "name": "about_ijk_name",
+      "value": "ijkplayer (OpenHarmony)"
+    },
+    {
+      "name": "about_licenses_title",
+      "value": "Open-source licenses"
+    },
+    {
+      "name": "about_lic_sysdvr_note",
+      "value": "Streaming sysmodule on the console; this app implements its client protocol"
+    },
+    {
+      "name": "about_lic_ijk_note",
+      "value": "Player used in RTSP mode"
+    },
+    {
+      "name": "about_lic_ffmpeg_note",
+      "value": "Audio/video library used by ijkplayer"
+    },
+    {
+      "name": "about_privacy_title",
+      "value": "Privacy"
+    },
+    {
+      "name": "about_privacy_body",
+      "value": "This app collects and uploads no personal information — no accounts, no analytics. Network and USB connections happen only between this device and your console; statistics are stored only in the app's local folder and are deleted when you uninstall."
+    },
+    {
+      "name": "about_disclaimer_title",
+      "value": "Disclaimer"
+    },
+    {
+      "name": "about_disclaimer_body",
+      "value": "This app is a native HarmonyOS client implementation for SysDVR."
+    },
+    {
+      "name": "about_open_failed",
+      "value": "Couldn't open the browser. Please visit %s"
+    },
+    {
+      "name": "about_feedback_title",
+      "value": "Feedback & rating"
+    },
+    {
+      "name": "about_feedback_desc",
+      "value": "Rate us on AppGallery and share your ideas or problems"
+    },
+    {
+      "name": "about_store_unavailable",
+      "value": "Can't open the AppGallery page yet (available once the app is released)"
+    },
+    {
+      "name": "about_store_failed",
+      "value": "Can't open the AppGallery page right now"
+    }
+  ]
+}

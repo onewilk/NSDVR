@@ -1,0 +1,272 @@
+{
+  "string": [
+    {
+      "name": "cfg_hs_rebuild_failed",
+      "value": "按新配置重建热点失败：%s"
+    },
+    {
+      "name": "cfg_hs_rebuilt",
+      "value": "已按新配置重建热点，游戏机需要重新连接一次"
+    },
+    {
+      "name": "cfg_hs_current",
+      "value": "当前热点"
+    },
+    {
+      "name": "cfg_hs_ssid_line",
+      "value": "网络名：%s"
+    },
+    {
+      "name": "cfg_hs_pass_line",
+      "value": "密码：%s"
+    },
+    {
+      "name": "cfg_hs_custom_title",
+      "value": "自定义网络名和密码"
+    },
+    {
+      "name": "cfg_hs_ssid_hint",
+      "value": "网络名，如 DIRECT-SysDVR"
+    },
+    {
+      "name": "cfg_hs_pass_hint",
+      "value": "密码：8–63 位英文字母、数字或符号"
+    },
+    {
+      "name": "cfg_hs_random",
+      "value": "随机"
+    },
+    {
+      "name": "cfg_hs_edit_note",
+      "value": "修改后游戏机需要重新连接一次新的网络；热点开着时会自动按新配置重建"
+    },
+    {
+      "name": "cfg_hs_auto_title",
+      "value": "打开 App 时自动开启热点"
+    },
+    {
+      "name": "cfg_hs_auto_desc",
+      "value": "省去每次手动打开；系统里热点仍在运行时不会重复创建"
+    },
+    {
+      "name": "cfg_hs_save",
+      "value": "保存"
+    },
+    {
+      "name": "cfg_hs_title",
+      "value": "设备专用热点"
+    },
+    {
+      "name": "cfg_hs_desc",
+      "value": "由手机为游戏机创建 5 GHz 热点（36–48 信道，WPA2 加密），无需经过路由器，连接更稳定、延迟更低"
+    },
+    {
+      "name": "cfg_hs_settings",
+      "value": "热点配置"
+    },
+    {
+      "name": "cfg_hs_settings_desc",
+      "value": "查看网络名和密码、自定义配置、打开 App 时自动开启"
+    },
+    {
+      "name": "cfg_hs_sheet_title",
+      "value": "专用热点配置"
+    },
+    {
+      "name": "cfg_opt_title",
+      "value": "串流选项"
+    },
+    {
+      "name": "cfg_opt_subtitle",
+      "value": "播放中也可以点画面右上角“设置”随时调整，无需重连"
+    },
+    {
+      "name": "cfg_opt_audio",
+      "value": "播放声音"
+    },
+    {
+      "name": "cfg_opt_audio_desc",
+      "value": "TCP Bridge 下关闭后停止传输音频，省约 1.5 Mbps；其他模式为本地静音"
+    },
+    {
+      "name": "cfg_opt_smooth",
+      "value": "平滑模式"
+    },
+    {
+      "name": "cfg_opt_smooth_desc",
+      "value": "延迟优先：缓冲 ≤80ms，适合玩游戏；流畅优先：缓冲 ≤300ms，适合观看"
+    },
+    {
+      "name": "cfg_opt_netopt",
+      "value": "网络优化"
+    },
+    {
+      "name": "cfg_opt_netopt_desc",
+      "value": "TCP 快速确认 + 华为网络加速（实时游戏场景、连接高优先级）"
+    },
+    {
+      "name": "cfg_opt_screen_off",
+      "value": "串流时关闭设备屏幕"
+    },
+    {
+      "name": "cfg_opt_screen_off_desc",
+      "value": "省电、减少发热；断开后自动亮屏（需 SysDVR 6.0 以上）"
+    },
+    {
+      "name": "cfg_opt_keep_alive",
+      "value": "切到后台后保持连接"
+    },
+    {
+      "name": "cfg_opt_keep_alive_desc",
+      "value": "后台只接收不渲染，通知栏显示实况窗；回到前台秒级恢复画面"
+    },
+    {
+      "name": "cfg_opt_stats",
+      "value": "显示统计信息"
+    },
+    {
+      "name": "cfg_opt_stats_desc",
+      "value": "播放时显示帧率、码率、缓冲等，排查卡顿用"
+    },
+    {
+      "name": "hs_err_wlan_off",
+      "value": "请先打开手机 WLAN（建组需要 WLAN 开着，但不必连接任何网络）"
+    },
+    {
+      "name": "hs_err_system_hotspot",
+      "value": "请先关闭系统的个人热点，两者会冲突"
+    },
+    {
+      "name": "hs_err_wlan_state",
+      "value": "读取 WLAN 状态失败（%d）"
+    },
+    {
+      "name": "hs_try_item",
+      "value": "%s：%s"
+    },
+    {
+      "name": "hs_channel_n",
+      "value": "%d 信道"
+    },
+    {
+      "name": "hs_channel_auto",
+      "value": "自动"
+    },
+    {
+      "name": "hs_started",
+      "value": "已开启：%s %d 信道 · WPA2"
+    },
+    {
+      "name": "hs_tried_before",
+      "value": "（之前尝试：%s）"
+    },
+    {
+      "name": "hs_sep",
+      "value": "；"
+    },
+    {
+      "name": "hs_channel_mismatch",
+      "value": "请求 %d 信道，实际落在 %d 信道"
+    },
+    {
+      "name": "hs_err_no_channel",
+      "value": "没能建在游戏机能识别的信道上：%s"
+    },
+    {
+      "name": "hs_err_create",
+      "value": "建组失败 %d"
+    },
+    {
+      "name": "hs_err_timeout",
+      "value": "等待建组超时"
+    },
+    {
+      "name": "hs_err_ssid_empty",
+      "value": "网络名不能为空"
+    },
+    {
+      "name": "hs_err_ssid_long",
+      "value": "网络名太长：最多 32 字节（一个中文算 3 字节）"
+    },
+    {
+      "name": "hs_err_pass",
+      "value": "密码需为 8–63 位英文字母、数字或符号（WPA2 要求）"
+    },
+    {
+      "name": "hs_still_running",
+      "value": "专用热点仍在运行（上次打开后没有关闭）"
+    },
+    {
+      "name": "hs_creating",
+      "value": "正在创建 5 GHz 热点（依次尝试 36/40/44/48 信道）…"
+    },
+    {
+      "name": "hs_fallback_24",
+      "value": "5 GHz 失败（%s），已改用 2.4 GHz。"
+    },
+    {
+      "name": "hs_closed",
+      "value": "已关闭"
+    },
+    {
+      "name": "hs_reclaimed",
+      "value": "专用热点已关闭（手机 WLAN 被关闭，或被系统回收）"
+    },
+    {
+      "name": "hs_summary_on",
+      "value": "已开启 · %s · %d 信道 · 已连接 %d 台设备"
+    },
+    {
+      "name": "hs_detail_band",
+      "value": "频段：%s · %d 信道（%d MHz）· WPA2"
+    },
+    {
+      "name": "hs_detail_clients",
+      "value": "已连接设备：%d"
+    },
+    {
+      "name": "hs_detail_ip",
+      "value": " · 本机地址 %s"
+    },
+    {
+      "name": "hs_detail_switch_steps",
+      "value": "在游戏机上：设置 → 互联网 → 互联网设置，选择这个网络名并输入密码"
+    },
+    {
+      "name": "hs_warn_sta",
+      "value": "手机还连着“%s”（%s，%d 信道），和专用热点（%d 信道）不在同一信道，无线芯片要来回切换，会掉帧、断音。建议在 WLAN 设置里断开它（WLAN 本身保持打开，关掉 WLAN 会让专用热点一起消失）"
+    },
+    {
+      "name": "cfg_hs_close",
+      "value": "关闭"
+    },
+    {
+      "name": "hs_auto_started",
+      "value": "已自动开启 设备专用热点"
+    },
+    {
+      "name": "hs_auto_failed",
+      "value": "自动开启专用热点失败：%s"
+    },
+    {
+      "name": "cfg_hs_unsaved",
+      "value": "修改还没保存，点右上角「保存」后生效"
+    },
+    {
+      "name": "cfg_opt_freeze",
+      "value": "丢帧时定格画面"
+    },
+    {
+      "name": "cfg_opt_freeze_desc",
+      "value": "网络卡顿导致丢帧时，停在最后一帧完好的画面，等下一个关键帧再继续，不花屏"
+    },
+    {
+      "name": "cfg_opt_enhance",
+      "value": "画质增强"
+    },
+    {
+      "name": "cfg_opt_enhance_desc",
+      "value": "用系统的视频细节增强把 720p 画面放大到屏幕分辨率，大屏上更清晰；标准速度快，高效果更好但处理更慢，本机不支持时自动改为直出"
+    }
+  ]
+}

@@ -1,0 +1,304 @@
+{
+  "string": [
+    {
+      "name": "guide_subtitle",
+      "value": "三種串流模式的上手步驟、各選項的作用與常見問題"
+    },
+    {
+      "name": "guide_prepare_title",
+      "value": "準備工作"
+    },
+    {
+      "name": "guide_prepare_intro",
+      "value": "SysDVR 是在裝置上執行的串流系統模組（開源專案，作者 exelix11）。本應用是它的鴻蒙用戶端，需要先在裝置上安裝 SysDVR。"
+    },
+    {
+      "name": "guide_prepare_step1",
+      "value": "在裝置上安裝 SysDVR（依專案首頁的說明安裝系統模組與 SysDVR Settings 應用程式，建議 6.0 以上版本）"
+    },
+    {
+      "name": "guide_prepare_step2",
+      "value": "開啟 SysDVR Settings，選擇串流模式：TCP Bridge、USB 或 RTSP，然後套用設定"
+    },
+    {
+      "name": "guide_prepare_step3",
+      "value": "啟動一款支援錄影的遊戲（部分遊戲和系統畫面不允許錄製，這時不會有畫面）"
+    },
+    {
+      "name": "guide_prepare_step4",
+      "value": "在本應用選擇與裝置端相同的模式並連線"
+    },
+    {
+      "name": "guide_prepare_tip",
+      "value": "裝置端的模式必須和本應用選擇的模式一致；切換模式後建議重新啟動一次遊戲。"
+    },
+    {
+      "name": "guide_tcp_title",
+      "value": "TCP Bridge（Wi-Fi 無線，推薦）"
+    },
+    {
+      "name": "guide_tcp_intro",
+      "value": "畫面和聲音分別透過兩條 TCP 連線傳輸，支援 NAL 重播（靜止畫面不重送關鍵影格）與自動發現，省頻寬、穩定，是無線串流的推薦模式。"
+    },
+    {
+      "name": "guide_tcp_step1",
+      "value": "讓裝置與手機連到同一個網路：建議在「設定」頁開啟「裝置專用熱點」，點「熱點設定」查看網路名稱和密碼，再到裝置的「設定 → 網際網路」連上它"
+    },
+    {
+      "name": "guide_tcp_step2",
+      "value": "回到「串流」頁，在下方「區域網路中的裝置」出現裝置後點「連線」；沒出現的話就手動輸入裝置的 IP"
+    },
+    {
+      "name": "guide_tcp_step3",
+      "value": "連線後會自動橫向全螢幕播放：點一下畫面可顯示或隱藏按鈕，右上角「設定」可隨時調整聲音、平滑等選項"
+    },
+    {
+      "name": "guide_tcp_item1_title",
+      "value": "為什麼推薦專用熱點"
+    },
+    {
+      "name": "guide_tcp_item1_body",
+      "value": "裝置的 5 GHz 只支援 36–48 頻道，許多手機熱點、路由器預設使用的頻道它都連不上；2.4 GHz 干擾多，實測只有十幾幀。專用熱點透過 Wi-Fi Direct 建立 5 GHz 網路（36–48 頻道，WPA2 加密），裝置與手機直接相連、無需經過路由器，實測可穩定在 30 幀。"
+    },
+    {
+      "name": "guide_tcp_item2_title",
+      "value": "手機不要同時連其他 Wi-Fi"
+    },
+    {
+      "name": "guide_tcp_item2_body",
+      "value": "手機開著專用熱點又連著其他 Wi-Fi 時，無線晶片要在兩個頻道間來回切換，會週期性掉幀、斷音。WLAN 本身要保持開啟（關閉 WLAN 會讓專用熱點一起消失）。"
+    },
+    {
+      "name": "guide_tcp_tip",
+      "value": "使用路由器時，盡量讓手機和裝置都連 5 GHz，並避免使用訪客網路（通常會隔離裝置，導致找不到裝置）。"
+    },
+    {
+      "name": "guide_usb_title",
+      "value": "USB（傳輸線直連）"
+    },
+    {
+      "name": "guide_usb_intro",
+      "value": "本機作為 USB 主機直接讀取裝置的串流資料，不受 Wi-Fi 干擾，延遲更穩定。"
+    },
+    {
+      "name": "guide_usb_step1",
+      "value": "裝置上的 SysDVR 設為 USB 模式，使用掌機模式（不插底座）"
+    },
+    {
+      "name": "guide_usb_step2",
+      "value": "用 OTG 轉接頭（手機端 C 公 → A 母）加 USB-A 轉 C 傳輸線，把裝置底部的 USB-C 連接埠接到手機"
+    },
+    {
+      "name": "guide_usb_step3",
+      "value": "在本應用選擇「USB」，頁面下方偵測到裝置後點「連線」，並在系統彈窗中允許存取該 USB 裝置"
+    },
+    {
+      "name": "guide_usb_step4",
+      "value": "可以先點「讀取裝置資訊」確認 SysDVR 版本、協定和傳輸方式"
+    },
+    {
+      "name": "guide_usb_item1_title",
+      "value": "偵測不到裝置"
+    },
+    {
+      "name": "guide_usb_item1_body",
+      "value": "用 C-C 傳輸線直連時，手機會被協商為 USB 從裝置（裝置當主機），App 看不到任何外接裝置；之後即使改由手機為裝置供電，資料角色也不會改變。請改用 OTG 轉接頭（手機端 C 公 → A 母）加 USB-A 轉 C 傳輸線，讓手機成為 USB 主機。USB 卡片中的「診斷資訊」可以查看系統偵測到的外接裝置。"
+    },
+    {
+      "name": "guide_usb_item2_title",
+      "value": "傳輸方式"
+    },
+    {
+      "name": "guide_usb_item2_body",
+      "value": "會優先直接讀寫 USB 裝置節點（效能更好）；如果系統不允許，就自動改用系統 USB 服務的相容傳輸，功能相同，CPU 佔用略高。"
+    },
+    {
+      "name": "guide_usb_tip",
+      "value": "USB 連線時手機會為裝置供電，請留意手機電量。"
+    },
+    {
+      "name": "guide_rtsp_title",
+      "value": "RTSP（通用協定）"
+    },
+    {
+      "name": "guide_rtsp_intro",
+      "value": "裝置上會開啟標準 RTSP 服務（rtsp://IP:6666/），本應用使用 ijkplayer 播放。相容性佳，但沒有 NAL 重播、更耗頻寬，延遲略高。"
+    },
+    {
+      "name": "guide_rtsp_step1",
+      "value": "裝置上的 SysDVR 設為 RTSP 模式，並在 SysDVR Settings 中記下裝置的 IP"
+    },
+    {
+      "name": "guide_rtsp_step2",
+      "value": "在本應用選擇「RTSP」，於頁面下方輸入 IP 後點「連線」；連不上時先點「檢測連線」查看原因"
+    },
+    {
+      "name": "guide_rtsp_item1_title",
+      "value": "與其他模式的差異"
+    },
+    {
+      "name": "guide_rtsp_item1_body",
+      "value": "RTSP 模式下裝置不會發送廣播，只能手動輸入 IP；平滑模式、背景保持、關閉裝置螢幕都無法使用；切到背景會暫停，回到前景後自動重新連線。"
+    },
+    {
+      "name": "guide_rtsp_item2_title",
+      "value": "一直顯示「正在連線」或「連線中斷」"
+    },
+    {
+      "name": "guide_rtsp_item2_body",
+      "value": "SysDVR 的 RTSP 服務一次只接受一個連線，上一個連線沒有正常結束時會卡住並拒絕新連線。在裝置上重新啟動遊戲（或在 SysDVR Settings 中重新套用 RTSP 模式）即可恢復。「檢測連線」會正常結束工作階段，不會造成卡住。"
+    },
+    {
+      "name": "guide_rtsp_tip",
+      "value": "沒有特殊需求時建議使用 TCP Bridge：同樣的網路條件下更流暢、更省頻寬。"
+    },
+    {
+      "name": "guide_opt_title",
+      "value": "選項說明"
+    },
+    {
+      "name": "guide_opt_intro",
+      "value": "所有選項都在「設定」頁中設定，標籤註明了適用的模式；播放時也可以點畫面右上角的「設定」即時修改。"
+    },
+    {
+      "name": "guide_opt_audio_title",
+      "value": "播放聲音"
+    },
+    {
+      "name": "guide_opt_audio_body",
+      "value": "在 TCP Bridge 下關閉後，裝置會停止傳送音訊，約可省下 1.5 Mbps，網路不佳時畫面更流暢；USB、RTSP 下只是本機靜音。"
+    },
+    {
+      "name": "guide_opt_smooth_title",
+      "value": "平滑模式"
+    },
+    {
+      "name": "guide_opt_smooth_body",
+      "value": "網路抖動時用少量緩衝換取流暢度。關閉：不額外緩衝，延遲更低；延遲優先：緩衝 ≤80ms，適合自己玩、動作遊戲；流暢優先：緩衝 ≤300ms，更流暢，適合看劇情、直播。預設開啟「延遲優先」；玩音樂遊戲、格鬥遊戲想要延遲更低可以關閉，仍會卡頓可以改用「流暢優先」。緩衝會依實際抖動自動調整，聲音也會跟著對齊。"
+    },
+    {
+      "name": "guide_opt_net_title",
+      "value": "網路最佳化"
+    },
+    {
+      "name": "guide_opt_net_body",
+      "value": "開啟 TCP 快速確認，並透過華為網路加速將串流宣告為「即時遊戲」、連線設為高優先順序。僅限 TCP Bridge。"
+    },
+    {
+      "name": "guide_opt_hotspot_title",
+      "value": "裝置專用熱點"
+    },
+    {
+      "name": "guide_opt_hotspot_body",
+      "value": "一鍵建立裝置能辨識的 5 GHz 熱點。開啟後點「熱點設定」可查看、自訂網路名稱和密碼（會記住，裝置連過一次後下次會自動連上），也可以設定開啟 App 時自動開啟熱點。"
+    },
+    {
+      "name": "guide_opt_screen_title",
+      "value": "串流時關閉裝置螢幕"
+    },
+    {
+      "name": "guide_opt_screen_body",
+      "value": "串流期間關閉裝置螢幕，省電並減少發熱，中斷連線後自動恢復。需要 SysDVR 6.0 以上（協定 03）。"
+    },
+    {
+      "name": "guide_opt_keep_title",
+      "value": "切到背景後保持連線"
+    },
+    {
+      "name": "guide_opt_keep_body",
+      "value": "切到背景時會繼續接收但不顯示畫面，通知列會顯示實況窗（向左滑動刪除即可停止）；回到前景後秒級恢復畫面。達到設定時長後自動中斷連線。"
+    },
+    {
+      "name": "guide_opt_stats_title",
+      "value": "顯示統計資訊"
+    },
+    {
+      "name": "guide_opt_stats_body",
+      "value": "顯示接收／顯示的影格率、位元率、掉幀、音訊緩衝和欠載次數（預設關閉）。「收」低於 30 表示瓶頸在網路；「收」正常而「顯」偏低表示瓶頸在本機；兩者都是 0 表示裝置端沒有送出畫面（例如遊戲不允許錄製）。"
+    },
+    {
+      "name": "guide_opt_lock_title",
+      "value": "播放頁鎖定"
+    },
+    {
+      "name": "guide_opt_lock_body",
+      "value": "橫向播放時點一下畫面可顯示或隱藏按鈕；點左側的鎖頭圖示可鎖定螢幕，鎖定後只顯示鎖頭圖示，返回手勢和誤觸都不會中斷連線，再點一次鎖頭圖示即可解鎖。"
+    },
+    {
+      "name": "guide_opt_dark_title",
+      "value": "深色模式"
+    },
+    {
+      "name": "guide_opt_dark_body",
+      "value": "在「設定 → 其他設定」中可以跟隨系統，也可以單獨為本應用選擇淺色或深色。"
+    },
+    {
+      "name": "guide_opt_lang_title",
+      "value": "介面語言"
+    },
+    {
+      "name": "guide_opt_lang_body",
+      "value": "在「設定 → 其他設定」中可以跟隨系統，或選擇简体中文、繁體中文、English。"
+    },
+    {
+      "name": "guide_faq_title",
+      "value": "常見問題"
+    },
+    {
+      "name": "guide_faq_q1",
+      "value": "已連線但畫面全黑"
+    },
+    {
+      "name": "guide_faq_a1",
+      "value": "目前的遊戲或系統畫面不允許錄製，請換一款遊戲試試；或是裝置端的模式與本應用選擇的不一致。"
+    },
+    {
+      "name": "guide_faq_q2",
+      "value": "畫面卡頓、影格率低"
+    },
+    {
+      "name": "guide_faq_a2",
+      "value": "先開啟統計資訊查看「收」的影格率：低於 30 表示網路不足，請改用專用熱點或 USB；關閉聲音可以省頻寬；偶爾掉幀可以把平滑模式改為「流暢優先」（預設為「延遲優先」）。"
+    },
+    {
+      "name": "guide_faq_q3",
+      "value": "聲音斷斷續續"
+    },
+    {
+      "name": "guide_faq_a3",
+      "value": "通常是網路抖動。平滑模式（預設開啟）會同時加大音訊緩衝，仍斷斷續續可以改用「流暢優先」；或者關閉聲音只看畫面。"
+    },
+    {
+      "name": "guide_faq_q4",
+      "value": "找不到裝置"
+    },
+    {
+      "name": "guide_faq_a4",
+      "value": "確認裝置與手機在同一個網路，且沒有連到訪客網路；也可以直接輸入裝置的 IP（可在裝置的「設定 → 網際網路 → 連線狀態」查看）。"
+    },
+    {
+      "name": "guide_faq_q5",
+      "value": "關閉手機 WLAN 後斷線了"
+    },
+    {
+      "name": "guide_faq_a5",
+      "value": "專用熱點依賴 WLAN，關閉 WLAN 會一併關閉熱點，這是正常現象。"
+    },
+    {
+      "name": "guide_opt_freeze_title",
+      "value": "掉幀時定格畫面"
+    },
+    {
+      "name": "guide_opt_freeze_body",
+      "value": "網路一卡，裝置端來不及送出的影格會被丟掉，之後的畫面缺了參考影格就會花屏，一直到下一個關鍵影格。開啟後（預設開啟），發現掉幀就停在最後一格完整的畫面，等關鍵影格到了再繼續，把花屏變成一次短暫定格；如果 3 秒內還等不到關鍵影格就照常播放。關閉則不做處理，畫面不停但可能花屏。統計資訊中的「掉幀」「定格」一行可以看到發生了多少次。"
+    },
+    {
+      "name": "guide_opt_enhance_title",
+      "value": "畫質增強"
+    },
+    {
+      "name": "guide_opt_enhance_body",
+      "value": "裝置輸出 720p，螢幕解析度越高，直接拉伸越顯得模糊。開啟後用系統的視訊細節增強把畫面放大到螢幕實際顯示的解析度並增強細節，平板和 PC 等大螢幕上提升明顯。「標準」速度快、延遲低；「高」效果更好，但每格處理更久、更耗電。播放中切換時畫面會重新整理一次。部分裝置（例如模擬器）不支援，會自動改為直出並提示原因。"
+    }
+  ]
+}

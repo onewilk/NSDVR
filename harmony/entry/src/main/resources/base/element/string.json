@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "NSDVR: stream gameplay to HarmonyOS devices"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "Receive gameplay from SysDVR via TCP Bridge, USB or RTSP"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "NSDVR"
+    },
+    {
+      "name": "reason_keep_background",
+      "value": "Keep the streaming connection while in the background"
+    }
+  ]
+}

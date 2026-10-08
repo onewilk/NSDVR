@@ -1,0 +1,240 @@
+{
+  "string": [
+    {
+      "name": "connect_subtitle",
+      "value": "把游戏画面串流到鸿蒙设备"
+    },
+    {
+      "name": "connect_how_to",
+      "value": "怎么用"
+    },
+    {
+      "name": "connect_recommended",
+      "value": "推荐"
+    },
+    {
+      "name": "connect_hotspot_on_view",
+      "value": "专用热点已开启 · 查看"
+    },
+    {
+      "name": "connect_hotspot_turn_on",
+      "value": "去开启专用热点"
+    },
+    {
+      "name": "connect_invalid_ip",
+      "value": "请输入正确的 IP 地址，例如 192.168.1.23"
+    },
+    {
+      "name": "connect_lan_title",
+      "value": "局域网内的设备"
+    },
+    {
+      "name": "connect_lan_subtitle",
+      "value": "SysDVR 每 2 秒广播一次，本机需与游戏机在同一网络"
+    },
+    {
+      "name": "connect_discovery_unavailable",
+      "value": "自动发现不可用"
+    },
+    {
+      "name": "connect_discovery_port_busy",
+      "value": "UDP 19999 端口被占用，请在下方手动输入游戏机的 IP"
+    },
+    {
+      "name": "connect_searching",
+      "value": "正在搜索…"
+    },
+    {
+      "name": "connect_device_name",
+      "value": "SysDVR %s（协议 %s）"
+    },
+    {
+      "name": "connect_button",
+      "value": "连接"
+    },
+    {
+      "name": "connect_manual_ip_hint",
+      "value": "手动输入 IP，如 192.168.1.23"
+    },
+    {
+      "name": "rtsp_probe_running",
+      "value": "正在检测（约 4 秒）…"
+    },
+    {
+      "name": "rtsp_probe_ok",
+      "value": "正常：可以播放"
+    },
+    {
+      "name": "rtsp_address_title",
+      "value": "游戏机地址"
+    },
+    {
+      "name": "rtsp_address_subtitle",
+      "value": "RTSP 模式下游戏机不广播，请手动填写 IP（SysDVR 设置界面会显示）"
+    },
+    {
+      "name": "rtsp_ip_hint",
+      "value": "游戏机的 IP，如 192.168.1.23"
+    },
+    {
+      "name": "rtsp_will_open",
+      "value": "将打开 %s（RTP over TCP）"
+    },
+    {
+      "name": "rtsp_probe_button",
+      "value": "检测连接"
+    },
+    {
+      "name": "rtsp_paused_background",
+      "value": "已暂停（切到后台）"
+    },
+    {
+      "name": "rtsp_playing",
+      "value": "RTSP 播放中"
+    },
+    {
+      "name": "rtsp_interrupted",
+      "value": "连接中断（%s）"
+    },
+    {
+      "name": "rtsp_failed",
+      "value": "连接失败（%s）"
+    },
+    {
+      "name": "rtsp_retrying",
+      "value": "正在重试（第 %d 次）：请确认 SysDVR 为 RTSP 模式并已启动游戏"
+    },
+    {
+      "name": "rtsp_connecting",
+      "value": "正在连接 %s"
+    },
+    {
+      "name": "rtsp_reconnect_in",
+      "value": "%s，%d 秒后重连…"
+    },
+    {
+      "name": "usb_external_none",
+      "value": "外接 USB 设备：无"
+    },
+    {
+      "name": "usb_external_list",
+      "value": "外接 USB 设备："
+    },
+    {
+      "name": "usb_endpoints",
+      "value": "接口 %d · IN 0x%s / OUT 0x%s · 包长 %d 字节"
+    },
+    {
+      "name": "usb_transport",
+      "value": "传输方式：%s"
+    },
+    {
+      "name": "usb_card_title",
+      "value": "USB 设备"
+    },
+    {
+      "name": "usb_card_subtitle",
+      "value": "插上数据线后自动检测"
+    },
+    {
+      "name": "usb_not_detected",
+      "value": "未检测到 SysDVR 设备（VID 18D1 / PID 4EE0）"
+    },
+    {
+      "name": "usb_diag_show",
+      "value": "查看诊断信息"
+    },
+    {
+      "name": "usb_diag_hide",
+      "value": "收起诊断信息"
+    },
+    {
+      "name": "usb_diag_log",
+      "value": "诊断日志：files/usb.log"
+    },
+    {
+      "name": "usb_device_title",
+      "value": "SysDVR（USB）"
+    },
+    {
+      "name": "usb_authorized",
+      "value": "已授权"
+    },
+    {
+      "name": "usb_unauthorized",
+      "value": "待授权"
+    },
+    {
+      "name": "usb_device_ids",
+      "value": "VID %s · PID %s · 端口 %s"
+    },
+    {
+      "name": "usb_read_info",
+      "value": "读取设备信息"
+    },
+    {
+      "name": "usb_scan_device",
+      "value": "%s · class %d · 端口 %s"
+    },
+    {
+      "name": "usb_hint_list_failed",
+      "value": "读取 USB 设备列表失败（%s）：这台设备可能不支持 USB 主机功能。"
+    },
+    {
+      "name": "usb_hint_no_devices",
+      "value": "系统没有识别到任何 USB 设备：本机现在是游戏机的 USB 从设备（用 C-C 线直连时，游戏机会充当主机）。\n请改用 OTG 转接头（本机端 C 公 → A 母）+ USB-A 转 C 数据线连接游戏机底部接口，OTG 转接头会让本机固定作为 USB 主机。\n只改变供电方向（例如反向充电）不能让本机变成主机。"
+    },
+    {
+      "name": "usb_hint_nintendo",
+      "value": "检测到游戏机（VID 057E），但不是 SysDVR：请在游戏机上打开 SysDVR Settings，把模式设为 USB 并应用；如果有其他自制程序占用了 USB（例如 MTP、Goldleaf），请先退出它。"
+    },
+    {
+      "name": "usb_hint_no_sysdvr",
+      "value": "本机已作为 USB 主机，但没有 SysDVR 设备：请确认游戏机上 SysDVR 已设为 USB 模式、使用掌机模式（不插底座），并且数据线插在游戏机底部的 USB-C 口上。"
+    },
+    {
+      "name": "usb_err_no_right",
+      "value": "没有获得 USB 设备的使用授权"
+    },
+    {
+      "name": "usb_err_no_iface",
+      "value": "设备上没有找到 SysDVR 的数据接口"
+    },
+    {
+      "name": "usb_err_no_bulk",
+      "value": "设备接口缺少 bulk 端点"
+    },
+    {
+      "name": "usb_err_open_service",
+      "value": "USB 服务打开设备失败"
+    },
+    {
+      "name": "usb_err_open",
+      "value": "打开 USB 设备失败：%s"
+    },
+    {
+      "name": "usb_transport_direct",
+      "value": "直接读写 USB 设备（usbfs）"
+    },
+    {
+      "name": "usb_transport_direct_claimed",
+      "value": "直接读写 USB 设备（usbfs，经系统服务声明接口）"
+    },
+    {
+      "name": "usb_transport_compat",
+      "value": "系统 USB 服务（兼容传输）"
+    },
+    {
+      "name": "usb_transport_compat_note",
+      "value": "本机不允许应用直接读写 USB 数据，已自动改用系统 USB 服务，画面和声音不受影响"
+    },
+    {
+      "name": "usb_unsupported",
+      "value": "本设备不支持 USB 主机功能，无法使用 USB 模式。请改用 TCP Bridge 或 RTSP。"
+    },
+    {
+      "name": "usb_hint_no_devices_pc",
+      "value": "没有检测到 USB 设备：请用数据线把游戏机底部的 USB-C 口连到本机，并确认游戏机处于掌机模式（不插底座）。"
+    }
+  ]
+}

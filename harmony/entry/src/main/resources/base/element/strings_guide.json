@@ -1,0 +1,304 @@
+{
+  "string": [
+    {
+      "name": "guide_subtitle",
+      "value": "Getting started with the three streaming modes, what each option does, and FAQ"
+    },
+    {
+      "name": "guide_prepare_title",
+      "value": "Before you start"
+    },
+    {
+      "name": "guide_prepare_intro",
+      "value": "SysDVR is an open-source streaming sysmodule for the device by exelix11. This app is its HarmonyOS client, so SysDVR must be installed on your device first."
+    },
+    {
+      "name": "guide_prepare_step1",
+      "value": "Install SysDVR on your device (follow the project page to install the sysmodule and the SysDVR Settings app; version 6.0 or later recommended)"
+    },
+    {
+      "name": "guide_prepare_step2",
+      "value": "Open SysDVR Settings, choose a streaming mode (TCP Bridge, USB or RTSP) and apply it"
+    },
+    {
+      "name": "guide_prepare_step3",
+      "value": "Launch a game that supports video capture (some games and system menus block recording, so there will be no picture)"
+    },
+    {
+      "name": "guide_prepare_step4",
+      "value": "In this app, pick the same mode as on the device and connect"
+    },
+    {
+      "name": "guide_prepare_tip",
+      "value": "The mode on the device must match the one selected here. After switching modes, restarting the game is recommended."
+    },
+    {
+      "name": "guide_tcp_title",
+      "value": "TCP Bridge (Wi-Fi, recommended)"
+    },
+    {
+      "name": "guide_tcp_intro",
+      "value": "Video and audio travel over two TCP connections, with NAL replay (static scenes don't resend keyframes) and auto discovery. It's bandwidth-efficient and stable — the recommended wireless mode."
+    },
+    {
+      "name": "guide_tcp_step1",
+      "value": "Put the device and your phone on the same network. Recommended: turn on “Device hotspot” on the Settings tab, tap “Hotspot settings” to see the network name and password, then join it from System Settings → Internet on the device"
+    },
+    {
+      "name": "guide_tcp_step2",
+      "value": "Back on the Stream tab, tap “Connect” once your device appears under “Devices on your network”. If it doesn't show up, enter the device's IP manually"
+    },
+    {
+      "name": "guide_tcp_step3",
+      "value": "Playback starts full screen in landscape. Tap the picture to show or hide the controls; use “Settings” at the top right to adjust sound, smoothing and more at any time"
+    },
+    {
+      "name": "guide_tcp_item1_title",
+      "value": "Why use the device hotspot"
+    },
+    {
+      "name": "guide_tcp_item1_body",
+      "value": "On 5 GHz the device only supports channels 36–48, so it can't join many phone hotspots and routers that default to other channels, and 2.4 GHz is so congested that we measured only a dozen or so fps. The device hotspot uses Wi-Fi Direct to create a 5 GHz network (channels 36–48, WPA2), so the device connects straight to your phone without a router — a steady 30 fps in our tests."
+    },
+    {
+      "name": "guide_tcp_item2_title",
+      "value": "Don't join another Wi-Fi at the same time"
+    },
+    {
+      "name": "guide_tcp_item2_body",
+      "value": "If your phone runs the hotspot while also connected to another Wi-Fi network, the radio keeps hopping between two channels, causing periodic frame drops and audio gaps. Keep WLAN itself on — turning it off also shuts down the hotspot."
+    },
+    {
+      "name": "guide_tcp_tip",
+      "value": "When using a router, put both the phone and the device on 5 GHz and avoid guest networks (they usually isolate devices, so discovery fails)."
+    },
+    {
+      "name": "guide_usb_title",
+      "value": "USB (cable)"
+    },
+    {
+      "name": "guide_usb_intro",
+      "value": "Your phone or tablet acts as the USB host and reads the stream directly from the device — no Wi-Fi interference and more consistent latency."
+    },
+    {
+      "name": "guide_usb_step1",
+      "value": "Set SysDVR to USB mode on the device and use handheld mode (not docked)"
+    },
+    {
+      "name": "guide_usb_step2",
+      "value": "Connect the device's bottom USB-C port to your phone using an OTG adapter (USB-C male → USB-A female on the phone side) and a USB-A to USB-C cable"
+    },
+    {
+      "name": "guide_usb_step3",
+      "value": "Select “USB” in this app. When the device is detected below, tap “Connect” and allow access to the USB device in the system prompt"
+    },
+    {
+      "name": "guide_usb_step4",
+      "value": "Optionally tap “Read device info” first to check the SysDVR version, protocol and transfer method"
+    },
+    {
+      "name": "guide_usb_item1_title",
+      "value": "Device not detected"
+    },
+    {
+      "name": "guide_usb_item1_body",
+      "value": "With a C-to-C cable the phone is negotiated as the USB device (the device becomes the host), so the app sees no external device — and that doesn't change even if the phone later powers the device. Use an OTG adapter (USB-C male → USB-A female on the phone side) plus a USB-A to USB-C cable so the phone becomes the USB host. “Diagnostics” in the USB card lists the devices the system detects."
+    },
+    {
+      "name": "guide_usb_item2_title",
+      "value": "Transfer method"
+    },
+    {
+      "name": "guide_usb_item2_body",
+      "value": "The app first tries to access the USB device directly (better performance). If the system doesn't allow that, it automatically switches to compatibility mode through the system USB service — same features, slightly higher CPU usage."
+    },
+    {
+      "name": "guide_usb_tip",
+      "value": "Over USB your phone also powers the device, so keep an eye on the battery."
+    },
+    {
+      "name": "guide_rtsp_title",
+      "value": "RTSP (standard protocol)"
+    },
+    {
+      "name": "guide_rtsp_intro",
+      "value": "The device runs a standard RTSP server (rtsp://IP:6666/) and this app plays it with ijkplayer. Broad compatibility, but no NAL replay, more bandwidth and slightly higher latency."
+    },
+    {
+      "name": "guide_rtsp_step1",
+      "value": "Set SysDVR to RTSP mode on the device and note the device's IP shown in SysDVR Settings"
+    },
+    {
+      "name": "guide_rtsp_step2",
+      "value": "Select “RTSP” in this app, enter the IP below and tap “Connect”. If it fails, tap “Test connection” to see why"
+    },
+    {
+      "name": "guide_rtsp_item1_title",
+      "value": "Differences from other modes"
+    },
+    {
+      "name": "guide_rtsp_item1_body",
+      "value": "In RTSP mode the device doesn't broadcast, so you must enter the IP manually. Smoothing, background keep-alive and turning off the device screen are unavailable. Streaming pauses in the background and reconnects automatically when you return."
+    },
+    {
+      "name": "guide_rtsp_item2_title",
+      "value": "Stuck on “Connecting” or “Connection lost”"
+    },
+    {
+      "name": "guide_rtsp_item2_body",
+      "value": "SysDVR's RTSP server accepts only one connection at a time and gets stuck, refusing new connections, if the previous one didn't end cleanly. Restart the game on the device (or re-apply RTSP mode in SysDVR Settings) to recover. “Test connection” always ends its session cleanly, so it won't cause this."
+    },
+    {
+      "name": "guide_rtsp_tip",
+      "value": "Unless you specifically need RTSP, use TCP Bridge — it's smoother and uses less bandwidth on the same network."
+    },
+    {
+      "name": "guide_opt_title",
+      "value": "Options explained"
+    },
+    {
+      "name": "guide_opt_intro",
+      "value": "All options live on the Settings tab, with tags showing which modes they apply to. During playback you can also change them instantly via “Settings” at the top right."
+    },
+    {
+      "name": "guide_opt_audio_title",
+      "value": "Play sound"
+    },
+    {
+      "name": "guide_opt_audio_body",
+      "value": "In TCP Bridge, turning it off makes the device stop sending audio, saving about 1.5 Mbps for smoother video on a weak network. In USB and RTSP it simply mutes locally."
+    },
+    {
+      "name": "guide_opt_smooth_title",
+      "value": "Smoothing"
+    },
+    {
+      "name": "guide_opt_smooth_body",
+      "value": "Trades a little buffering for smoothness when the network jitters. Off: no extra buffering, lower latency. Low latency: ≤80 ms buffer, for playing yourself and action games. Smoothness: ≤300 ms buffer, smoother, for watching story scenes or streams. “Low latency” is on by default — turn it off for even lower latency in rhythm or fighting games, or switch to “Smoothness” if it still stutters. The buffer adapts to the actual jitter and audio stays in sync."
+    },
+    {
+      "name": "guide_opt_net_title",
+      "value": "Network optimization"
+    },
+    {
+      "name": "guide_opt_net_body",
+      "value": "Enables TCP quick ACK and uses Huawei Network Boost to mark the stream as real-time gaming with high-priority connections. TCP Bridge only."
+    },
+    {
+      "name": "guide_opt_hotspot_title",
+      "value": "Device hotspot"
+    },
+    {
+      "name": "guide_opt_hotspot_body",
+      "value": "Creates a 5 GHz hotspot the device can see, in one tap. Once it's on, tap “Hotspot settings” to view or customize the network name and password (they're remembered, so the device reconnects automatically next time), and optionally start the hotspot whenever the app opens."
+    },
+    {
+      "name": "guide_opt_screen_title",
+      "value": "Turn off device screen while streaming"
+    },
+    {
+      "name": "guide_opt_screen_body",
+      "value": "Turns the device screen off during streaming to save power and reduce heat; it comes back on when you disconnect. Requires SysDVR 6.0 or later (protocol 03)."
+    },
+    {
+      "name": "guide_opt_keep_title",
+      "value": "Keep alive in background"
+    },
+    {
+      "name": "guide_opt_keep_body",
+      "value": "In the background the app keeps receiving without rendering and shows a Live View in the notification panel (swipe it away to stop). The picture is back within a second when you return. It disconnects automatically after the chosen time."
+    },
+    {
+      "name": "guide_opt_stats_title",
+      "value": "Show statistics"
+    },
+    {
+      "name": "guide_opt_stats_body",
+      "value": "Shows received/displayed frame rate, bitrate, dropped frames, audio buffer and underruns (off by default). “Received” below 30 means the network is the bottleneck; normal “received” but low “displayed” points to this phone or tablet; both at 0 means the device isn't sending video (e.g. the game blocks recording)."
+    },
+    {
+      "name": "guide_opt_lock_title",
+      "value": "Screen lock during playback"
+    },
+    {
+      "name": "guide_opt_lock_body",
+      "value": "During playback, tap the picture to show or hide the controls. Tap the lock icon on the left to lock the screen: only the lock icon remains, and back gestures or accidental taps won't disconnect. Tap the lock icon again to unlock."
+    },
+    {
+      "name": "guide_opt_dark_title",
+      "value": "Dark mode"
+    },
+    {
+      "name": "guide_opt_dark_body",
+      "value": "In Settings → Other settings, follow the system or choose light or dark just for this app."
+    },
+    {
+      "name": "guide_opt_lang_title",
+      "value": "Language"
+    },
+    {
+      "name": "guide_opt_lang_body",
+      "value": "In Settings → Other settings, follow the system language or choose 简体中文, 繁體中文 or English."
+    },
+    {
+      "name": "guide_faq_title",
+      "value": "FAQ"
+    },
+    {
+      "name": "guide_faq_q1",
+      "value": "Connected but the screen is black"
+    },
+    {
+      "name": "guide_faq_a1",
+      "value": "The current game or system menu blocks recording — try another game. Or the mode on the device doesn't match the one selected in this app."
+    },
+    {
+      "name": "guide_faq_q2",
+      "value": "Stuttering or low frame rate"
+    },
+    {
+      "name": "guide_faq_a2",
+      "value": "Turn on statistics and check the “received” frame rate. Below 30 means the network can't keep up — switch to the device hotspot or USB. Turning off sound saves bandwidth; for occasional drops, switch Smoothing to “Smoothness” (the default is “Low latency”)."
+    },
+    {
+      "name": "guide_faq_q3",
+      "value": "Choppy audio"
+    },
+    {
+      "name": "guide_faq_a3",
+      "value": "Usually caused by network jitter. Smoothing (on by default) also enlarges the audio buffer; if it still cuts out, try “Smoothness”, or turn sound off and just watch."
+    },
+    {
+      "name": "guide_faq_q4",
+      "value": "Device not found"
+    },
+    {
+      "name": "guide_faq_a4",
+      "value": "Make sure the device and phone are on the same network and not on a guest network. You can also enter the device's IP directly (see System Settings → Internet → Connection Status on the device)."
+    },
+    {
+      "name": "guide_faq_q5",
+      "value": "Disconnected after turning off WLAN"
+    },
+    {
+      "name": "guide_faq_a5",
+      "value": "The device hotspot relies on WLAN, so turning WLAN off also turns off the hotspot. This is expected."
+    },
+    {
+      "name": "guide_opt_freeze_title",
+      "value": "Freeze on frame loss"
+    },
+    {
+      "name": "guide_opt_freeze_body",
+      "value": "When the network stalls, the device drops frames it can't send in time, and the frames after them lack references and look corrupted until the next keyframe. With this on (the default), playback holds the last intact frame and resumes at the next keyframe, turning corruption into a brief pause; if no keyframe arrives within 3 seconds it plays on. With it off, playback never pauses but may show corruption. The “Loss” and “Freezes” lines in the statistics show how often this happens."
+    },
+    {
+      "name": "guide_opt_enhance_title",
+      "value": "Picture enhancement"
+    },
+    {
+      "name": "guide_opt_enhance_body",
+      "value": "The device outputs 720p, which looks soft when stretched to a high-resolution screen. This uses the system's video detail enhancement to upscale to the resolution actually shown on screen and sharpen details, most noticeable on tablets and PCs. Standard is fast with low latency; High looks better but takes longer per frame and uses more power. Changing it during playback refreshes the picture once. Some devices (such as emulators) don't support it; the app then falls back to direct output and tells you why."
+    }
+  ]
+}

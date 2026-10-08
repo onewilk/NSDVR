@@ -1,0 +1,272 @@
+{
+  "string": [
+    {
+      "name": "cfg_hs_rebuild_failed",
+      "value": "依新設定重建熱點失敗：%s"
+    },
+    {
+      "name": "cfg_hs_rebuilt",
+      "value": "已依新設定重建熱點，遊戲機需要重新連線一次"
+    },
+    {
+      "name": "cfg_hs_current",
+      "value": "目前熱點"
+    },
+    {
+      "name": "cfg_hs_ssid_line",
+      "value": "網路名稱：%s"
+    },
+    {
+      "name": "cfg_hs_pass_line",
+      "value": "密碼：%s"
+    },
+    {
+      "name": "cfg_hs_custom_title",
+      "value": "自訂網路名稱與密碼"
+    },
+    {
+      "name": "cfg_hs_ssid_hint",
+      "value": "網路名稱，例如 DIRECT-SysDVR"
+    },
+    {
+      "name": "cfg_hs_pass_hint",
+      "value": "密碼：8–63 個英文字母、數字或符號"
+    },
+    {
+      "name": "cfg_hs_random",
+      "value": "隨機"
+    },
+    {
+      "name": "cfg_hs_edit_note",
+      "value": "修改後遊戲機需要重新連線一次新的網路；熱點開啟時會自動依新設定重建"
+    },
+    {
+      "name": "cfg_hs_auto_title",
+      "value": "開啟 App 時自動開啟熱點"
+    },
+    {
+      "name": "cfg_hs_auto_desc",
+      "value": "免去每次手動開啟；系統中熱點仍在執行時不會重複建立"
+    },
+    {
+      "name": "cfg_hs_save",
+      "value": "儲存"
+    },
+    {
+      "name": "cfg_hs_title",
+      "value": "裝置專用熱點"
+    },
+    {
+      "name": "cfg_hs_desc",
+      "value": "由手機為遊戲機建立 5 GHz 熱點（36–48 頻道，WPA2 加密），無需經過路由器，連線更穩定、延遲更低"
+    },
+    {
+      "name": "cfg_hs_settings",
+      "value": "熱點設定"
+    },
+    {
+      "name": "cfg_hs_settings_desc",
+      "value": "查看網路名稱與密碼、自訂設定、開啟 App 時自動開啟"
+    },
+    {
+      "name": "cfg_hs_sheet_title",
+      "value": "專用熱點設定"
+    },
+    {
+      "name": "cfg_opt_title",
+      "value": "串流選項"
+    },
+    {
+      "name": "cfg_opt_subtitle",
+      "value": "播放中也可以點畫面右上角「設定」隨時調整，無需重新連線"
+    },
+    {
+      "name": "cfg_opt_audio",
+      "value": "播放聲音"
+    },
+    {
+      "name": "cfg_opt_audio_desc",
+      "value": "TCP Bridge 下關閉後停止傳送音訊，省下約 1.5 Mbps；其他模式為本機靜音"
+    },
+    {
+      "name": "cfg_opt_smooth",
+      "value": "平滑模式"
+    },
+    {
+      "name": "cfg_opt_smooth_desc",
+      "value": "延遲優先：緩衝 ≤80ms，適合玩遊戲；流暢優先：緩衝 ≤300ms，適合觀看"
+    },
+    {
+      "name": "cfg_opt_netopt",
+      "value": "網路最佳化"
+    },
+    {
+      "name": "cfg_opt_netopt_desc",
+      "value": "TCP 快速確認 + 華為網路加速（即時遊戲場景、連線高優先順序）"
+    },
+    {
+      "name": "cfg_opt_screen_off",
+      "value": "串流時關閉裝置螢幕"
+    },
+    {
+      "name": "cfg_opt_screen_off_desc",
+      "value": "省電、減少發熱；中斷連線後自動亮屏（需 SysDVR 6.0 以上）"
+    },
+    {
+      "name": "cfg_opt_keep_alive",
+      "value": "切到背景後保持連線"
+    },
+    {
+      "name": "cfg_opt_keep_alive_desc",
+      "value": "背景只接收不渲染，通知列顯示實況窗；回到前景秒級恢復畫面"
+    },
+    {
+      "name": "cfg_opt_stats",
+      "value": "顯示統計資訊"
+    },
+    {
+      "name": "cfg_opt_stats_desc",
+      "value": "播放時顯示影格率、位元率、緩衝等，用於排查卡頓"
+    },
+    {
+      "name": "hs_err_wlan_off",
+      "value": "請先開啟手機 WLAN（建立群組需要 WLAN 開啟，但不必連線任何網路）"
+    },
+    {
+      "name": "hs_err_system_hotspot",
+      "value": "請先關閉系統的個人熱點，兩者會衝突"
+    },
+    {
+      "name": "hs_err_wlan_state",
+      "value": "讀取 WLAN 狀態失敗（%d）"
+    },
+    {
+      "name": "hs_try_item",
+      "value": "%s：%s"
+    },
+    {
+      "name": "hs_channel_n",
+      "value": "%d 頻道"
+    },
+    {
+      "name": "hs_channel_auto",
+      "value": "自動"
+    },
+    {
+      "name": "hs_started",
+      "value": "已開啟：%s %d 頻道 · WPA2"
+    },
+    {
+      "name": "hs_tried_before",
+      "value": "（先前嘗試：%s）"
+    },
+    {
+      "name": "hs_sep",
+      "value": "；"
+    },
+    {
+      "name": "hs_channel_mismatch",
+      "value": "要求 %d 頻道，實際落在 %d 頻道"
+    },
+    {
+      "name": "hs_err_no_channel",
+      "value": "無法建立在遊戲機可辨識的頻道上：%s"
+    },
+    {
+      "name": "hs_err_create",
+      "value": "建立群組失敗 %d"
+    },
+    {
+      "name": "hs_err_timeout",
+      "value": "等待建立群組逾時"
+    },
+    {
+      "name": "hs_err_ssid_empty",
+      "value": "網路名稱不能為空"
+    },
+    {
+      "name": "hs_err_ssid_long",
+      "value": "網路名稱太長：最多 32 位元組（一個中文字算 3 位元組）"
+    },
+    {
+      "name": "hs_err_pass",
+      "value": "密碼需為 8–63 個英文字母、數字或符號（WPA2 要求）"
+    },
+    {
+      "name": "hs_still_running",
+      "value": "專用熱點仍在執行（上次開啟後沒有關閉）"
+    },
+    {
+      "name": "hs_creating",
+      "value": "正在建立 5 GHz 熱點（依序嘗試 36/40/44/48 頻道）…"
+    },
+    {
+      "name": "hs_fallback_24",
+      "value": "5 GHz 失敗（%s），已改用 2.4 GHz。"
+    },
+    {
+      "name": "hs_closed",
+      "value": "已關閉"
+    },
+    {
+      "name": "hs_reclaimed",
+      "value": "專用熱點已關閉（手機 WLAN 被關閉，或被系統回收）"
+    },
+    {
+      "name": "hs_summary_on",
+      "value": "已開啟 · %s · %d 頻道 · 已連線 %d 台裝置"
+    },
+    {
+      "name": "hs_detail_band",
+      "value": "頻段：%s · %d 頻道（%d MHz）· WPA2"
+    },
+    {
+      "name": "hs_detail_clients",
+      "value": "已連線裝置：%d"
+    },
+    {
+      "name": "hs_detail_ip",
+      "value": " · 本機位址 %s"
+    },
+    {
+      "name": "hs_detail_switch_steps",
+      "value": "在遊戲機上：設定 → 網際網路 → 網際網路設定，選擇這個網路名稱並輸入密碼"
+    },
+    {
+      "name": "hs_warn_sta",
+      "value": "手機還連著「%s」（%s，%d 頻道），和專用熱點（%d 頻道）不在同一頻道，無線晶片要來回切換，會掉格、斷音。建議在 WLAN 設定中中斷它（WLAN 本身保持開啟，關閉 WLAN 會讓專用熱點一起消失）"
+    },
+    {
+      "name": "cfg_hs_close",
+      "value": "關閉"
+    },
+    {
+      "name": "hs_auto_started",
+      "value": "已自動開啟 裝置專用熱點"
+    },
+    {
+      "name": "hs_auto_failed",
+      "value": "自動開啟專用熱點失敗：%s"
+    },
+    {
+      "name": "cfg_hs_unsaved",
+      "value": "修改尚未儲存，點右上角「儲存」後生效"
+    },
+    {
+      "name": "cfg_opt_freeze",
+      "value": "掉幀時定格畫面"
+    },
+    {
+      "name": "cfg_opt_freeze_desc",
+      "value": "網路卡頓導致掉幀時，停在最後一格完整的畫面，等下一個關鍵影格再繼續，不花屏"
+    },
+    {
+      "name": "cfg_opt_enhance",
+      "value": "畫質增強"
+    },
+    {
+      "name": "cfg_opt_enhance_desc",
+      "value": "用系統的視訊細節增強把 720p 畫面放大到螢幕解析度，大螢幕上更清晰；標準速度快，高效果更好但處理較慢，本機不支援時自動改為直出"
+    }
+  ]
+}

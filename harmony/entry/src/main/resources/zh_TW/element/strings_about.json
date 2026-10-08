@@ -1,0 +1,92 @@
+{
+  "string": [
+    {
+      "name": "about_version",
+      "value": "版本 %s"
+    },
+    {
+      "name": "about_desc",
+      "value": "基於鴻蒙系統能力的 SysDVR 用戶端：完整支援 TCP Bridge、USB、RTSP 三種串流模式，並提供專用熱點、平滑模式、網路加速、背景保持等體驗最佳化。"
+    },
+    {
+      "name": "about_guide_title",
+      "value": "使用說明"
+    },
+    {
+      "name": "about_guide_desc",
+      "value": "三種串流模式的上手步驟、各選項的作用與常見問題"
+    },
+    {
+      "name": "about_thanks_title",
+      "value": "致謝"
+    },
+    {
+      "name": "about_thanks_sub",
+      "value": "本應用基於以下開源專案，感謝作者與社群的付出"
+    },
+    {
+      "name": "about_sysdvr_link",
+      "value": "SysDVR（GitHub）"
+    },
+    {
+      "name": "about_sysdvr_note",
+      "value": "SysDVR 由 exelix11 開發。遊戲機端的安裝方法與相容的系統版本，請以 SysDVR 專案首頁為準。"
+    },
+    {
+      "name": "about_ijk_name",
+      "value": "ijkplayer（OpenHarmony 版）"
+    },
+    {
+      "name": "about_licenses_title",
+      "value": "開源授權"
+    },
+    {
+      "name": "about_lic_sysdvr_note",
+      "value": "遊戲機端的串流系統模組，本應用實作了它的用戶端協定"
+    },
+    {
+      "name": "about_lic_ijk_note",
+      "value": "RTSP 模式的播放器"
+    },
+    {
+      "name": "about_lic_ffmpeg_note",
+      "value": "ijkplayer 使用的影音函式庫"
+    },
+    {
+      "name": "about_privacy_title",
+      "value": "隱私說明"
+    },
+    {
+      "name": "about_privacy_body",
+      "value": "本應用不收集、不上傳任何個人資訊，沒有帳號和統計分析。網路和 USB 連線只發生在本機與您的遊戲機之間；統計資訊只保存在本機的應用程式目錄中，解除安裝即刪除。"
+    },
+    {
+      "name": "about_disclaimer_title",
+      "value": "免責聲明"
+    },
+    {
+      "name": "about_disclaimer_body",
+      "value": "本應用是面向 SysDVR 提供的鴻蒙原生用戶端實作。"
+    },
+    {
+      "name": "about_open_failed",
+      "value": "無法開啟瀏覽器，請手動前往 %s"
+    },
+    {
+      "name": "about_feedback_title",
+      "value": "意見回饋與評分"
+    },
+    {
+      "name": "about_feedback_desc",
+      "value": "到華為應用市場為我們評分，寫下建議或遇到的問題"
+    },
+    {
+      "name": "about_store_unavailable",
+      "value": "暫時無法開啟應用市場詳情頁（應用上架後即可使用）"
+    },
+    {
+      "name": "about_store_failed",
+      "value": "暫時無法開啟應用市場詳情頁"
+    }
+  ]
+}

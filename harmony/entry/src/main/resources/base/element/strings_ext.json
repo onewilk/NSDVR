@@ -1,0 +1,196 @@
+{
+  "string": [
+    {
+      "name": "ext_card_title",
+      "value": "Experimental"
+    },
+    {
+      "name": "ext_card_subtitle",
+      "value": "Requires server support. You can also change these from quick settings while playing; they apply instantly without reconnecting."
+    },
+    {
+      "name": "ext_codec",
+      "value": "Audio codec"
+    },
+    {
+      "name": "ext_codec_desc",
+      "value": "Compressed audio saves Wi-Fi bandwidth: PCM ~1.5 Mbps, 24 kHz ~0.77 Mbps, ADPCM ~0.38 Mbps, Opus uses the chosen bitrate"
+    },
+    {
+      "name": "ext_codec_pcm",
+      "value": "PCM (raw)"
+    },
+    {
+      "name": "ext_codec_24k",
+      "value": "PCM 24 kHz"
+    },
+    {
+      "name": "ext_opus_kbps",
+      "value": "Opus bitrate"
+    },
+    {
+      "name": "ext_opus_kbps_desc",
+      "value": "Higher bitrates sound better and use more bandwidth"
+    },
+    {
+      "name": "ext_opus_complexity",
+      "value": "Opus complexity"
+    },
+    {
+      "name": "ext_opus_complexity_desc",
+      "value": "Higher values sound better but take more encoding time on the console"
+    },
+    {
+      "name": "ext_opus_frame",
+      "value": "Opus frame size"
+    },
+    {
+      "name": "ext_opus_frame_desc",
+      "value": "10 ms lowers latency with slightly more overhead"
+    },
+    {
+      "name": "ext_kbps_value",
+      "value": "%d kbps"
+    },
+    {
+      "name": "ext_ms_value",
+      "value": "%d ms"
+    },
+    {
+      "name": "ext_combo_opus",
+      "value": "Opus %d kbps · complexity %d · %d ms"
+    },
+    {
+      "name": "ext_rotate",
+      "value": "Auto rotation"
+    },
+    {
+      "name": "ext_rotate_desc",
+      "value": "While playing, cycle through the combinations below; the stats overlay and stats.csv record each one"
+    },
+    {
+      "name": "ext_rotate_duration",
+      "value": "Time per combination"
+    },
+    {
+      "name": "ext_rotate_plan",
+      "value": "Combinations (%d)"
+    },
+    {
+      "name": "ext_rotate_empty",
+      "value": "No combinations yet"
+    },
+    {
+      "name": "ext_rotate_add",
+      "value": "Add current setting"
+    },
+    {
+      "name": "ext_rotate_reset",
+      "value": "Restore defaults"
+    },
+    {
+      "name": "ext_rotate_remove",
+      "value": "Remove this combination"
+    },
+    {
+      "name": "ext_rotate_exists",
+      "value": "Already in the list"
+    },
+    {
+      "name": "ext_rotate_need_two",
+      "value": "Add at least two combinations to rotate"
+    },
+    {
+      "name": "ext_dev_row",
+      "value": "Developer options"
+    },
+    {
+      "name": "ext_dev_row_desc",
+      "value": "Shows experimental features even when the server lacks support, for checking the UI"
+    },
+    {
+      "name": "ext_dev_on",
+      "value": "Developer options on"
+    },
+    {
+      "name": "ext_dev_off",
+      "value": "Developer options off"
+    },
+    {
+      "name": "ext_dev_taps",
+      "value": "%d more taps to turn on developer options"
+    },
+    {
+      "name": "ext_dev_taps_off",
+      "value": "%d more taps to turn off developer options"
+    },
+    {
+      "name": "ext_unsupported",
+      "value": "Not supported by the current server"
+    },
+    {
+      "name": "ext_quick_codec_desc",
+      "value": "Changes instantly without reconnecting"
+    },
+    {
+      "name": "ext_quick_rotating",
+      "value": "Auto rotation running"
+    },
+    {
+      "name": "ext_quick_rotate_desc",
+      "value": "Rotates every %d min through the combinations set on the Settings page"
+    },
+    {
+      "name": "ext_quick_rotate_state",
+      "value": "Combination %d/%d · %s left"
+    },
+    {
+      "name": "ext_stats_audio",
+      "value": "Audio codec %s · actual %d kbps · console encoding %s of real time"
+    },
+    {
+      "name": "ext_stats_pending",
+      "value": " (switching)"
+    },
+    {
+      "name": "ext_stats_not_applied",
+      "value": " (server did not apply the requested codec)"
+    },
+    {
+      "name": "ext_stats_dec_err",
+      "value": " · decode errors %d"
+    },
+    {
+      "name": "ext_stats_send",
+      "value": "Console send: blocked %s ms/s (peak %s ms) · over 20 ms %d (total %d) · grc gaps %d (total %d, after slow sends %d)"
+    },
+    {
+      "name": "ext_stats_cpu",
+      "value": "Console core 3 idle %s · SysDVR CPU %s · TOS video %s audio %s"
+    },
+    {
+      "name": "ext_stats_rotate",
+      "value": "Auto rotation %d/%d (%s) · %s left"
+    },
+    {
+      "name": "ext_stats_unsupported",
+      "value": "Experimental: not supported by the current server"
+    },
+    {
+      "name": "about_lic_opus_note",
+      "value": "Audio decoding (libopus)"
+    },
+    {
+      "name": "about_lic_view",
+      "value": "View full license"
+    },
+    {
+      "name": "about_lic_sheet_title",
+      "value": "%s license"
+    },
+    {
+      "name": "about_lic_load_failed",
+      "value": "Couldn't load the license text"
+    }
+  ]
+}

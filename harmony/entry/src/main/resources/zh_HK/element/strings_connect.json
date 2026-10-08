@@ -1,0 +1,240 @@
+{
+  "string": [
+    {
+      "name": "connect_subtitle",
+      "value": "將遊戲畫面串流到鴻蒙裝置"
+    },
+    {
+      "name": "connect_how_to",
+      "value": "如何使用"
+    },
+    {
+      "name": "connect_recommended",
+      "value": "推薦"
+    },
+    {
+      "name": "connect_hotspot_on_view",
+      "value": "專用熱點已開啟 · 查看"
+    },
+    {
+      "name": "connect_hotspot_turn_on",
+      "value": "前往開啟專用熱點"
+    },
+    {
+      "name": "connect_invalid_ip",
+      "value": "請輸入正確的 IP 位址，例如 192.168.1.23"
+    },
+    {
+      "name": "connect_lan_title",
+      "value": "區域網路中的裝置"
+    },
+    {
+      "name": "connect_lan_subtitle",
+      "value": "SysDVR 每 2 秒廣播一次，本機需與遊戲機在同一網路"
+    },
+    {
+      "name": "connect_discovery_unavailable",
+      "value": "自動發現無法使用"
+    },
+    {
+      "name": "connect_discovery_port_busy",
+      "value": "UDP 19999 連接埠已被占用，請在下方手動輸入遊戲機的 IP"
+    },
+    {
+      "name": "connect_searching",
+      "value": "正在搜尋…"
+    },
+    {
+      "name": "connect_device_name",
+      "value": "SysDVR %s（協定 %s）"
+    },
+    {
+      "name": "connect_button",
+      "value": "連線"
+    },
+    {
+      "name": "connect_manual_ip_hint",
+      "value": "手動輸入 IP，例如 192.168.1.23"
+    },
+    {
+      "name": "rtsp_probe_running",
+      "value": "正在檢測（約 4 秒）…"
+    },
+    {
+      "name": "rtsp_probe_ok",
+      "value": "正常：可以播放"
+    },
+    {
+      "name": "rtsp_address_title",
+      "value": "遊戲機位址"
+    },
+    {
+      "name": "rtsp_address_subtitle",
+      "value": "RTSP 模式下遊戲機不會廣播，請手動填寫 IP（SysDVR 設定畫面會顯示）"
+    },
+    {
+      "name": "rtsp_ip_hint",
+      "value": "遊戲機的 IP，例如 192.168.1.23"
+    },
+    {
+      "name": "rtsp_will_open",
+      "value": "將開啟 %s（RTP over TCP）"
+    },
+    {
+      "name": "rtsp_probe_button",
+      "value": "檢測連線"
+    },
+    {
+      "name": "rtsp_paused_background",
+      "value": "已暫停（切到背景）"
+    },
+    {
+      "name": "rtsp_playing",
+      "value": "RTSP 播放中"
+    },
+    {
+      "name": "rtsp_interrupted",
+      "value": "連線中斷（%s）"
+    },
+    {
+      "name": "rtsp_failed",
+      "value": "連線失敗（%s）"
+    },
+    {
+      "name": "rtsp_retrying",
+      "value": "正在重試（第 %d 次）：請確認 SysDVR 為 RTSP 模式並已啟動遊戲"
+    },
+    {
+      "name": "rtsp_connecting",
+      "value": "正在連線 %s"
+    },
+    {
+      "name": "rtsp_reconnect_in",
+      "value": "%s，%d 秒後重新連線…"
+    },
+    {
+      "name": "usb_external_none",
+      "value": "外接 USB 裝置：無"
+    },
+    {
+      "name": "usb_external_list",
+      "value": "外接 USB 裝置："
+    },
+    {
+      "name": "usb_endpoints",
+      "value": "介面 %d · IN 0x%s / OUT 0x%s · 封包長度 %d 位元組"
+    },
+    {
+      "name": "usb_transport",
+      "value": "傳輸方式：%s"
+    },
+    {
+      "name": "usb_card_title",
+      "value": "USB 裝置"
+    },
+    {
+      "name": "usb_card_subtitle",
+      "value": "插上傳輸線後自動偵測"
+    },
+    {
+      "name": "usb_not_detected",
+      "value": "未偵測到 SysDVR 裝置（VID 18D1 / PID 4EE0）"
+    },
+    {
+      "name": "usb_diag_show",
+      "value": "查看診斷資訊"
+    },
+    {
+      "name": "usb_diag_hide",
+      "value": "收起診斷資訊"
+    },
+    {
+      "name": "usb_diag_log",
+      "value": "診斷記錄：files/usb.log"
+    },
+    {
+      "name": "usb_device_title",
+      "value": "SysDVR（USB）"
+    },
+    {
+      "name": "usb_authorized",
+      "value": "已授權"
+    },
+    {
+      "name": "usb_unauthorized",
+      "value": "待授權"
+    },
+    {
+      "name": "usb_device_ids",
+      "value": "VID %s · PID %s · 連接埠 %s"
+    },
+    {
+      "name": "usb_read_info",
+      "value": "讀取裝置資訊"
+    },
+    {
+      "name": "usb_scan_device",
+      "value": "%s · class %d · 連接埠 %s"
+    },
+    {
+      "name": "usb_hint_list_failed",
+      "value": "讀取 USB 裝置清單失敗（%s）：這台裝置可能不支援 USB 主機功能。"
+    },
+    {
+      "name": "usb_hint_no_devices",
+      "value": "系統沒有辨識到任何 USB 裝置：本機目前是遊戲機的 USB 從裝置（用 C-C 線直連時，遊戲機會擔任主機）。\n請改用 OTG 轉接頭（本機端 C 公 → A 母）+ USB-A 轉 C 傳輸線連接遊戲機底部接口，OTG 轉接頭會讓本機固定擔任 USB 主機。\n只改變供電方向（例如反向充電）無法讓本機成為主機。"
+    },
+    {
+      "name": "usb_hint_nintendo",
+      "value": "偵測到遊戲機（VID 057E），但不是 SysDVR：請在遊戲機上開啟 SysDVR Settings，將模式設為 USB 並套用；如果有其他自製程式占用了 USB（例如 MTP、Goldleaf），請先結束它。"
+    },
+    {
+      "name": "usb_hint_no_sysdvr",
+      "value": "本機已擔任 USB 主機，但沒有 SysDVR 裝置：請確認遊戲機上的 SysDVR 已設為 USB 模式、使用掌機模式（不插底座），並且傳輸線插在遊戲機底部的 USB-C 接口上。"
+    },
+    {
+      "name": "usb_err_no_right",
+      "value": "未取得 USB 裝置的使用授權"
+    },
+    {
+      "name": "usb_err_no_iface",
+      "value": "裝置上找不到 SysDVR 的資料介面"
+    },
+    {
+      "name": "usb_err_no_bulk",
+      "value": "裝置介面缺少 bulk 端點"
+    },
+    {
+      "name": "usb_err_open_service",
+      "value": "USB 服務開啟裝置失敗"
+    },
+    {
+      "name": "usb_err_open",
+      "value": "開啟 USB 裝置失敗：%s"
+    },
+    {
+      "name": "usb_transport_direct",
+      "value": "直接讀寫 USB 裝置（usbfs）"
+    },
+    {
+      "name": "usb_transport_direct_claimed",
+      "value": "直接讀寫 USB 裝置（usbfs，經系統服務宣告介面）"
+    },
+    {
+      "name": "usb_transport_compat",
+      "value": "系統 USB 服務（相容傳輸）"
+    },
+    {
+      "name": "usb_transport_compat_note",
+      "value": "本機不允許應用程式直接讀寫 USB 資料，已自動改用系統 USB 服務，畫面與聲音不受影響"
+    },
+    {
+      "name": "usb_unsupported",
+      "value": "本裝置不支援 USB 主機功能，無法使用 USB 模式。請改用 TCP Bridge 或 RTSP。"
+    },
+    {
+      "name": "usb_hint_no_devices_pc",
+      "value": "沒有偵測到 USB 裝置：請用傳輸線把遊戲機底部的 USB-C 接口連到本機，並確認遊戲機處於掌機模式（不插底座）。"
+    }
+  ]
+}

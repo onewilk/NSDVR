@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "generator": "NSDVR-server/host/build/next_vectors (libopus 1.6.1-fixed, OPUS_APPLICATION_RESTRICTED_CELT, CBR)",
+  "input": {"file": "input_48k_s16le_stereo.raw", "frames": 49152, "source": "audio_eval/src/aliens_48k.wav @ 30 s", "audio_batching": 3, "captures": 12, "first_timestamp_us": 1000000},
+  "vectors": [
+    {"name": "pcm48", "description": "PCM48 with the extension marker 0xE0 (payload identical to official)", "stream": "pcm48.stream.bin", "packets": "pcm48.packets.tsv", "stream_bytes": 196824, "decoded_frames": 49152, "captured_frames": 49152},
+    {"name": "pcm24", "description": "PCM24: 63-tap half-band, 24 kHz", "stream": "pcm24.stream.bin", "packets": "pcm24.packets.tsv", "stream_bytes": 98664, "decoded_frames": 24576, "captured_frames": 49152},
+    {"name": "adpcm", "description": "IMA ADPCM, per-packet state", "stream": "adpcm.stream.bin", "packets": "adpcm.packets.tsv", "stream_bytes": 49608, "decoded_frames": 49152, "captured_frames": 49152},
+    {"name": "opus_96k_20ms_c5", "description": "Opus 96 kbps, complexity 5, 20 ms (client default)", "stream": "opus_96k_20ms_c5.stream.bin", "packets": "opus_96k_20ms_c5.packets.tsv", "stream_bytes": 12702, "decoded_frames": 48960, "captured_frames": 49152},
+    {"name": "opus_64k_10ms_c0", "description": "Opus 64 kbps, complexity 0, 10 ms", "stream": "opus_64k_10ms_c0.stream.bin", "packets": "opus_64k_10ms_c0.packets.tsv", "stream_bytes": 8724, "decoded_frames": 48960, "captured_frames": 49152},
+    {"name": "opus_256k_20ms_c10", "description": "Opus 256 kbps, complexity 10, 20 ms", "stream": "opus_256k_20ms_c10.stream.bin", "packets": "opus_256k_20ms_c10.packets.tsv", "stream_bytes": 33102, "decoded_frames": 48960, "captured_frames": 49152},
+    {"name": "switch", "description": "codec / parameter switches via control messages", "stream": "switch.stream.bin", "packets": "switch.packets.tsv", "stream_bytes": 61684, "decoded_frames": 44480, "captured_frames": 49152}
+  ]
+}

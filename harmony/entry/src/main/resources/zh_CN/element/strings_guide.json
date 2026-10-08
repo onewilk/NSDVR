@@ -1,0 +1,304 @@
+{
+  "string": [
+    {
+      "name": "guide_subtitle",
+      "value": "三种串流模式的上手步骤、各选项的作用和常见问题"
+    },
+    {
+      "name": "guide_prepare_title",
+      "value": "准备工作"
+    },
+    {
+      "name": "guide_prepare_intro",
+      "value": "SysDVR 是运行在设备上的串流系统模块（开源项目，作者 exelix11）。本应用是它的鸿蒙客户端，需要设备端先装好 SysDVR。"
+    },
+    {
+      "name": "guide_prepare_step1",
+      "value": "在设备上安装 SysDVR（按项目主页的说明安装系统模块和 SysDVR Settings 应用，建议 6.0 以上版本）"
+    },
+    {
+      "name": "guide_prepare_step2",
+      "value": "打开 SysDVR Settings，选择串流模式：TCP Bridge、USB 或 RTSP，然后应用设置"
+    },
+    {
+      "name": "guide_prepare_step3",
+      "value": "启动一个支持录像的游戏（部分游戏和系统界面不允许录制，此时没有画面）"
+    },
+    {
+      "name": "guide_prepare_step4",
+      "value": "在本应用选择与设备端相同的模式并连接"
+    },
+    {
+      "name": "guide_prepare_tip",
+      "value": "设备端的模式和本应用选择的模式必须一致；切换模式后建议重启一次游戏。"
+    },
+    {
+      "name": "guide_tcp_title",
+      "value": "TCP Bridge（Wi-Fi 无线，推荐）"
+    },
+    {
+      "name": "guide_tcp_intro",
+      "value": "画面和声音分两条 TCP 连接传输，支持 NAL 重放（静止画面不重发关键帧）和自动发现，省带宽、稳定，是无线串流的推荐模式。"
+    },
+    {
+      "name": "guide_tcp_step1",
+      "value": "设备与手机连到同一个网络：推荐在「配置」页打开“设备专用热点”，点“热点配置”查看网络名和密码，在设备的“设置 → 互联网”里连上它"
+    },
+    {
+      "name": "guide_tcp_step2",
+      "value": "回到「串流」页，底部“局域网内的设备”里出现设备后点“连接”；没出现就手动输入设备的 IP"
+    },
+    {
+      "name": "guide_tcp_step3",
+      "value": "连接后自动横屏全屏播放：点一下画面显示或隐藏按钮，右上角“设置”可随时调整声音、平滑等选项"
+    },
+    {
+      "name": "guide_tcp_item1_title",
+      "value": "为什么推荐专用热点"
+    },
+    {
+      "name": "guide_tcp_item1_body",
+      "value": "设备的 5 GHz 只支持 36–48 信道，很多手机热点、路由器默认用的信道它连不上；2.4 GHz 干扰多，实测只有十几帧。专用热点通过 Wi-Fi 直连创建 5 GHz 网络（36–48 信道，WPA2 加密），设备与手机直接相连、无需经过路由器，实测可稳定在 30 帧。"
+    },
+    {
+      "name": "guide_tcp_item2_title",
+      "value": "手机不要同时连其他 Wi-Fi"
+    },
+    {
+      "name": "guide_tcp_item2_body",
+      "value": "手机开着专用热点又连着别的 Wi-Fi 时，无线芯片要在两个信道间来回切换，会周期性掉帧、断音。WLAN 本身要保持打开（关闭 WLAN 会让专用热点一起消失）。"
+    },
+    {
+      "name": "guide_tcp_tip",
+      "value": "用路由器时尽量让手机和设备都连 5 GHz，并避免访客网络（通常会隔离设备，导致发现不了）。"
+    },
+    {
+      "name": "guide_usb_title",
+      "value": "USB（数据线直连）"
+    },
+    {
+      "name": "guide_usb_intro",
+      "value": "本机作为 USB 主机直接读取设备的串流数据，不受 Wi-Fi 干扰，延迟更稳定。"
+    },
+    {
+      "name": "guide_usb_step1",
+      "value": "设备上 SysDVR 设为 USB 模式，使用掌机模式（不插底座）"
+    },
+    {
+      "name": "guide_usb_step2",
+      "value": "用 OTG 转接头（手机端 C 公 → A 母）加 USB-A 转 C 数据线，把设备底部的 USB-C 口连到手机"
+    },
+    {
+      "name": "guide_usb_step3",
+      "value": "本应用选择“USB”，页面底部检测到设备后点“连接”，在系统弹窗里允许访问该 USB 设备"
+    },
+    {
+      "name": "guide_usb_step4",
+      "value": "可以先点“读取设备信息”确认 SysDVR 版本、协议和传输方式"
+    },
+    {
+      "name": "guide_usb_item1_title",
+      "value": "检测不到设备"
+    },
+    {
+      "name": "guide_usb_item1_body",
+      "value": "用 C-C 数据线直连时，手机会被协商成 USB 从设备（设备当主机），App 看不到任何外接设备；之后即使变成手机给设备供电，数据角色也不会变。请换用 OTG 转接头（手机端 C 公 → A 母）加 USB-A 转 C 数据线，让手机成为 USB 主机。USB 卡片里的“诊断信息”可以看到系统识别到的外接设备。"
+    },
+    {
+      "name": "guide_usb_item2_title",
+      "value": "传输方式"
+    },
+    {
+      "name": "guide_usb_item2_body",
+      "value": "优先直接读写 USB 设备节点（性能更好）；如果系统不允许，会自动改用系统 USB 服务的兼容传输，功能相同，CPU 占用略高。"
+    },
+    {
+      "name": "guide_usb_tip",
+      "value": "USB 连接时手机会给设备供电，注意手机电量。"
+    },
+    {
+      "name": "guide_rtsp_title",
+      "value": "RTSP（通用协议）"
+    },
+    {
+      "name": "guide_rtsp_intro",
+      "value": "设备上开一个标准 RTSP 服务（rtsp://IP:6666/），本应用用 ijkplayer 播放。兼容性好，但没有 NAL 重放、更费带宽，延迟略高。"
+    },
+    {
+      "name": "guide_rtsp_step1",
+      "value": "设备上 SysDVR 设为 RTSP 模式，在 SysDVR Settings 里记下设备的 IP"
+    },
+    {
+      "name": "guide_rtsp_step2",
+      "value": "本应用选择“RTSP”，在页面底部输入 IP 后点“连接”；连不上时先点“检测连接”看原因"
+    },
+    {
+      "name": "guide_rtsp_item1_title",
+      "value": "与其他模式的差异"
+    },
+    {
+      "name": "guide_rtsp_item1_body",
+      "value": "RTSP 模式下设备不发送广播，只能手动填 IP；平滑模式、后台保持、关闭设备屏幕不可用；切到后台会暂停，回到前台自动重连。"
+    },
+    {
+      "name": "guide_rtsp_item2_title",
+      "value": "一直显示“正在连接”或“连接中断”"
+    },
+    {
+      "name": "guide_rtsp_item2_body",
+      "value": "SysDVR 的 RTSP 服务一次只接受一个连接，上一个连接没有正常结束时会卡住、拒绝新连接。在设备上重新启动游戏（或在 SysDVR Settings 里重新应用 RTSP 模式）即可恢复。“检测连接”会正常结束会话，不会造成卡住。"
+    },
+    {
+      "name": "guide_rtsp_tip",
+      "value": "没有特殊需要时建议用 TCP Bridge：同样的网络条件下更流畅、更省带宽。"
+    },
+    {
+      "name": "guide_opt_title",
+      "value": "选项说明"
+    },
+    {
+      "name": "guide_opt_intro",
+      "value": "所有选项在「配置」页设置，标签注明了适用的模式；播放中也可以点画面右上角“设置”即时修改。"
+    },
+    {
+      "name": "guide_opt_audio_title",
+      "value": "播放声音"
+    },
+    {
+      "name": "guide_opt_audio_body",
+      "value": "TCP Bridge 下关闭后设备停发音频，省约 1.5 Mbps，网络差时画面更流畅；USB、RTSP 下只是本地静音。"
+    },
+    {
+      "name": "guide_opt_smooth_title",
+      "value": "平滑模式"
+    },
+    {
+      "name": "guide_opt_smooth_body",
+      "value": "网络抖动时用少量缓冲换流畅度。关闭：不额外缓冲，延迟更低；延迟优先：缓冲 ≤80ms，适合自己玩、动作游戏；流畅优先：缓冲 ≤300ms，更流畅，适合看剧情、直播。默认开启“延迟优先”；玩音游、格斗游戏想要延迟更低可以关掉，还卡可以换“流畅优先”。缓冲按实际抖动自动调整，声音会跟着对齐。"
+    },
+    {
+      "name": "guide_opt_net_title",
+      "value": "网络优化"
+    },
+    {
+      "name": "guide_opt_net_body",
+      "value": "开启 TCP 快速确认，并通过华为网络加速把串流声明为“实时游戏”、连接设为高优先级。仅 TCP Bridge。"
+    },
+    {
+      "name": "guide_opt_hotspot_title",
+      "value": "设备专用热点"
+    },
+    {
+      "name": "guide_opt_hotspot_body",
+      "value": "一键创建设备能识别的 5 GHz 热点。打开后点“热点配置”可以查看、自定义网络名和密码（会记住，设备连过一次后下次自动连上），还可以设置打开 App 时自动开启热点。"
+    },
+    {
+      "name": "guide_opt_screen_title",
+      "value": "串流时关闭设备屏幕"
+    },
+    {
+      "name": "guide_opt_screen_body",
+      "value": "串流期间关闭设备屏幕，省电、减少发热，断开后自动恢复。需要 SysDVR 6.0 以上（协议 03）。"
+    },
+    {
+      "name": "guide_opt_keep_title",
+      "value": "切到后台后保持连接"
+    },
+    {
+      "name": "guide_opt_keep_body",
+      "value": "切到后台时继续接收但不渲染，通知栏显示实况窗（左滑删除即停止）；回到前台秒级恢复画面。到达设定时长后自动断开。"
+    },
+    {
+      "name": "guide_opt_stats_title",
+      "value": "显示统计信息"
+    },
+    {
+      "name": "guide_opt_stats_body",
+      "value": "显示收到/显示的帧率、码率、丢帧、音频缓冲和欠载次数（默认关闭）。“收”低于 30 说明瓶颈在网络；“收”正常而“显”偏低说明瓶颈在本机；两者都是 0 说明设备端没发出画面（例如游戏不允许录制）。"
+    },
+    {
+      "name": "guide_opt_lock_title",
+      "value": "播放页锁定"
+    },
+    {
+      "name": "guide_opt_lock_body",
+      "value": "横屏播放时点一下画面显示或隐藏按钮；点左侧的锁形图标锁定屏幕，锁定后只显示锁形图标，返回手势和误触都不会断开，再点锁形图标解锁。"
+    },
+    {
+      "name": "guide_opt_dark_title",
+      "value": "深色模式"
+    },
+    {
+      "name": "guide_opt_dark_body",
+      "value": "在「配置 → 其他设置」里可以跟随系统，也可以单独为本应用选择浅色或深色。"
+    },
+    {
+      "name": "guide_opt_lang_title",
+      "value": "界面语言"
+    },
+    {
+      "name": "guide_opt_lang_body",
+      "value": "在「配置 → 其他设置」里可以跟随系统，或选择简体中文、繁體中文、English。"
+    },
+    {
+      "name": "guide_faq_title",
+      "value": "常见问题"
+    },
+    {
+      "name": "guide_faq_q1",
+      "value": "连上了但是黑屏"
+    },
+    {
+      "name": "guide_faq_a1",
+      "value": "当前游戏或系统界面不允许录制，换一个游戏试试；或设备端模式与本应用选择的不一致。"
+    },
+    {
+      "name": "guide_faq_q2",
+      "value": "画面卡顿、帧率低"
+    },
+    {
+      "name": "guide_faq_a2",
+      "value": "先打开统计信息看“收”帧率：低于 30 说明网络不够，改用专用热点或 USB；关闭声音可以省带宽；偶尔掉帧可以把平滑模式换成“流畅优先”（默认是“延迟优先”）。"
+    },
+    {
+      "name": "guide_faq_q3",
+      "value": "声音断断续续"
+    },
+    {
+      "name": "guide_faq_a3",
+      "value": "通常是网络抖动。平滑模式（默认开启）会同时加大音频缓冲，还断断续续可以换“流畅优先”；或者关闭声音只看画面。"
+    },
+    {
+      "name": "guide_faq_q4",
+      "value": "找不到设备"
+    },
+    {
+      "name": "guide_faq_a4",
+      "value": "确认设备与手机在同一网络、没有连访客网络；也可以直接输入设备的 IP（设备设置 → 互联网 → 连接状态里能看到）。"
+    },
+    {
+      "name": "guide_faq_q5",
+      "value": "关闭手机 WLAN 后断开了"
+    },
+    {
+      "name": "guide_faq_a5",
+      "value": "专用热点依赖 WLAN，关闭 WLAN 会连带关闭热点，属于正常现象。"
+    },
+    {
+      "name": "guide_opt_freeze_title",
+      "value": "丢帧时定格画面"
+    },
+    {
+      "name": "guide_opt_freeze_body",
+      "value": "网络一卡，设备端来不及发出的帧会被丢掉，之后的画面缺了参考帧就会花屏，一直到下一个关键帧。打开后（默认开），发现丢帧就停在最后一帧完好的画面，等关键帧到了再继续，把花屏变成一次短暂定格；如果 3 秒内还等不到关键帧就照常播放。关闭则不做处理，画面不停但可能花屏。统计信息里的“丢帧”“定格”一行可以看到发生了多少次。"
+    },
+    {
+      "name": "guide_opt_enhance_title",
+      "value": "画质增强"
+    },
+    {
+      "name": "guide_opt_enhance_body",
+      "value": "设备输出 720p，屏幕分辨率越高，直接拉伸越显得发虚。打开后用系统的视频细节增强把画面放大到屏幕上实际显示的分辨率并增强细节，平板和 PC 等大屏上提升明显。“标准”速度快、延迟低；“高”效果更好，但每帧处理更久、更耗电。播放中切换时画面会刷新一次。部分设备（例如模拟器）不支持，会自动改为直出并提示原因。"
+    }
+  ]
+}

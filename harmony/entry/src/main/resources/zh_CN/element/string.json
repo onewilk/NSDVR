@@ -1,0 +1,20 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "NSDVR：游戏画面串流客户端"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "通过 TCP Bridge、USB 或 RTSP 接收 SysDVR 的游戏画面"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "NSDVR"
+    },
+    {
+      "name": "reason_keep_background",
+      "value": "切到后台时保持串流连接"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+# Builds an UNSIGNED NSDVR package on every push and pull request, and publishes it to a GitHub Release when a
+# v* tag is pushed. Users sign it with their own certificate to install it (see "Unsigned builds" in README.md).
+# AppGallery submissions are built and signed locally with DevEco Studio, not here; this workflow has no secrets.
+name: Build
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/tags/') }}
+
+jobs:
+  test:
+    name: Core tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resource check
+        run: python3 tools/i18n_check.py
+      # Unit tests + end-to-end against tools/mock_sysdvr.py. The experimental extension end-to-end test needs the
+      # hostmock from NSDVR-server and is skipped here.
+      - name: Protocol tests
+        run: sh tools/test_e2e.sh
+
+  build:
+    name: Unsigned HAP
+    # 24.04 on purpose: the compatibility libraries below are taken from this runner.
+    runs-on: ubuntu-24.04
+    # Community image with Huawei's Command Line Tools for HarmonyOS 26.0.0.851 (the same version as DevEco Studio
+    # 26.0.0), from https://github.com/springtwr/harmonyos-clt. Pinned by digest so that a later push to the image
+    # cannot change our builds. This job only has a read-only token; publishing happens in the release job.
+    container:
+      image: ghcr.io/springtwr/harmonyos-clt@sha256:336a4fff8d14f9e8d00bf3908986a513771f6155528f2814ad5963020982e5a0
+      volumes:
+        - /usr/lib/x86_64-linux-gnu:/host-lib:ro
+    env:
+      DEVECO_SDK_HOME: /opt/command-line-tools/sdk
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Version
+        id: version
+        run: |
+          version=$(sed -n 's/.*"versionName": *"\([^"]*\)".*/\1/p' harmony/AppScope/app.json5)
+          code=$(sed -n 's/.*"versionCode": *\([0-9]*\).*/\1/p' harmony/AppScope/app.json5)
+          [ -n "$version" ] && [ -n "$code" ] || { echo "::error::versionName/versionCode not found in app.json5"; exit 1; }
+          if [ "${GITHUB_REF_TYPE}" = "tag" ] && [ "${GITHUB_REF_NAME}" != "v${version}" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match versionName ${version} in harmony/AppScope/app.json5"
+            exit 1
+          fi
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          echo "NSDVR ${version} (versionCode ${code})"
+
+      # The SDK's BiSheng linker (ld.lld) needs libxml2.so.2, which the image's Ubuntu 26.04 no longer provides.
+      # Copy it and its ICU libraries from the Ubuntu 24.04 runner into a separate directory used only for the build.
+      # Reported upstream: https://github.com/springtwr/harmonyos-clt/issues/1 (drop this step once the image is fixed).
+      - name: Linker compatibility libraries
+        run: |
+          mkdir -p /opt/compat-lib
+          for l in libxml2.so.2 libicuuc.so.74 libicudata.so.74; do cp -L "/host-lib/$l" /opt/compat-lib/; done
+          export LD_LIBRARY_PATH=/opt/compat-lib
+          bin=/opt/command-line-tools/sdk/default/hms/native/BiSheng/bin
+          if ldd "$bin/clang" "$bin/ld.lld" | grep "not found"; then echo "::error::BiSheng still misses libraries"; exit 1; fi
+          echo "LD_LIBRARY_PATH=/opt/compat-lib" >> "$GITHUB_ENV"
+
+      - name: Install dependencies
+        working-directory: harmony
+        run: ohpm install --all
+
+      # The committed build-profile.json5 has no signing configs, so hvigor produces unsigned packages
+      # (release product: arm64-v8a only, optimized).
+      - name: Build
+        working-directory: harmony
+        run: hvigorw assembleApp --mode project -p product=release -p buildMode=release --no-daemon
+
+      - name: Collect
+        run: |
+          mkdir dist
+          cp harmony/entry/build/release/outputs/default/entry-default-unsigned.hap \
+            "dist/NSDVR-${{ steps.version.outputs.version }}-unsigned.hap"
+          cd dist && sha256sum -- * > SHA256SUMS.txt && cat SHA256SUMS.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NSDVR-${{ steps.version.outputs.version }}-unsigned
+          path: dist/
+          if-no-files-found: error
+
+  release:
+    name: GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [test, build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: NSDVR-${{ needs.build.outputs.version }}-unsigned
+          path: dist
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.build.outputs.version }}
+        run: |
+          {
+            echo "Unsigned build of NSDVR ${VERSION}, built by GitHub Actions from ${GITHUB_SHA}."
+            echo
+            echo "It must be signed with your own certificate before it can be installed. See"
+            echo "[Unsigned builds](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/README.md#unsigned-builds)."
+            echo "The AppGallery version is built and signed separately."
+            echo
+            echo '```'
+            cat dist/SHA256SUMS.txt
+            echo '```'
+          } > notes.md
+          gh release create "${GITHUB_REF_NAME}" dist/* --repo "${GITHUB_REPOSITORY}" \
+            --title "NSDVR ${VERSION}" --notes-file notes.md

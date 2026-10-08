@@ -1,0 +1,196 @@
+{
+  "string": [
+    {
+      "name": "ext_card_title",
+      "value": "实验功能"
+    },
+    {
+      "name": "ext_card_subtitle",
+      "value": "需要服务端支持；播放中也可以在快捷设置里调整，即时生效，无需重新连接"
+    },
+    {
+      "name": "ext_codec",
+      "value": "音频编码"
+    },
+    {
+      "name": "ext_codec_desc",
+      "value": "压缩音频可节省 Wi-Fi 带宽：PCM 约 1.5 Mbps，24 kHz 约 0.77 Mbps，ADPCM 约 0.38 Mbps，Opus 按所选码率"
+    },
+    {
+      "name": "ext_codec_pcm",
+      "value": "PCM（原始）"
+    },
+    {
+      "name": "ext_codec_24k",
+      "value": "PCM 24 kHz"
+    },
+    {
+      "name": "ext_opus_kbps",
+      "value": "Opus 码率"
+    },
+    {
+      "name": "ext_opus_kbps_desc",
+      "value": "码率越高音质越好，占用带宽也越多"
+    },
+    {
+      "name": "ext_opus_complexity",
+      "value": "Opus 复杂度"
+    },
+    {
+      "name": "ext_opus_complexity_desc",
+      "value": "越高音质越好，游戏机编码耗时也越多"
+    },
+    {
+      "name": "ext_opus_frame",
+      "value": "Opus 帧长"
+    },
+    {
+      "name": "ext_opus_frame_desc",
+      "value": "10 ms 延迟更低，码率开销略大"
+    },
+    {
+      "name": "ext_kbps_value",
+      "value": "%d kbps"
+    },
+    {
+      "name": "ext_ms_value",
+      "value": "%d ms"
+    },
+    {
+      "name": "ext_combo_opus",
+      "value": "Opus %d kbps · 复杂度 %d · %d ms"
+    },
+    {
+      "name": "ext_rotate",
+      "value": "自动轮换对比"
+    },
+    {
+      "name": "ext_rotate_desc",
+      "value": "播放时按下面的组合依次切换并循环，统计浮层和 stats.csv 按组合记录"
+    },
+    {
+      "name": "ext_rotate_duration",
+      "value": "每组时长"
+    },
+    {
+      "name": "ext_rotate_plan",
+      "value": "轮换组合（%d 组）"
+    },
+    {
+      "name": "ext_rotate_empty",
+      "value": "还没有组合"
+    },
+    {
+      "name": "ext_rotate_add",
+      "value": "加入当前设置"
+    },
+    {
+      "name": "ext_rotate_reset",
+      "value": "恢复默认组合"
+    },
+    {
+      "name": "ext_rotate_remove",
+      "value": "删除这一组"
+    },
+    {
+      "name": "ext_rotate_exists",
+      "value": "列表里已有这一组"
+    },
+    {
+      "name": "ext_rotate_need_two",
+      "value": "至少需要两组才能轮换"
+    },
+    {
+      "name": "ext_dev_row",
+      "value": "开发者选项"
+    },
+    {
+      "name": "ext_dev_row_desc",
+      "value": "服务端不支持时也显示实验功能，方便查看界面"
+    },
+    {
+      "name": "ext_dev_on",
+      "value": "开发者选项已开启"
+    },
+    {
+      "name": "ext_dev_off",
+      "value": "开发者选项已关闭"
+    },
+    {
+      "name": "ext_dev_taps",
+      "value": "再点 %d 次开启开发者选项"
+    },
+    {
+      "name": "ext_dev_taps_off",
+      "value": "再点 %d 次关闭开发者选项"
+    },
+    {
+      "name": "ext_unsupported",
+      "value": "当前服务端不支持"
+    },
+    {
+      "name": "ext_quick_codec_desc",
+      "value": "即时切换，不断开连接"
+    },
+    {
+      "name": "ext_quick_rotating",
+      "value": "自动轮换中"
+    },
+    {
+      "name": "ext_quick_rotate_desc",
+      "value": "按配置页的组合每 %d 分钟切换一次"
+    },
+    {
+      "name": "ext_quick_rotate_state",
+      "value": "第 %d/%d 组 · 剩余 %s"
+    },
+    {
+      "name": "ext_stats_audio",
+      "value": "音频编码 %s · 实际 %d kbps · 游戏机编码占实时 %s"
+    },
+    {
+      "name": "ext_stats_pending",
+      "value": "（切换中）"
+    },
+    {
+      "name": "ext_stats_not_applied",
+      "value": "（服务端未采用请求的编码）"
+    },
+    {
+      "name": "ext_stats_dec_err",
+      "value": " · 解码错误 %d"
+    },
+    {
+      "name": "ext_stats_send",
+      "value": "游戏机发送 阻塞 %s ms/s（单次峰值 %s ms）· 超 20 ms %d 次（累计 %d）· grc 断档 %d（累计 %d，其中发送慢 %d）"
+    },
+    {
+      "name": "ext_stats_cpu",
+      "value": "游戏机 3 号核心空闲 %s · SysDVR CPU %s · TOS 视频 %s 音频 %s"
+    },
+    {
+      "name": "ext_stats_rotate",
+      "value": "自动轮换 第 %d/%d 组（%s）· 剩余 %s"
+    },
+    {
+      "name": "ext_stats_unsupported",
+      "value": "实验功能：当前服务端不支持"
+    },
+    {
+      "name": "about_lic_opus_note",
+      "value": "音频解码（libopus）"
+    },
+    {
+      "name": "about_lic_view",
+      "value": "查看完整许可"
+    },
+    {
+      "name": "about_lic_sheet_title",
+      "value": "%s 许可"
+    },
+    {
+      "name": "about_lic_load_failed",
+      "value": "无法读取许可全文"
+    }
+  ]
+}

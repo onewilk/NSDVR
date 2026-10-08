@@ -1,0 +1,432 @@
+{
+  "string": [
+    {
+      "name": "app_scope_not_rtsp",
+      "value": "Not for RTSP"
+    },
+    {
+      "name": "app_scope_tcp_only",
+      "value": "TCP Bridge only"
+    },
+    {
+      "name": "app_mode_tcp_sub",
+      "value": "Wi-Fi"
+    },
+    {
+      "name": "app_mode_tcp_desc",
+      "value": "Auto discovery, low bandwidth and latency"
+    },
+    {
+      "name": "app_mode_usb_sub",
+      "value": "USB cable"
+    },
+    {
+      "name": "app_mode_usb_desc",
+      "value": "No wireless interference, more stable"
+    },
+    {
+      "name": "app_mode_rtsp_sub",
+      "value": "Standard protocol"
+    },
+    {
+      "name": "app_mode_rtsp_desc",
+      "value": "Broad compatibility"
+    },
+    {
+      "name": "app_tip_usb",
+      "value": "Requires SysDVR in USB mode, in handheld mode (not docked). Connect with an OTG adapter (USB-C male → USB-A female on this device) plus a USB-A to USB-C cable. With a C-to-C cable the phone becomes the USB device and cannot see the console."
+    },
+    {
+      "name": "app_tip_rtsp",
+      "value": "RTSP is broadly compatible, but has no NAL replay and uses more bandwidth; smoothing and background keep-alive are unavailable. If it won't connect, tap “Test connection” or restart the game."
+    },
+    {
+      "name": "app_tip_tcp",
+      "value": "Recommended: turn on the device hotspot in Settings so the console connects directly to your phone (5 GHz). Keep WLAN on, but don't join another Wi-Fi network."
+    },
+    {
+      "name": "app_off",
+      "value": "Off"
+    },
+    {
+      "name": "app_smooth_latency",
+      "value": "Low latency"
+    },
+    {
+      "name": "app_smooth_fluent",
+      "value": "Smoothness"
+    },
+    {
+      "name": "app_minutes",
+      "value": "%d min"
+    },
+    {
+      "name": "app_hours",
+      "value": "%d h"
+    },
+    {
+      "name": "app_tab_stream",
+      "value": "Stream"
+    },
+    {
+      "name": "app_tab_settings",
+      "value": "Settings"
+    },
+    {
+      "name": "app_tab_about",
+      "value": "About"
+    },
+    {
+      "name": "app_toast_locked",
+      "value": "Screen locked. Tap the lock icon to unlock."
+    },
+    {
+      "name": "app_connecting",
+      "value": "Connecting to %s…"
+    },
+    {
+      "name": "app_toast_usb_detached",
+      "value": "USB device disconnected"
+    },
+    {
+      "name": "app_toast_keepalive_unavailable",
+      "value": "Background keep-alive unavailable (%s). Leaving the app will disconnect."
+    },
+    {
+      "name": "app_toast_start_failed",
+      "value": "Failed to start: %s"
+    },
+    {
+      "name": "app_toast_keepalive_off",
+      "value": "Background keep-alive is off. Leaving the app will disconnect."
+    },
+    {
+      "name": "app_toast_resume_failed",
+      "value": "Failed to restore video: %s"
+    },
+    {
+      "name": "app_live_receiving",
+      "value": "Receiving in background"
+    },
+    {
+      "name": "app_live_reconnecting",
+      "value": "Reconnecting"
+    },
+    {
+      "name": "app_live_title_bg",
+      "value": "%s is staying connected"
+    },
+    {
+      "name": "app_live_text_bg",
+      "value": "%s · %s · %s MB received · disconnects in %s"
+    },
+    {
+      "name": "app_live_title_fg",
+      "value": "%s is streaming"
+    },
+    {
+      "name": "app_live_text_fg",
+      "value": "%s · playing"
+    },
+    {
+      "name": "app_live_btn_open",
+      "value": "Back to stream"
+    },
+    {
+      "name": "app_live_btn_stop",
+      "value": "Stop streaming"
+    },
+    {
+      "name": "app_stats_video",
+      "value": "Video %s  received %d / displayed %d fps · %d kbps · dropped %d"
+    },
+    {
+      "name": "app_stats_smooth",
+      "value": " · smoothing (%s) %d ms (late %d)"
+    },
+    {
+      "name": "app_stats_audio_off_tcp",
+      "value": "Audio off (not received, saves ~1.5 Mbps)"
+    },
+    {
+      "name": "app_stats_audio_off",
+      "value": "Audio off (muted)"
+    },
+    {
+      "name": "app_stats_audio",
+      "value": "Audio %s  buffer %d / target %d ms · underruns %d · %s path"
+    },
+    {
+      "name": "app_stats_audio_fast",
+      "value": "low-latency"
+    },
+    {
+      "name": "app_stats_audio_normal",
+      "value": "normal"
+    },
+    {
+      "name": "app_stats_link_network",
+      "value": "Network"
+    },
+    {
+      "name": "app_stats_net",
+      "value": "%s %s Mbps · replay hits %d · resyncs %d · reconnects %d"
+    },
+    {
+      "name": "app_stats_netopt_on",
+      "value": "Network optimization on (quick ACK · boost: %s)"
+    },
+    {
+      "name": "app_stats_netopt_off",
+      "value": "Network optimization off"
+    },
+    {
+      "name": "app_stats_transport",
+      "value": "Transport: %s"
+    },
+    {
+      "name": "app_stats_gop",
+      "value": "GOP cache %d packets / %d KB · last catch-up %s"
+    },
+    {
+      "name": "app_stats_decoder_hw",
+      "value": "HW decode"
+    },
+    {
+      "name": "app_stats_decoder_sw",
+      "value": "SW decode"
+    },
+    {
+      "name": "app_stats_rtsp_video",
+      "value": "Video %s  decoded %s / displayed %s fps · %d kbps · %s"
+    },
+    {
+      "name": "app_stats_rtsp_buffer",
+      "value": "Buffer video %d ms / audio %d ms · drop rate %s"
+    },
+    {
+      "name": "app_stats_rtsp_misc",
+      "value": "Audio %s · reconnects %d · player ijkplayer (RTP over TCP)"
+    },
+    {
+      "name": "app_on",
+      "value": "on"
+    },
+    {
+      "name": "app_muted",
+      "value": "muted"
+    },
+    {
+      "name": "app_guide_title",
+      "value": "User guide"
+    },
+    {
+      "name": "app_lock_screen",
+      "value": "Lock screen"
+    },
+    {
+      "name": "app_unlock_screen",
+      "value": "Unlock screen"
+    },
+    {
+      "name": "app_btn_settings",
+      "value": "Settings"
+    },
+    {
+      "name": "app_btn_disconnect",
+      "value": "Disconnect"
+    },
+    {
+      "name": "app_quick_title",
+      "value": "Quick settings (applied instantly)"
+    },
+    {
+      "name": "app_quick_audio",
+      "value": "Play audio"
+    },
+    {
+      "name": "app_quick_audio_desc_tcp",
+      "value": "When off, no audio is sent (saves ~1.5 Mbps)"
+    },
+    {
+      "name": "app_quick_smooth",
+      "value": "Smoothing"
+    },
+    {
+      "name": "app_quick_smooth_desc",
+      "value": "Low latency ≤80 ms for playing; Smoothness ≤300 ms for watching"
+    },
+    {
+      "name": "app_quick_netopt",
+      "value": "Network optimization"
+    },
+    {
+      "name": "app_quick_netopt_desc",
+      "value": "Quick ACK + Huawei network boost; toggle to compare"
+    },
+    {
+      "name": "app_quick_stats",
+      "value": "Show statistics"
+    },
+    {
+      "name": "app_quick_keepalive",
+      "value": "Keep alive in background"
+    },
+    {
+      "name": "app_boost_off",
+      "value": "not enabled"
+    },
+    {
+      "name": "app_boost_old",
+      "value": "not supported on this system version"
+    },
+    {
+      "name": "app_boost_scene",
+      "value": "real-time gaming scene declared"
+    },
+    {
+      "name": "app_boost_unavailable",
+      "value": "unavailable (%d)"
+    },
+    {
+      "name": "app_boost_flow_failed",
+      "value": "flow marking failed (%d)"
+    },
+    {
+      "name": "app_boost_flows",
+      "value": "%d connections marked high priority"
+    },
+    {
+      "name": "app_cfg_title",
+      "value": "Settings"
+    },
+    {
+      "name": "app_cfg_subtitle",
+      "value": "Hotspot, streaming options and appearance"
+    },
+    {
+      "name": "app_other_title",
+      "value": "Other settings"
+    },
+    {
+      "name": "app_dark_follow",
+      "value": "Follow system dark mode"
+    },
+    {
+      "name": "app_dark_follow_desc",
+      "value": "Turn off to pick light or dark just for this app"
+    },
+    {
+      "name": "app_dark",
+      "value": "Dark mode"
+    },
+    {
+      "name": "app_dark_desc_follow",
+      "value": "Following the system"
+    },
+    {
+      "name": "app_dark_desc_app",
+      "value": "Applies to this app only"
+    },
+    {
+      "name": "app_language",
+      "value": "Language"
+    },
+    {
+      "name": "app_language_desc",
+      "value": "The interface refreshes right away"
+    },
+    {
+      "name": "app_lang_system",
+      "value": "Follow system"
+    },
+    {
+      "name": "app_tip_tcp_nohotspot",
+      "value": "Connect the console and this device to the same 5 GHz network and avoid guest networks; a stronger signal means smoother streaming."
+    },
+    {
+      "name": "app_tip_usb_pc",
+      "value": "Requires SysDVR in USB mode, in handheld mode (not docked). Connect the console's bottom USB-C port to a USB port on this computer."
+    },
+    {
+      "name": "app_enhance_standard",
+      "value": "Standard"
+    },
+    {
+      "name": "app_enhance_high",
+      "value": "High"
+    },
+    {
+      "name": "app_quick_freeze",
+      "value": "Freeze on loss"
+    },
+    {
+      "name": "app_quick_freeze_desc",
+      "value": "Hold the last good frame until a keyframe"
+    },
+    {
+      "name": "app_quick_enhance",
+      "value": "Enhancement"
+    },
+    {
+      "name": "app_quick_enhance_desc",
+      "value": "Upscales 720p to the screen; the picture refreshes once when toggled"
+    },
+    {
+      "name": "app_toast_enhance_unavailable",
+      "value": "Picture enhancement is off: %s"
+    },
+    {
+      "name": "app_stats_loss",
+      "value": "Loss %d events (~%d frames) · gaps %d / error packets %d / cache misses %d / resyncs %d / oversize %d"
+    },
+    {
+      "name": "app_stats_freeze",
+      "value": "\nFreezes %d · total %s s · last %s · timed out %d%s"
+    },
+    {
+      "name": "app_stats_frozen_now",
+      "value": " (frozen)"
+    },
+    {
+      "name": "app_stats_freeze_off",
+      "value": "\nFreeze on loss is off"
+    },
+    {
+      "name": "app_stats_intervals",
+      "value": " · frame interval %s ms · keyframe interval %s"
+    },
+    {
+      "name": "app_stats_render",
+      "value": "Display %d Hz · deferred %d / skipped %d · stutters %d · jitter %s ms · longest gap %d ms"
+    },
+    {
+      "name": "app_stats_enhance_on",
+      "value": "Enhancement: %s · processing %s ms"
+    },
+    {
+      "name": "app_stats_enhance_off",
+      "value": "Enhancement not active: %s"
+    },
+    {
+      "name": "app_stats_channel_only",
+      "value": "Hotspot channel %d"
+    },
+    {
+      "name": "app_stats_channel_same",
+      "value": "Hotspot channel %d · phone WLAN on the same channel"
+    },
+    {
+      "name": "app_stats_channel_diff",
+      "value": "Hotspot channel %d · phone WLAN channel %d (different channels cause periodic drops)"
+    },
+    {
+      "name": "app_stats_mem",
+      "value": "Console memory: system pool %s MB free of %s MB (applet pool %s / %s MB free)"
+    },
+    {
+      "name": "app_stats_mem_none",
+      "value": "Console memory: not provided (older SysDVR or not protocol 03)"
+    }
+  ]
+}
