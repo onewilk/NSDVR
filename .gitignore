@@ -24,3 +24,4 @@ __pycache__/
 
 # 依赖安装目录
 oh_modules/
+.hvigor/
