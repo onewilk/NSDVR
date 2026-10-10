@@ -5,25 +5,26 @@ import { KeyCode } from '@kit.InputKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { HdsTabs, hdsMaterial } from '@kit.UIDesignKit';
 import sysdvr from 'libentry.so';
-import { ConnectConfig, SessionStats } from 'libentry.so';
+import { ConnectConfig, DeviceInfo, SessionStats } from 'libentry.so';
 import { BackgroundKeeper } from '../common/BackgroundKeeper';
 import {
   AudioCombo, codecLabels, comboLabel, comboTag, currentCombo, DEFAULT_ROTATE_PLAN, ExtCodec, ExtRotation, isExtHost,
   OPUS_COMPLEXITY_OPTIONS, OPUS_FRAME_OPTIONS, OPUS_KBPS_OPTIONS, parsePlan, rememberExtHost, ROTATE_MINUTES
 } from '../common/ExtAudio';
 import { HotspotService } from '../common/HotspotService';
+import { SHORTCUT_HOTSPOT_CONNECT, SHORTCUT_KEY, shortcutAction } from '../common/LaunchShortcut';
 import { NetBooster } from '../common/NetBooster';
 import { NetQualityWatcher } from '../common/NetQuality';
 import { PipSession } from '../common/PipSession';
 import {
-  APP_NAME, Breakpoint, breakpointOf, enhanceLabels, formatDuration, KEEP_ALIVE_MINUTES, keepAliveLabels,
-  smoothLabels, StreamMode, supportsEnhance, supportsFreeze, supportsKeepAlive, supportsNetOpt, supportsSmooth
+  APP_NAME, Breakpoint, breakpointOf, enhanceLabels, formatDuration, hotspotSupported, KEEP_ALIVE_MINUTES,
+  keepAliveLabels, smoothLabels, StreamMode, supportsEnhance, supportsFreeze, supportsKeepAlive, supportsNetOpt, supportsSmooth
 } from '../common/Prefs';
 import { languageSignature, tr, uiLanguageIndex } from '../common/I18n';
-import { RtspPlayer } from '../common/RtspPlayer';
 import { StatsRecorder } from '../common/StatsRecorder';
 import { StreamTarget } from '../common/StreamTarget';
-import { rememberHost } from '../common/RecentHosts';
+import { lastRecentHost, RecentHost, rememberHost } from '../common/RecentHosts';
+import { RtspPlayer } from '../common/RtspPlayer';
 import { applyColorMode } from '../common/Theme';
 import { UsbLog, UsbPump, UsbSwitch, UsbWatcher } from '../common/UsbSwitch';
 import { AboutView } from '../views/AboutView';
@@ -44,6 +45,8 @@ const LOCK_HINT_MS = 3000;
 const PIP_WAIT_MS = 1000;
 // 小窗关闭后等一下再按切后台处理：用户也可能是点了桌面图标回到 App
 const PIP_CLOSED_GRACE_MS = 500;
+// “热点+连接”快捷方式：开启专用热点后最多等游戏机多久
+const SHORTCUT_WAIT_MS = 90000;
 // 播放时请求的屏幕刷新率：画面最高 30 帧，60Hz 每帧占两个刷新周期，上屏节奏不受网络抖动影响
 const PLAYBACK_REFRESH_HZ = 60;
 // 切换语言重建首页时，要回到的页签（-1 = 无）
@@ -87,6 +90,10 @@ struct Index {
   @StorageLink('sysdvr.colorMode') colorMode: number = -1;
   // 界面语言变了就加一（键名同 I18n.LANGUAGE_EPOCH_KEY）：tr() 取的是普通字符串，要重建页面才会换成新语言
   @StorageProp('ui.langEpoch') @Watch('onLanguageChanged') langEpoch: number = 0;
+  // 桌面快捷方式（见 LaunchShortcut.ets）
+  @StorageProp(SHORTCUT_KEY) @Watch('onShortcut') shortcut: string = '';
+  private handledShortcut: string = '';
+  private shortcutTimer: number = -1;
   // 本页面建立时资源用的语言（见 languageSignature）；语言真的变了才重建
   private builtLanguage: string = '';
   private languageTimer: number = -1;
@@ -220,6 +227,12 @@ struct Index {
     }
     // 专用热点：同步系统里仍在运行的热点，按设置自动开启
     HotspotService.get().init();
+    if (this.shortcut.length > 0) {
+      // 从快捷方式冷启动：等首页建好再连接
+      setTimeout(() => {
+        this.onShortcut();
+      }, 300);
+    }
   }
 
   /** 底部导航栏会盖住内容的那段高度，各页面据此在底部留白 */
@@ -232,6 +245,7 @@ struct Index {
   }
 
   aboutToDisappear(): void {
+    this.cancelShortcutWait();
     if (this.languageTimer >= 0) {
       clearTimeout(this.languageTimer);
       this.languageTimer = -1;
@@ -282,6 +296,10 @@ struct Index {
 
   onPageHide(): void {
     this.pageHidden = true;
+    if (!this.playing) {
+      // 离开 App 就不再等游戏机连上热点（回来后用户自己点连接）
+      this.cancelShortcutWait();
+    }
     if (!this.playing || this.suppressPageHide) {
       return;
     }
@@ -414,6 +432,105 @@ struct Index {
       return true;
     }
     return false;
+  }
+
+  // ---------------------------------------------------------------- 桌面快捷方式
+
+  onShortcut(): void {
+    const raw = this.shortcut;
+    if (raw.length === 0 || raw === this.handledShortcut) {
+      return;
+    }
+    this.handledShortcut = raw;
+    // 已经在串流（或正在连接）：快捷方式只是把 App 带回前台
+    if (this.playing || this.connecting) {
+      return;
+    }
+    this.cancelShortcutWait();
+    const last = lastRecentHost();
+    if (last === null) {
+      promptAction.showToast({ message: tr('shortcut_no_recent') });
+      return;
+    }
+    // 回到串流页、切到上次的模式（TCP Bridge 下顺便打开局域网发现，等游戏机广播）
+    this.tab = 0;
+    this.navStack.clear();
+    AppStorage.set('sysdvr.mode', last.mode);
+    if (shortcutAction(raw) === SHORTCUT_HOTSPOT_CONNECT) {
+      if (hotspotSupported()) {
+        this.hotspotThenConnect(last);
+        return;
+      }
+      promptAction.showToast({ message: tr('shortcut_hotspot_unsupported') });
+    }
+    this.connectRecent(last, last.host, last.name);
+  }
+
+  // 和串流页“最近连接”卡片点“连接”一样
+  private connectRecent(h: RecentHost, host: string, name: string): void {
+    if (h.mode === StreamMode.RTSP) {
+      AppStorage.set('sysdvr.rtspHost', host);
+      this.play({ mode: StreamMode.RTSP, host: host, label: RtspPlayer.urlOf(host), usb: null, name: name });
+    } else {
+      AppStorage.set('sysdvr.lastHost', host);
+      this.play({ mode: StreamMode.TCP, host: host, label: host, usb: null, name: name });
+    }
+  }
+
+  // “热点+连接”：开启专用热点，等游戏机连上来再连接。TCP Bridge 看局域网广播（游戏机在热点上的 IP 不一定和上次一样）；
+  // RTSP 没有广播，等热点上有设备连上后连上次的地址
+  private async hotspotThenConnect(last: RecentHost): Promise<void> {
+    const hs = HotspotService.get();
+    if (!hs.isOn()) {
+      promptAction.showToast({ message: tr('shortcut_hotspot_starting') });
+      const err = await hs.start();
+      if (err.length > 0) {
+        promptAction.showToast({ message: tr('shortcut_hotspot_failed', err), duration: 4000 });
+        return;
+      }
+    }
+    promptAction.showToast({ message: tr('shortcut_waiting'), duration: 4000 });
+    const deadline = Date.now() + SHORTCUT_WAIT_MS;
+    this.shortcutTimer = setInterval(() => {
+      this.pollShortcutWait(last, deadline);
+    }, 1000);
+  }
+
+  private pollShortcutWait(last: RecentHost, deadline: number): void {
+    if (this.playing || this.connecting) {
+      // 用户等不及自己点了连接
+      this.cancelShortcutWait();
+      return;
+    }
+    const goIp = AppStorage.get<string>('hs.goIp') ?? '';
+    if (HotspotService.get().isOn() && goIp.length > 0) {
+      if (last.mode === StreamMode.TCP) {
+        const devices = sysdvr.getDevices();
+        const prefix = (ip: string): string => ip.split('.').slice(0, 3).join('.');
+        const pick = devices.find((d: DeviceInfo): boolean => d.ip === last.host) ??
+          devices.find((d: DeviceInfo): boolean => prefix(d.ip) === prefix(goIp));
+        if (pick !== undefined) {
+          this.cancelShortcutWait();
+          this.connectRecent(last, pick.ip, tr('connect_device_name', pick.version, pick.protocol));
+          return;
+        }
+      } else if ((AppStorage.get<number>('hs.clients') ?? 0) > 0) {
+        this.cancelShortcutWait();
+        this.connectRecent(last, last.host, last.name);
+        return;
+      }
+    }
+    if (Date.now() > deadline) {
+      this.cancelShortcutWait();
+      promptAction.showToast({ message: tr('shortcut_wait_timeout'), duration: 4000 });
+    }
+  }
+
+  private cancelShortcutWait(): void {
+    if (this.shortcutTimer >= 0) {
+      clearInterval(this.shortcutTimer);
+      this.shortcutTimer = -1;
+    }
   }
 
   // ---------------------------------------------------------------- 连接与播放

@@ -487,6 +487,38 @@
     {
       "name": "net_scene_unknown",
       "value": "未知"
+    },
+    {
+      "name": "shortcut_connect_last",
+      "value": "连接上次"
+    },
+    {
+      "name": "shortcut_hotspot_connect",
+      "value": "热点+连接"
+    },
+    {
+      "name": "shortcut_no_recent",
+      "value": "还没有连接记录，请先连接一次"
+    },
+    {
+      "name": "shortcut_hotspot_unsupported",
+      "value": "本机不支持专用热点，直接连接上次的设备"
+    },
+    {
+      "name": "shortcut_hotspot_starting",
+      "value": "正在开启专用热点…"
+    },
+    {
+      "name": "shortcut_hotspot_failed",
+      "value": "专用热点开启失败：%s"
+    },
+    {
+      "name": "shortcut_waiting",
+      "value": "专用热点已开启，等待游戏机连接…"
+    },
+    {
+      "name": "shortcut_wait_timeout",
+      "value": "没有等到游戏机，请确认游戏机已连上专用热点"
     }
   ]
 }

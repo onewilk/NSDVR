@@ -487,6 +487,38 @@
     {
       "name": "net_scene_unknown",
       "value": "unknown"
+    },
+    {
+      "name": "shortcut_connect_last",
+      "value": "Connect last"
+    },
+    {
+      "name": "shortcut_hotspot_connect",
+      "value": "Hotspot + connect"
+    },
+    {
+      "name": "shortcut_no_recent",
+      "value": "No recent connection yet. Connect once first."
+    },
+    {
+      "name": "shortcut_hotspot_unsupported",
+      "value": "This device can’t create the dedicated hotspot. Connecting to the last device directly."
+    },
+    {
+      "name": "shortcut_hotspot_starting",
+      "value": "Turning on the dedicated hotspot…"
+    },
+    {
+      "name": "shortcut_hotspot_failed",
+      "value": "Couldn’t turn on the dedicated hotspot: %s"
+    },
+    {
+      "name": "shortcut_waiting",
+      "value": "Hotspot is on. Waiting for the console to join…"
+    },
+    {
+      "name": "shortcut_wait_timeout",
+      "value": "The console didn’t show up. Make sure it has joined the dedicated hotspot."
     }
   ]
 }

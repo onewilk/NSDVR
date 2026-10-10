@@ -18,6 +18,13 @@
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
         "exported": true,
+        // 长按桌面图标的快捷方式：连接上次 / 热点+连接（见 resources/base/profile/shortcuts_config.json）
+        "metadata": [
+          {
+            "name": "ohos.ability.shortcuts",
+            "resource": "$profile:shortcuts_config"
+          }
+        ],
         // 切后台保持连接：数据传输类长时任务（系统实况窗显示进度）
         "backgroundModes": ["dataTransfer"],
         "skills": [

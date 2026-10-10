@@ -4,6 +4,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { HotspotService } from '../common/HotspotService';
 import { followSystemLanguageNow, followsSystemLanguage, initI18n, notifyLanguageChanged } from '../common/I18n';
+import { takeShortcut } from '../common/LaunchShortcut';
 import { updateSafeArea, updateSystemBarColors } from '../common/Theme';
 
 const DOMAIN = 0x5344;
@@ -22,6 +23,13 @@ export default class EntryAbility extends UIAbility {
     this.language = this.context.config.language ?? '';
     AppStorage.setOrCreate('ui.dark', this.context.config.colorMode === ConfigurationConstant.ColorMode.COLOR_MODE_DARK);
     this.watchSystemLocale();
+    // 从桌面快捷方式启动：首页建好后执行
+    takeShortcut(want, true);
+  }
+
+  onNewWant(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    // App 已在运行（包括在后台）时点了快捷方式
+    takeShortcut(want, false);
   }
 
   /**

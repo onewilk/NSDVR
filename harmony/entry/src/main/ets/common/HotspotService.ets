@@ -1,5 +1,6 @@
 import { promptAction } from '@kit.ArkUI';
 import { tr } from './I18n';
+import { NO_AUTO_HOTSPOT_KEY } from './LaunchShortcut';
 import { SwitchHotspot } from './SwitchHotspot';
 
 /**
@@ -62,8 +63,9 @@ AppStorage.setOrCreate('hs.detail', '');
 AppStorage.setOrCreate('hs.warn', '');
 AppStorage.setOrCreate('hs.channel', 0);
 AppStorage.setOrCreate('hs.staChannel', 0);
-// 专用热点（群组主）的 IP：判断游戏机是否连在热点上
+// 专用热点（群组主）的 IP：判断游戏机是否连在热点上；已连上的设备数
 AppStorage.setOrCreate('hs.goIp', '');
+AppStorage.setOrCreate('hs.clients', 0);
 
 export class HotspotService {
   private static instance: HotspotService | null = null;
@@ -94,7 +96,8 @@ export class HotspotService {
       this.publish();
       return;
     }
-    if (AppStorage.get<boolean>('sysdvr.hotspotAuto') === true) {
+    // 从“连接上次”快捷方式启动时不自动开启（用户要的就是不开热点直接连）
+    if (AppStorage.get<boolean>('sysdvr.hotspotAuto') === true && AppStorage.get<boolean>(NO_AUTO_HOTSPOT_KEY) !== true) {
       // 自动开启的结果要告诉用户：成功时卡片不一定在眼前，失败更要说明原因
       const err = await this.start();
       promptAction.showToast({
@@ -206,6 +209,7 @@ export class HotspotService {
     AppStorage.set('hs.channel', st.active ? st.channel : 0);
     AppStorage.set('hs.staChannel', st.staSsid.length > 0 ? st.staChannel : 0);
     AppStorage.set('hs.goIp', st.active ? st.goIp : '');
+    AppStorage.set('hs.clients', st.active ? st.clients : 0);
     if (!st.active) {
       AppStorage.set('hs.summary', st.message);
       AppStorage.set('hs.detail', '');

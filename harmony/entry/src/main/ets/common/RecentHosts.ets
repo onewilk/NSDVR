@@ -70,6 +70,12 @@ export function rememberHost(mode: StreamMode, host: string, name: string): void
   save([entry].concat(sameMode).concat(others));
 }
 
+/** 最近一次连上的设备（TCP Bridge 和 RTSP 里最新的一条），桌面快捷方式“连接上次”用 */
+export function lastRecentHost(): RecentHost | null {
+  const list = current().sort((a: RecentHost, b: RecentHost): number => b.at - a.at);
+  return list.length > 0 ? list[0] : null;
+}
+
 export function forgetHost(mode: number, host: string): void {
   save(current().filter((h: RecentHost): boolean => !(h.mode === mode && h.host === host)));
 }

@@ -487,6 +487,38 @@
     {
       "name": "net_scene_unknown",
       "value": "未知"
+    },
+    {
+      "name": "shortcut_connect_last",
+      "value": "連接上次"
+    },
+    {
+      "name": "shortcut_hotspot_connect",
+      "value": "熱點+連線"
+    },
+    {
+      "name": "shortcut_no_recent",
+      "value": "還沒有連線紀錄，請先連線一次"
+    },
+    {
+      "name": "shortcut_hotspot_unsupported",
+      "value": "本機不支援專用熱點，直接連線上次的裝置"
+    },
+    {
+      "name": "shortcut_hotspot_starting",
+      "value": "正在開啟專用熱點…"
+    },
+    {
+      "name": "shortcut_hotspot_failed",
+      "value": "專用熱點開啟失敗：%s"
+    },
+    {
+      "name": "shortcut_waiting",
+      "value": "專用熱點已開啟，等待遊戲機連線…"
+    },
+    {
+      "name": "shortcut_wait_timeout",
+      "value": "沒有等到遊戲機，請確認遊戲機已連上專用熱點"
     }
   ]
 }

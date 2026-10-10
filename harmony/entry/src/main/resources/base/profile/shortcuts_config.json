@@ -1,0 +1,34 @@
+{
+  "shortcuts": [
+    {
+      "shortcutId": "connect_last",
+      "label": "$string:shortcut_connect_last",
+      "icon": "$media:shortcut_connect_last",
+      "wants": [
+        {
+          "bundleName": "wilk.sysdvr.next",
+          "moduleName": "entry",
+          "abilityName": "EntryAbility",
+          "parameters": {
+            "shortcut": "connect_last"
+          }
+        }
+      ]
+    },
+    {
+      "shortcutId": "hotspot_connect",
+      "label": "$string:shortcut_hotspot_connect",
+      "icon": "$media:shortcut_hotspot_connect",
+      "wants": [
+        {
+          "bundleName": "wilk.sysdvr.next",
+          "moduleName": "entry",
+          "abilityName": "EntryAbility",
+          "parameters": {
+            "shortcut": "hotspot_connect"
+          }
+        }
+      ]
+    }
+  ]
+}
