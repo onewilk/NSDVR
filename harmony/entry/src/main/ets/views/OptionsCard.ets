@@ -1,4 +1,5 @@
 import { tr } from '../common/I18n';
+import { PipSession } from '../common/PipSession';
 import { enhanceLabels, keepAliveLabels, scopeNotRtsp, scopeTcpOnly, smoothLabels } from '../common/Prefs';
 import { Card, SettingRow } from './Widgets';
 
@@ -17,6 +18,7 @@ export struct OptionsCard {
   @StorageLink('sysdvr.netOpt') netOpt: boolean = true;
   @StorageLink('sysdvr.screenOff') screenOff: boolean = false;
   @StorageLink('sysdvr.keepAliveIndexV2') keepAliveIndex: number = 1;
+  @StorageLink('sysdvr.pipAuto') pipAuto: boolean = true;
   @StorageLink('sysdvr.showStatsOverlay') showStats: boolean = false;
   @StorageLink('sysdvr.freezeOnLoss') freezeOnLoss: boolean = true;
   @StorageLink('sysdvr.enhanceLevel') enhanceLevel: number = 0;
@@ -113,6 +115,20 @@ export struct OptionsCard {
           .onSelect((index: number) => {
             this.keepAliveIndex = index;
           })
+      }
+
+      if (PipSession.supported()) {
+        SettingRow({
+          title: tr('cfg_opt_pip'),
+          desc: tr('cfg_opt_pip_desc'),
+          scope: scopeNotRtsp(),
+          icon: $r('sys.symbol.rectangle_on_square')
+        }) {
+          Toggle({ type: ToggleType.Switch, isOn: this.pipAuto })
+            .onChange((isOn: boolean) => {
+              this.pipAuto = isOn;
+            })
+        }
       }
 
       SettingRow({

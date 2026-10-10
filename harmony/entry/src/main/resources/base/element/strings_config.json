@@ -267,6 +267,14 @@
     {
       "name": "cfg_opt_enhance_desc",
       "value": "Uses the system's video detail enhancement to upscale 720p to your screen resolution for a sharper picture on large screens. Standard is fast; High looks better but takes longer. Falls back to direct output if unsupported"
+    },
+    {
+      "name": "cfg_opt_pip",
+      "value": "Mini window in background"
+    },
+    {
+      "name": "cfg_opt_pip_desc",
+      "value": "When you go to the home screen or open another app, the stream keeps playing in a floating mini window; closing it falls back to \"Keep alive in background\". You can also tap \"Mini window\" on the player"
     }
   ]
 }

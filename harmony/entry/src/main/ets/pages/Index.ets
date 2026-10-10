@@ -13,6 +13,7 @@ import {
 } from '../common/ExtAudio';
 import { HotspotService } from '../common/HotspotService';
 import { NetBooster } from '../common/NetBooster';
+import { PipSession } from '../common/PipSession';
 import {
   APP_NAME, Breakpoint, breakpointOf, enhanceLabels, formatDuration, KEEP_ALIVE_MINUTES, keepAliveLabels,
   smoothLabels, StreamMode, supportsEnhance, supportsFreeze, supportsKeepAlive, supportsNetOpt, supportsSmooth
@@ -38,6 +39,10 @@ const RTSP_XCOMPONENT_ID = 'sysdvrRtspSurface';
 const VIDEO_ASPECT = 16 / 9;
 // 锁定后锁形图标亮显多久再变淡
 const LOCK_HINT_MS = 3000;
+// 切后台后等多久还没转入小窗（例如系统设置里关了画中画），就按普通切后台处理
+const PIP_WAIT_MS = 1000;
+// 小窗关闭后等一下再按切后台处理：用户也可能是点了桌面图标回到 App
+const PIP_CLOSED_GRACE_MS = 500;
 // 切换语言重建首页时，要回到的页签（-1 = 无）
 const RESTORE_TAB_KEY = 'ui.restoreTab';
 // 页签标题（资源键）
@@ -96,6 +101,7 @@ struct Index {
   @StorageLink('sysdvr.netOpt') netOpt: boolean = true;
   @StorageLink('sysdvr.screenOff') screenOff: boolean = false;
   @StorageLink('sysdvr.keepAliveIndexV2') keepAliveIndex: number = 1;
+  @StorageLink('sysdvr.pipAuto') pipAuto: boolean = true;
   @StorageLink('sysdvr.showStatsOverlay') showStats: boolean = false;
   @StorageLink('sysdvr.freezeOnLoss') freezeOnLoss: boolean = true;
   @StorageLink('sysdvr.enhanceLevel') enhanceLevel: number = 0;
@@ -135,6 +141,12 @@ struct Index {
   private suppressPageHide: boolean = false;
   private inBackground: boolean = false;
   private backgroundSince: number = 0;
+  // 播放页当前是否不可见（切到后台、转入小窗）
+  private pageHidden: boolean = false;
+  // 小窗（画中画）：设备支持时 TCP Bridge / USB 可用
+  private pip: PipSession = new PipSession();
+  private pipSupported: boolean = PipSession.supported();
+  private pipTimer: number = -1;
   private keeper: BackgroundKeeper | null = null;
   private booster: NetBooster = new NetBooster();
   private recorder: StatsRecorder = new StatsRecorder();
@@ -173,6 +185,12 @@ struct Index {
       this.onKeepAliveCanceled();
     };
     this.keeper = keeper;
+    this.pip.onClosed = () => {
+      this.onPipClosed();
+    };
+    this.pip.onAudioToggled = (on: boolean) => {
+      this.applyAudio(on);
+    };
     applyColorMode(getContext(this), this.colorMode);
     if (this.useFloating) {
       try {
@@ -257,9 +275,24 @@ struct Index {
   }
 
   onPageHide(): void {
+    this.pageHidden = true;
     if (!this.playing || this.suppressPageHide) {
       return;
     }
+    if (this.pip.isActive()) {
+      // 转入了小窗（点了“小窗”按钮，或系统自动转入）：照常渲染
+      return;
+    }
+    if (this.pip.autoStartArmed()) {
+      // 系统会在切后台时自动转入小窗；没转入（例如系统设置里关了画中画）再按切后台处理
+      this.schedulePipCheck(PIP_WAIT_MS);
+      return;
+    }
+    this.handleBackground();
+  }
+
+  // 切到后台、且没有在小窗里播放
+  private handleBackground(): void {
     if (this.playMode === StreamMode.RTSP) {
       // ijkplayer 没有“只收不渲染”的模式：后台暂停拉流，回前台重连
       this.inBackground = true;
@@ -273,6 +306,10 @@ struct Index {
   }
 
   onPageShow(): void {
+    this.pageHidden = false;
+    this.cancelPipCheck();
+    // 小窗开着时点桌面图标回来：系统不会自动收起小窗，播放页只剩黑底
+    this.pip.restore();
     if (!this.inBackground) {
       return;
     }
@@ -282,6 +319,55 @@ struct Index {
     } else {
       this.exitBackground();
     }
+  }
+
+  // 过一会儿再看：页面仍在后台、也没在小窗里播放，就按切后台处理
+  private schedulePipCheck(delayMs: number): void {
+    this.cancelPipCheck();
+    this.pipTimer = setTimeout(() => {
+      this.pipTimer = -1;
+      if (this.pageHidden && this.playing && !this.inBackground && !this.pip.isActive()) {
+        this.handleBackground();
+      }
+    }, delayMs);
+  }
+
+  private cancelPipCheck(): void {
+    if (this.pipTimer >= 0) {
+      clearTimeout(this.pipTimer);
+      this.pipTimer = -1;
+    }
+  }
+
+  // 用户关掉了小窗：之后和直接切后台一样（开了后台保持就继续接收，否则断开）
+  private onPipClosed(): void {
+    hilog.info(DOMAIN, TAG, 'pip closed by user');
+    if (this.playing) {
+      this.schedulePipCheck(PIP_CLOSED_GRACE_MS);
+    }
+  }
+
+  private async startPip(): Promise<void> {
+    this.showPanel = false;
+    const err = await this.pip.start();
+    if (err.length > 0) {
+      promptAction.showToast({ message: tr('app_toast_pip_failed', err) });
+      return;
+    }
+    // 手动转入小窗时主窗口不会自己退到后台，留在前台只剩黑底和按钮：主动退回桌面
+    try {
+      await (getContext(this) as common.UIAbilityContext).moveAbilityToBackground();
+    } catch (e) {
+      hilog.warn(DOMAIN, TAG, 'move to background failed: %{public}s', JSON.stringify(e));
+    }
+  }
+
+  private applyPipAuto(on: boolean): void {
+    if (on === this.pipAuto) {
+      return;
+    }
+    this.pipAuto = on;
+    this.pip.setAutoStart(on);
   }
 
   onBackPress(): boolean {
@@ -423,6 +509,9 @@ struct Index {
       this.rotationText = '';
       if (cfg.netOpt) {
         this.booster.enter();
+      }
+      if (this.pipSupported) {
+        this.pip.open(getContext(this), this.xController, this.pipAuto, this.enableAudio);
       }
       this.startStats(t);
     } else if (!this.inBackground) {
@@ -968,6 +1057,8 @@ struct Index {
       clearInterval(this.liveViewTimer);
       this.liveViewTimer = -1;
     }
+    this.cancelPipCheck();
+    this.pip.close();
     this.rtsp.stop();
     // 顺序：先停兼容传输的读循环、再停 native 会话，最后关闭 USB 设备
     this.usbPump.stop();
@@ -1015,6 +1106,7 @@ struct Index {
       this.enableAudio = !on;
       promptAction.showToast({ message: err });
     }
+    this.pip.setAudio(this.enableAudio);
   }
 
   private applySmooth(level: number): void {
@@ -1398,6 +1490,11 @@ struct Index {
             }
             Blank()
             if (this.controlsVisible) {
+              if (this.pipSupported && this.playMode !== StreamMode.RTSP) {
+                this.CapsuleButton($r('sys.symbol.rectangle_on_square'), tr('app_btn_pip'), '#66000000', () => {
+                  this.startPip();
+                })
+              }
               this.CapsuleButton($r('sys.symbol.gearshape'), tr('app_btn_settings'), '#66000000', () => {
                 this.showPanel = !this.showPanel;
               })
@@ -1667,6 +1764,17 @@ struct Index {
                 .fontColor(Color.White)
                 .onSelect((index: number) => {
                   this.applyKeepAlive(index);
+                })
+            }
+            .width('100%')
+          }
+
+          if (this.pipSupported && this.playMode !== StreamMode.RTSP) {
+            Row() {
+              this.QuickRow(tr('app_quick_pip'), '')
+              Toggle({ type: ToggleType.Switch, isOn: this.pipAuto })
+                .onChange((isOn: boolean) => {
+                  this.applyPipAuto(isOn);
                 })
             }
             .width('100%')

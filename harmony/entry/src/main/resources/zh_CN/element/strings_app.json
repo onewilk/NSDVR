@@ -427,6 +427,18 @@
     {
       "name": "app_stats_mem_none",
       "value": "游戏机内存：未提供（SysDVR 版本较旧或不在协议 03）"
+    },
+    {
+      "name": "app_btn_pip",
+      "value": "小窗"
+    },
+    {
+      "name": "app_quick_pip",
+      "value": "切后台时小窗播放"
+    },
+    {
+      "name": "app_toast_pip_failed",
+      "value": "无法打开小窗（%s）"
     }
   ]
 }

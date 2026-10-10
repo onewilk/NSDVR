@@ -27,6 +27,8 @@ PersistentStorage.persistProp('sysdvr.screenOff', false);
 // 默认 30 分钟；关闭、5 分钟原样带过来，30 分钟和 2 小时已经去掉，改为新默认的 2 分钟（只迁移一次，旧键读完就删）
 const legacyKeepAlive: number = takeLegacyProp('sysdvr.keepAliveIndex', -1);
 PersistentStorage.persistProp('sysdvr.keepAliveIndexV2', legacyKeepAlive === 0 ? 0 : (legacyKeepAlive === 1 ? 2 : 1));
+// 切到后台时转入小窗（画中画）继续播放，默认开启；设备不支持时不显示
+PersistentStorage.persistProp('sysdvr.pipAuto', true);
 // 最近连接过的设备（见 RecentHosts.ets）
 PersistentStorage.persistProp('sysdvr.recentHosts', '');
 // 丢帧时定格画面（等下一个关键帧，不花屏）

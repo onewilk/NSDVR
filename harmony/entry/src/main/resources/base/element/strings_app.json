@@ -427,6 +427,18 @@
     {
       "name": "app_stats_mem_none",
       "value": "Console memory: not provided (older SysDVR or not protocol 03)"
+    },
+    {
+      "name": "app_btn_pip",
+      "value": "Mini window"
+    },
+    {
+      "name": "app_quick_pip",
+      "value": "Mini window in background"
+    },
+    {
+      "name": "app_toast_pip_failed",
+      "value": "Could not open the mini window (%s)"
     }
   ]
 }

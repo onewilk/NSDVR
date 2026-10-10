@@ -427,6 +427,18 @@
     {
       "name": "app_stats_mem_none",
       "value": "遊戲機記憶體：未提供（SysDVR 版本較舊或不是協定 03）"
+    },
+    {
+      "name": "app_btn_pip",
+      "value": "小窗"
+    },
+    {
+      "name": "app_quick_pip",
+      "value": "切到背景時小窗播放"
+    },
+    {
+      "name": "app_toast_pip_failed",
+      "value": "無法開啟小窗（%s）"
     }
   ]
 }
