@@ -166,7 +166,7 @@
     },
     {
       "name": "ext_stats_cpu",
-      "value": "Console core 3 idle %s · SysDVR CPU %s · TOS video %s audio %s"
+      "value": "Console core 3 usage %s · SysDVR CPU %s · TOS video %s audio %s"
     },
     {
       "name": "ext_stats_rotate",

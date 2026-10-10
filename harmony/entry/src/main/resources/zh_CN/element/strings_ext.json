@@ -166,7 +166,7 @@
     },
     {
       "name": "ext_stats_cpu",
-      "value": "游戏机 3 号核心空闲 %s · SysDVR CPU %s · TOS 视频 %s 音频 %s"
+      "value": "游戏机 3 号核心占用 %s · SysDVR CPU %s · TOS 视频 %s 音频 %s"
     },
     {
       "name": "ext_stats_rotate",

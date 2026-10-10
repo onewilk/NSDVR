@@ -840,7 +840,9 @@ struct Index {
       lines.push(tr('ext_stats_send', perSec.toFixed(1), (s.diagBlockMaxUs / 1000).toFixed(1), s.diagSendsOver20ms,
         s.diagTotalSendsOver20ms, s.diagGrcGaps, s.diagTotalGrcGaps, s.diagTotalGapsAfterSlowSend));
       const pct = (permille: number): string => permille === 0xFFFFFFFF ? '—' : `${(permille / 10).toFixed(1)}%`;
-      lines.push(tr('ext_stats_cpu', pct(s.diagCore3IdlePermille), pct(s.diagCpuPermille),
+      // 3 号核心显示占用率（服务端报的是空闲千分比）
+      const core3Used = s.diagCore3IdlePermille === 0xFFFFFFFF ? 0xFFFFFFFF : Math.max(0, 1000 - s.diagCore3IdlePermille);
+      lines.push(tr('ext_stats_cpu', pct(core3Used), pct(s.diagCpuPermille),
         (s.diagTosFlags & 1) !== 0 ? '✓' : '✗', (s.diagTosFlags & 2) !== 0 ? '✓' : '✗'));
     }
     const c = this.rotation.current();

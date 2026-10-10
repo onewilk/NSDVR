@@ -6,7 +6,7 @@ import { OptionsCard } from './OptionsCard';
 import { OtherSettingsCard } from './OtherSettingsCard';
 import { PageTitle } from './Widgets';
 
-/** “配置”页：专用热点、串流选项、其他设置。宽屏左右两栏 */
+/** “配置”页：专用热点、串流选项、其他设置。所有屏幕都是单栏列表，每张卡片占满可用宽度 */
 @Component
 export struct ConfigView {
   @Prop bp: Breakpoint = 'sm';
@@ -16,32 +16,18 @@ export struct ConfigView {
   @StorageProp('sysdvr.extHosts') extHosts: string = '';
   @StorageProp('sysdvr.devMode') devMode: boolean = false;
 
-  // 宽屏左右两栏：左边专用热点、右边串流选项；设备不支持专用热点时左栏会空着，改成单栏
-  private twoColumns(): boolean {
-    return this.bp === 'lg' && hotspotSupported();
-  }
-
   build() {
     Scroll() {
       Column({ space: 16 }) {
         PageTitle({ title: tr('app_cfg_title'), subtitle: tr('app_cfg_subtitle'), large: this.bp !== 'sm' })
 
-        Flex({ direction: this.twoColumns() ? FlexDirection.Row : FlexDirection.Column, alignItems: ItemAlign.Start }) {
-          Column({ space: 16 }) {
-            if (hotspotSupported()) {
-              HotspotCard()
-            }
-          }
-          .flexGrow(this.twoColumns() ? 1 : 0)
-          .flexBasis(this.twoColumns() ? 0 : 'auto')
-          .width(this.twoColumns() ? 'auto' : '100%')
-
-          OptionsCard()
-            .width(this.twoColumns() ? 420 : '100%')
-            .flexShrink(0)
-            .margin(this.twoColumns() ? { left: 16 } : { top: hotspotSupported() ? 16 : 0 })
+        if (hotspotSupported()) {
+          HotspotCard()
+            .width('100%')
         }
-        .width('100%')
+
+        OptionsCard()
+          .width('100%')
 
         if (this.extHosts.length > 0 || this.devMode) {
           ExtAudioCard()
