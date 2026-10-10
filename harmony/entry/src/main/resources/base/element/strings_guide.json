@@ -198,7 +198,7 @@
     },
     {
       "name": "guide_opt_screen_body",
-      "value": "Turns the device screen off during streaming to save power and reduce heat; it comes back on when you disconnect. Requires SysDVR 6.0 or later (protocol 03)."
+      "value": "Turns the device screen off during streaming to save power and reduce heat. This is an experimental SysDVR feature: the screen should come back on when you disconnect, but that doesn't always work, and pressing HOME on the device doesn't turn it on either. If the screen stays dark, press the power button twice (sleep, then wake) to restore it. Requires SysDVR 6.0 or later (protocol 03)."
     },
     {
       "name": "guide_opt_keep_title",

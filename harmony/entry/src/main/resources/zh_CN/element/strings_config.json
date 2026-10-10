@@ -110,7 +110,7 @@
     },
     {
       "name": "cfg_opt_screen_off_desc",
-      "value": "省电、减少发热；断开后自动亮屏（需 SysDVR 6.0 以上）"
+      "value": "实验功能：省电、减少发热；断开后会尝试亮屏，没亮时按两次电源键即可恢复（需 SysDVR 6.0 以上）"
     },
     {
       "name": "cfg_opt_keep_alive",

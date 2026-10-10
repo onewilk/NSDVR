@@ -110,7 +110,7 @@
     },
     {
       "name": "cfg_opt_screen_off_desc",
-      "value": "Saves power and reduces heat; the screen turns back on after disconnecting (SysDVR 6.0+)"
+      "value": "Experimental: saves power and reduces heat. The screen should turn back on after disconnecting; if it doesn't, press the power button twice (SysDVR 6.0+)"
     },
     {
       "name": "cfg_opt_keep_alive",
