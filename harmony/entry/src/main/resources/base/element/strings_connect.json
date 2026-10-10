@@ -174,7 +174,7 @@
     },
     {
       "name": "usb_hint_no_devices",
-      "value": "No USB devices detected: this device is currently acting as the console's USB device (with a C-to-C cable the console becomes the host).\nUse an OTG adapter (USB-C male → USB-A female on this device) plus a USB-A to USB-C cable to the console's bottom port; the OTG adapter keeps this device as USB host.\nChanging only the power direction (e.g. reverse charging) doesn't make the phone the host."
+      "value": "No USB devices detected: this device is currently acting as the console’s USB device. With a C-to-C cable the two ends decide which one becomes the host each time they’re plugged in, so unplugging and reconnecting a few times may help.\nThe most reliable option is an OTG adapter (USB-C male → USB-A female on this device) plus a USB-A to USB-C cable to the console’s bottom port; the OTG adapter keeps this device as USB host.\nChanging only the power direction (e.g. reverse charging) doesn’t make the phone the host."
     },
     {
       "name": "usb_hint_nintendo",

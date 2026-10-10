@@ -86,7 +86,7 @@
     },
     {
       "name": "guide_usb_step2",
-      "value": "Connect the device's bottom USB-C port to your phone using an OTG adapter (USB-C male → USB-A female on the phone side) and a USB-A to USB-C cable"
+      "value": "Connect the device’s bottom USB-C port to your phone. An OTG adapter (USB-C male → USB-A female on the phone side) plus a USB-A to USB-C cable is the most reliable; a C-to-C cable may also work, but not every time (see “Device not detected” below)"
     },
     {
       "name": "guide_usb_step3",
@@ -102,7 +102,7 @@
     },
     {
       "name": "guide_usb_item1_body",
-      "value": "With a C-to-C cable the phone is negotiated as the USB device (the device becomes the host), so the app sees no external device — and that doesn't change even if the phone later powers the device. Use an OTG adapter (USB-C male → USB-A female on the phone side) plus a USB-A to USB-C cable so the phone becomes the USB host. “Diagnostics” in the USB card lists the devices the system detects."
+      "value": "When you plug in, the two ends decide which one becomes the USB host. With a C-to-C cable the phone may end up as the USB device (the device becomes the host); then the app sees no external device, and that doesn’t change even if the phone later powers the device. The result can differ each time you plug in, so try unplugging and reconnecting a few times. The most reliable fix is an OTG adapter (USB-C male → USB-A female on the phone side) plus a USB-A to USB-C cable, which always makes the phone the USB host. The system doesn’t let apps choose this device’s USB role. “Diagnostics” in the USB card lists the devices the system detects."
     },
     {
       "name": "guide_usb_item2_title",

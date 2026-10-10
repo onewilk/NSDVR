@@ -34,7 +34,7 @@
     },
     {
       "name": "app_tip_usb",
-      "value": "Requires SysDVR in USB mode, in handheld mode (not docked). Connect with an OTG adapter (USB-C male → USB-A female on this device) plus a USB-A to USB-C cable. With a C-to-C cable the phone becomes the USB device and cannot see the console."
+      "value": "Requires SysDVR in USB mode, in handheld mode (not docked). An OTG adapter (USB-C male → USB-A female on this device) plus a USB-A to USB-C cable is the most reliable way to connect the console. A C-to-C cable also works when this device ends up as the USB host, which is decided anew each time you plug in; if the console isn’t detected, unplug and try again."
     },
     {
       "name": "app_tip_rtsp",
