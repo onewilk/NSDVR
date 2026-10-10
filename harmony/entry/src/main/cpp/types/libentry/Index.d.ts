@@ -211,6 +211,8 @@ export const setSmoothLevel: (level: number) => void;
 export const setNetOptimization: (enabled: boolean) => void;
 /** 播放中开关“丢帧时定格画面” */
 export const setFreezeOnLoss: (on: boolean) => void;
+/** 播放时请求的屏幕刷新率（Hz），0 = 撤销请求、交还系统决定。只是投票，实际刷新率由系统决定 */
+export const setRefreshRateHint: (fps: number) => void;
 /** 播放中切换画质增强档位（0 关闭 / 1 标准 / 2 高）。返回空串表示成功，否则为原因（已退回直出） */
 export const setEnhanceLevel: (level: number) => string;
 /**

@@ -16,6 +16,7 @@ add_library(entry SHARED
     video_decoder.cpp
     video_enhancer.cpp
     vsync_monitor.cpp
+    display_rate.cpp
     audio_player.cpp
     ${SYSDVR_CORE_DIR}/sysdvr_protocol.cpp
     ${SYSDVR_CORE_DIR}/gop_cache.cpp
@@ -47,5 +48,6 @@ target_link_libraries(entry PUBLIC
     libohaudio.so
     libnative_window.so
     libnative_vsync.so
+    libnative_display_soloist.so
     libvideo_processing.so
 )

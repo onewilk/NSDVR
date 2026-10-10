@@ -29,6 +29,8 @@ const legacyKeepAlive: number = takeLegacyProp('sysdvr.keepAliveIndex', -1);
 PersistentStorage.persistProp('sysdvr.keepAliveIndexV2', legacyKeepAlive === 0 ? 0 : (legacyKeepAlive === 1 ? 2 : 1));
 // 切到后台时转入小窗（画中画）继续播放，默认开启；设备不支持时不显示
 PersistentStorage.persistProp('sysdvr.pipAuto', true);
+// 播放时请求 60Hz 屏幕刷新率（画面最高 30 帧，动态刷新率屏幕省电），默认开启
+PersistentStorage.persistProp('sysdvr.lowRefresh', true);
 // 最近连接过的设备（见 RecentHosts.ets）
 PersistentStorage.persistProp('sysdvr.recentHosts', '');
 // 丢帧时定格画面（等下一个关键帧，不花屏）

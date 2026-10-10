@@ -275,6 +275,14 @@
     {
       "name": "cfg_opt_pip_desc",
       "value": "When you go to the home screen or open another app, the stream keeps playing in a floating mini window; closing it falls back to \"Keep alive in background\". You can also tap \"Mini window\" on the player"
+    },
+    {
+      "name": "cfg_opt_refresh",
+      "value": "Power-saving refresh rate"
+    },
+    {
+      "name": "cfg_opt_refresh_desc",
+      "value": "The game picture is at most 30 fps, so the player asks for a 60 Hz screen refresh rate while streaming. Screens with adaptive refresh use less power and run cooler, with no visible difference. When off, the system decides (often 90/120 Hz). The statistics overlay shows the actual rate"
     }
   ]
 }

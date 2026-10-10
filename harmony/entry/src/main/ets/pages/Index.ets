@@ -43,6 +43,8 @@ const LOCK_HINT_MS = 3000;
 const PIP_WAIT_MS = 1000;
 // 小窗关闭后等一下再按切后台处理：用户也可能是点了桌面图标回到 App
 const PIP_CLOSED_GRACE_MS = 500;
+// 播放时请求的屏幕刷新率：画面最高 30 帧，60Hz 每帧占两个刷新周期，上屏节奏不受网络抖动影响
+const PLAYBACK_REFRESH_HZ = 60;
 // 切换语言重建首页时，要回到的页签（-1 = 无）
 const RESTORE_TAB_KEY = 'ui.restoreTab';
 // 页签标题（资源键）
@@ -102,6 +104,7 @@ struct Index {
   @StorageLink('sysdvr.screenOff') screenOff: boolean = false;
   @StorageLink('sysdvr.keepAliveIndexV2') keepAliveIndex: number = 1;
   @StorageLink('sysdvr.pipAuto') pipAuto: boolean = true;
+  @StorageLink('sysdvr.lowRefresh') @Watch('applyRefreshHint') lowRefresh: boolean = true;
   @StorageLink('sysdvr.showStatsOverlay') showStats: boolean = false;
   @StorageLink('sysdvr.freezeOnLoss') freezeOnLoss: boolean = true;
   @StorageLink('sysdvr.enhanceLevel') enhanceLevel: number = 0;
@@ -297,6 +300,7 @@ struct Index {
       // ijkplayer 没有“只收不渲染”的模式：后台暂停拉流，回前台重连
       this.inBackground = true;
       this.rtsp.suspend();
+      this.applyRefreshHint();
     } else if (this.keeper !== null && this.keeper.isRunning()) {
       this.enterBackground();
     } else {
@@ -316,6 +320,7 @@ struct Index {
     if (this.playMode === StreamMode.RTSP) {
       this.inBackground = false;
       this.rtsp.resume();
+      this.applyRefreshHint();
     } else {
       this.exitBackground();
     }
@@ -337,6 +342,12 @@ struct Index {
       clearTimeout(this.pipTimer);
       this.pipTimer = -1;
     }
+  }
+
+  // 播放画面可见时（前台或小窗）请求 60Hz，切后台、断开后撤销，交还系统决定
+  applyRefreshHint(): void {
+    const visible = this.sessionStarted && !this.inBackground;
+    sysdvr.setRefreshRateHint(visible && this.lowRefresh ? PLAYBACK_REFRESH_HZ : 0);
   }
 
   // 用户关掉了小窗：之后和直接切后台一样（开了后台保持就继续接收，否则断开）
@@ -513,6 +524,7 @@ struct Index {
       if (this.pipSupported) {
         this.pip.open(getContext(this), this.xController, this.pipAuto, this.enableAudio);
       }
+      this.applyRefreshHint();
       this.startStats(t);
     } else if (!this.inBackground) {
       // 会话还在但 surface 重建了：绑定到新 surface
@@ -531,6 +543,7 @@ struct Index {
     this.rtsp.logDir = (getContext(this) as common.UIAbilityContext).filesDir;
     this.rtsp.start(context, RTSP_XCOMPONENT_ID, t.host, this.enableAudio);
     this.sessionStarted = true;
+    this.applyRefreshHint();
     this.startStats(t);
   }
 
@@ -563,6 +576,7 @@ struct Index {
     // 照常接收，释放解码器和音频，只维护 GOP 缓存；后台不渲染，也不必再占用网络加速
     sysdvr.pauseVideo();
     this.booster.leave();
+    this.applyRefreshHint();
     this.refreshLiveView(true);
     hilog.info(DOMAIN, TAG, 'entered background, keep receiving');
   }
@@ -573,6 +587,7 @@ struct Index {
     if (this.netOpt && supportsNetOpt(this.playMode)) {
       this.booster.enter();
     }
+    this.applyRefreshHint();
     this.refreshLiveView(true);
     hilog.info(DOMAIN, TAG, 'back to foreground after %{public}d s',
       Math.round((Date.now() - this.backgroundSince) / 1000));
@@ -1080,6 +1095,7 @@ struct Index {
     this.recorder.stop();
     this.sessionStarted = false;
     this.inBackground = false;
+    this.applyRefreshHint();
     this.showPanel = false;
     this.lastStats = null;
     if (this.keeper !== null) {

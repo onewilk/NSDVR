@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 
+#include "display_rate.h"
 #include "i18n.h"
 #include "log.h"
 #include "rtsp_probe.h"
@@ -366,6 +367,17 @@ napi_value SetFreezeOnLoss(napi_env env, napi_callback_info info) {
     return Undefined(env);
 }
 
+// setRefreshRateHint(fps: number): void —— 播放时请求的屏幕刷新率，0 = 交还系统决定（与会话无关，进程级）
+napi_value SetRefreshRateHint(napi_env env, napi_callback_info info) {
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    int32_t fps = 0;
+    if (argc >= 1) napi_get_value_int32(env, args[0], &fps);
+    DisplayRateVote::Get().Set(fps);
+    return Undefined(env);
+}
+
 // setEnhanceLevel(level: number): string —— 画质增强 0 关闭 / 1 标准 / 2 高；空串 = 成功
 napi_value SetEnhanceLevel(napi_env env, napi_callback_info info) {
     size_t argc = 1;
@@ -591,6 +603,7 @@ static napi_value Init(napi_env env, napi_value exports) {
         {"setSmoothLevel", nullptr, SetSmoothLevel, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setNetOptimization", nullptr, SetNetOptimization, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setFreezeOnLoss", nullptr, SetFreezeOnLoss, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"setRefreshRateHint", nullptr, SetRefreshRateHint, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setEnhanceLevel", nullptr, SetEnhanceLevel, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setExtAudio", nullptr, SetExtAudio, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getSocketFds", nullptr, GetSocketFds, nullptr, nullptr, nullptr, napi_default, nullptr},

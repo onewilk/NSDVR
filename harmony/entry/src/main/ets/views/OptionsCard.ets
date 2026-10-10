@@ -19,6 +19,7 @@ export struct OptionsCard {
   @StorageLink('sysdvr.screenOff') screenOff: boolean = false;
   @StorageLink('sysdvr.keepAliveIndexV2') keepAliveIndex: number = 1;
   @StorageLink('sysdvr.pipAuto') pipAuto: boolean = true;
+  @StorageLink('sysdvr.lowRefresh') lowRefresh: boolean = true;
   @StorageLink('sysdvr.showStatsOverlay') showStats: boolean = false;
   @StorageLink('sysdvr.freezeOnLoss') freezeOnLoss: boolean = true;
   @StorageLink('sysdvr.enhanceLevel') enhanceLevel: number = 0;
@@ -129,6 +130,17 @@ export struct OptionsCard {
               this.pipAuto = isOn;
             })
         }
+      }
+
+      SettingRow({
+        title: tr('cfg_opt_refresh'),
+        desc: tr('cfg_opt_refresh_desc'),
+        icon: $r('sys.symbol.battery_leaf')
+      }) {
+        Toggle({ type: ToggleType.Switch, isOn: this.lowRefresh })
+          .onChange((isOn: boolean) => {
+            this.lowRefresh = isOn;
+          })
       }
 
       SettingRow({
