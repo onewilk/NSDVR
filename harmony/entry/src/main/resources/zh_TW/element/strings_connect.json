@@ -13,14 +13,6 @@
       "value": "推薦"
     },
     {
-      "name": "connect_hotspot_on_view",
-      "value": "專用熱點已開啟 · 查看"
-    },
-    {
-      "name": "connect_hotspot_turn_on",
-      "value": "前往開啟專用熱點"
-    },
-    {
       "name": "connect_invalid_ip",
       "value": "請輸入正確的 IP 位址，例如 192.168.1.23"
     },
@@ -235,6 +227,30 @@
     {
       "name": "usb_hint_no_devices_pc",
       "value": "沒有偵測到 USB 裝置：請用傳輸線把遊戲機底部的 USB-C 接口連到本機，並確認遊戲機處於掌機模式（不插底座）。"
+    },
+    {
+      "name": "recent_title",
+      "value": "最近連線"
+    },
+    {
+      "name": "recent_delete",
+      "value": "刪除記錄"
+    },
+    {
+      "name": "recent_just_now",
+      "value": "剛剛"
+    },
+    {
+      "name": "recent_minutes_ago",
+      "value": "%d 分鐘前"
+    },
+    {
+      "name": "recent_hours_ago",
+      "value": "%d 小時前"
+    },
+    {
+      "name": "recent_days_ago",
+      "value": "%d 天前"
     }
   ]
 }

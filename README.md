@@ -43,7 +43,7 @@ It works with the official SysDVR sysmodule; nothing needs to change on the Swit
 - **Freeze on frame loss**: when frames are lost on the network, the picture holds the last good frame until the next keyframe instead of breaking up (gives up after 3 s).
 - **VSync-aligned presentation**: frames are scheduled to the display refresh for even motion.
 - **Picture enhancement**: the system detail enhancer upscales the 720p stream to the real on-screen resolution (Standard / High).
-- **Background streaming**: keeps receiving in the background for 5 min / 30 min / 2 h with a live notification, and catches up to the newest frame within a few hundred ms when you return.
+- **Background streaming**: keeps receiving in the background for 2 or 5 minutes with a live notification, and catches up to the newest frame within a few hundred ms when you return.
 - **Detailed stats**: receive/display frame rate, bitrate, frame loss, freezes, stutter, present jitter, buffers and the Switch's free memory, also logged to a CSV file.
 - **Adaptive layouts** for phones, tablets, PCs and foldables, light and dark themes, and Simplified Chinese, Traditional Chinese and English.
 
@@ -206,7 +206,7 @@ During playback, tap "Settings" in the top right corner to open the quick settin
 | Freeze on frame loss | Holds the last good frame until the next keyframe when frames are lost (on by default) |
 | Picture enhancement | Off / Standard / High; about 15 ms of extra latency per frame |
 | Stats | Shows or hides the stats overlay |
-| Keep connected in background | Off / 5 min / 30 min / 2 h |
+| Keep connected in background | Off / 2 min / 5 min |
 
 Simulated smoothing results (`tools/frame_pacer_test.cpp`, 60 s at 30 fps, *Smooth* level):
 
@@ -247,7 +247,7 @@ Instead, the app creates a Wi-Fi Direct group with the public `createGroup` API,
 
 ## Background streaming
 
-Choose 5 min, 30 min (default) or 2 h for "Keep connected in background"; "Off" disconnects as soon as the app goes to the background.
+Choose 2 min (default) or 5 min for "Keep connected in background"; "Off" disconnects as soon as the app goes to the background.
 
 **In the background** the connection stays open and keeps receiving without rendering. The decoder and audio player are released, and only the GOP since the latest keyframe is kept in memory (up to 24 MB / 900 packets). A live notification shows the connection state, the data received and the remaining time. Tap it to return; swipe it away to stop streaming.
 

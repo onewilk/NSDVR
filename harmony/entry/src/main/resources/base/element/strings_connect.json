@@ -13,14 +13,6 @@
       "value": "Recommended"
     },
     {
-      "name": "connect_hotspot_on_view",
-      "value": "Device hotspot is on · View"
-    },
-    {
-      "name": "connect_hotspot_turn_on",
-      "value": "Turn on device hotspot"
-    },
-    {
       "name": "connect_invalid_ip",
       "value": "Enter a valid IP address, e.g. 192.168.1.23"
     },
@@ -235,6 +227,30 @@
     {
       "name": "usb_hint_no_devices_pc",
       "value": "No USB devices detected. Connect the console's bottom USB-C port to this computer with a cable, and make sure the console is in handheld mode (not docked)."
+    },
+    {
+      "name": "recent_title",
+      "value": "Recent connections"
+    },
+    {
+      "name": "recent_delete",
+      "value": "Remove"
+    },
+    {
+      "name": "recent_just_now",
+      "value": "just now"
+    },
+    {
+      "name": "recent_minutes_ago",
+      "value": "%d min ago"
+    },
+    {
+      "name": "recent_hours_ago",
+      "value": "%d h ago"
+    },
+    {
+      "name": "recent_days_ago",
+      "value": "%d d ago"
     }
   ]
 }

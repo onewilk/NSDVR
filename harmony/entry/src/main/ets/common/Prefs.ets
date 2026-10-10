@@ -23,7 +23,12 @@ const migratedSmoothLevel: number = legacySmoothLevel > 0 ? legacySmoothLevel : 
 PersistentStorage.persistProp('sysdvr.smoothLevelV2', migratedSmoothLevel >= 0 ? migratedSmoothLevel : 1);
 PersistentStorage.persistProp('sysdvr.netOpt', true);
 PersistentStorage.persistProp('sysdvr.screenOff', false);
-PersistentStorage.persistProp('sysdvr.keepAliveIndex', 2);
+// 切到后台后保持连接：选项是 关闭 / 2 分钟 / 5 分钟，默认 2 分钟。换了新键名：旧版本是 关闭 / 5 / 30 / 120 分钟、
+// 默认 30 分钟；关闭、5 分钟原样带过来，30 分钟和 2 小时已经去掉，改为新默认的 2 分钟（只迁移一次，旧键读完就删）
+const legacyKeepAlive: number = takeLegacyProp('sysdvr.keepAliveIndex', -1);
+PersistentStorage.persistProp('sysdvr.keepAliveIndexV2', legacyKeepAlive === 0 ? 0 : (legacyKeepAlive === 1 ? 2 : 1));
+// 最近连接过的设备（见 RecentHosts.ets）
+PersistentStorage.persistProp('sysdvr.recentHosts', '');
 // 丢帧时定格画面（等下一个关键帧，不花屏）
 PersistentStorage.persistProp('sysdvr.freezeOnLoss', true);
 // 画质增强：0 关闭 / 1 标准 / 2 高
@@ -113,10 +118,10 @@ export function enhanceLabels(): string[] {
 
 // 切到后台后保持连接的时长；到时自动断开，实况窗进度条显示已用比例
 export function keepAliveLabels(): string[] {
-  return [tr('app_off'), tr('app_minutes', 5), tr('app_minutes', 30), tr('app_hours', 2)];
+  return [tr('app_off'), tr('app_minutes', 2), tr('app_minutes', 5)];
 }
 
-export const KEEP_ALIVE_MINUTES: number[] = [0, 5, 30, 120];
+export const KEEP_ALIVE_MINUTES: number[] = [0, 2, 5];
 
 /** 各模式支持哪些选项：RTSP 由 ijkplayer 播放，不走我们的解码管线 */
 export function supportsSmooth(mode: StreamMode): boolean {

@@ -16,7 +16,7 @@ export struct OptionsCard {
   @StorageLink('sysdvr.smoothLevelV2') smoothLevel: number = 1;
   @StorageLink('sysdvr.netOpt') netOpt: boolean = true;
   @StorageLink('sysdvr.screenOff') screenOff: boolean = false;
-  @StorageLink('sysdvr.keepAliveIndex') keepAliveIndex: number = 2;
+  @StorageLink('sysdvr.keepAliveIndexV2') keepAliveIndex: number = 1;
   @StorageLink('sysdvr.showStatsOverlay') showStats: boolean = false;
   @StorageLink('sysdvr.freezeOnLoss') freezeOnLoss: boolean = true;
   @StorageLink('sysdvr.enhanceLevel') enhanceLevel: number = 0;

@@ -1,5 +1,5 @@
 import { tr } from '../common/I18n';
-import { APP_NAME, Breakpoint, hotspotSupported, ModeMeta, modes, modeTip, StreamMode } from '../common/Prefs';
+import { APP_NAME, Breakpoint, ModeMeta, modes, modeTip, StreamMode } from '../common/Prefs';
 import { StreamTarget } from '../common/StreamTarget';
 import { RtspPanel } from './RtspPanel';
 import { TcpPanel } from './TcpPanel';
@@ -7,7 +7,7 @@ import { UsbPanel } from './UsbPanel';
 import { Chip, TipBar } from './Widgets';
 
 /**
- * “串流”页：选模式、看提示，列表最后是连接卡片（局域网内的 Switch / USB 设备 / RTSP 地址）。
+ * “串流”页：选模式、看提示，列表最后是连接卡片（局域网内的设备 / USB 设备 / RTSP 地址）和最近连接。
  * 手机上模式是纵向列表，宽屏是横排卡片。
  */
 @Component
@@ -21,8 +21,6 @@ export struct ConnectView {
   onConnect: (target: StreamTarget) => void = () => {
   };
   onOpenGuide: () => void = () => {
-  };
-  onOpenConfig: () => void = () => {
   };
 
   @Builder
@@ -165,14 +163,7 @@ export struct ConnectView {
         Column({ space: 16 }) {
           this.Header()
           this.ModeSelector()
-          TipBar({
-            text: modeTip(this.mode),
-            actionText: this.mode === StreamMode.USB || !hotspotSupported() ? '' :
-              (this.hotspotOn ? tr('connect_hotspot_on_view') : tr('connect_hotspot_turn_on')),
-            onAction: () => {
-              this.onOpenConfig();
-            }
-          })
+          TipBar({ text: modeTip(this.mode) })
 
           // 手机 WLAN 与专用热点不在同一信道：串流时会周期性掉帧，在串流页也提醒一下
           if (this.mode !== StreamMode.USB && this.hotspotOn && this.hotspotWarn.length > 0) {

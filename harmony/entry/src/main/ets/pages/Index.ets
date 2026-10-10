@@ -21,6 +21,7 @@ import { languageSignature, tr, uiLanguageIndex } from '../common/I18n';
 import { RtspPlayer } from '../common/RtspPlayer';
 import { StatsRecorder } from '../common/StatsRecorder';
 import { StreamTarget } from '../common/StreamTarget';
+import { rememberHost } from '../common/RecentHosts';
 import { applyColorMode } from '../common/Theme';
 import { UsbLog, UsbPump, UsbSwitch, UsbWatcher } from '../common/UsbSwitch';
 import { AboutView } from '../views/AboutView';
@@ -94,7 +95,7 @@ struct Index {
   @StorageLink('sysdvr.smoothLevelV2') smoothLevel: number = 1;
   @StorageLink('sysdvr.netOpt') netOpt: boolean = true;
   @StorageLink('sysdvr.screenOff') screenOff: boolean = false;
-  @StorageLink('sysdvr.keepAliveIndex') keepAliveIndex: number = 2;
+  @StorageLink('sysdvr.keepAliveIndexV2') keepAliveIndex: number = 1;
   @StorageLink('sysdvr.showStatsOverlay') showStats: boolean = false;
   @StorageLink('sysdvr.freezeOnLoss') freezeOnLoss: boolean = true;
   @StorageLink('sysdvr.enhanceLevel') enhanceLevel: number = 0;
@@ -154,6 +155,8 @@ struct Index {
   private extRemembered: boolean = false;
   // 请求的编码从什么时候起还没生效（0 = 已生效）：超过 3 秒多半是服务端没采用（例如 Opus 回落成 PCM）
   private extPendingSince: number = 0;
+  // 本次会话是否已记进“最近连接”（TCP 收到视频、RTSP 开始播放后记一次）
+  private hostRemembered: boolean = false;
 
   aboutToAppear(): void {
     this.xController.onCreated = (surfaceId: string) => {
@@ -315,6 +318,7 @@ struct Index {
     }
     this.connecting = true;
     this.target = target;
+    this.hostRemembered = false;
     this.playMode = target.mode;
     // 长时任务只能在前台申请，而且可能先弹“允许通知”授权框，所以留在首页申请完再进播放页，
     // 避免授权框触发播放页的 onPageHide
@@ -551,6 +555,7 @@ struct Index {
     }
     const s = sysdvr.getStats();
     const prev = this.lastStats;
+    this.rememberTarget(this.playMode === StreamMode.TCP && s.videoConnected && s.videoPackets > 0);
     let recvFps = 0;
     let fps = 0;
     let kbps = 0;
@@ -929,9 +934,20 @@ struct Index {
       tr('app_stats_channel_diff', this.hotspotChannel, this.staChannel);
   }
 
+  /** 连上之后把地址记进“最近连接”，每次会话只记一次；USB 没有地址，不记 */
+  private rememberTarget(connected: boolean): void {
+    const t = this.target;
+    if (!connected || this.hostRemembered || t === null || t.mode === StreamMode.USB || t.host.length === 0) {
+      return;
+    }
+    this.hostRemembered = true;
+    rememberHost(t.mode, t.host, t.name ?? '');
+  }
+
   private pollRtspStats(): void {
     const r = this.rtsp.getStats();
     this.statusText = r.playing ? '' : r.message;
+    this.rememberTarget(r.playing);
     const decoder = r.decoder === 2 ? tr('app_stats_decoder_hw') : (r.decoder === 1 ? tr('app_stats_decoder_sw') : '—');
     this.statsText = `${r.message}\n` +
       tr('app_stats_rtsp_video', r.playing ? '●' : '○', r.decodeFps.toFixed(0), r.outputFps.toFixed(0), r.kbps, decoder) +
@@ -1228,9 +1244,6 @@ struct Index {
         },
         onOpenGuide: () => {
           this.openGuide();
-        },
-        onOpenConfig: () => {
-          this.tab = 1;
         }
       })
     }

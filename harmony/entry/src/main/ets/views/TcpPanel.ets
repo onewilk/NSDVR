@@ -4,6 +4,8 @@ import { DeviceInfo } from 'libentry.so';
 import { tr } from '../common/I18n';
 import { isValidIPv4, StreamMode } from '../common/Prefs';
 import { StreamTarget } from '../common/StreamTarget';
+import { RecentHost } from '../common/RecentHosts';
+import { RecentHostsCard } from './RecentHostsCard';
 import { Card } from './Widgets';
 
 /** TCP Bridge：自动发现（UDP 19999 广播）+ 手动输入 IP */
@@ -54,18 +56,18 @@ export struct TcpPanel {
     sysdvr.stopDiscovery();
   }
 
-  private connect(host: string): void {
+  private connect(host: string, name: string = ''): void {
     const ip = host.trim();
     if (!isValidIPv4(ip)) {
       promptAction.showToast({ message: tr('connect_invalid_ip') });
       return;
     }
     this.manualIp = ip; // 记住，下次不用重新输入
-    this.onConnect({ mode: StreamMode.TCP, host: ip, label: ip, usb: null });
+    this.onConnect({ mode: StreamMode.TCP, host: ip, label: ip, usb: null, name: name });
   }
 
   build() {
-    Column() {
+    Column({ space: 16 }) {
       Card({
         title: this.discoveryOk ? tr('connect_lan_title') : tr('connect_discovery_unavailable'),
         subtitle: this.discoveryOk ? tr('connect_lan_subtitle') : tr('connect_discovery_port_busy')
@@ -92,7 +94,7 @@ export struct TcpPanel {
             .layoutWeight(1)
 
             Button(tr('connect_button')).height(34).fontSize(14).onClick(() => {
-              this.connect(d.ip);
+              this.connect(d.ip, tr('connect_device_name', d.version, d.protocol));
             })
           }
           .width('100%')
@@ -124,6 +126,14 @@ export struct TcpPanel {
         }
         .width('100%')
       }
+
+      // 最近连上过的设备：不在同一网段广播不到、或者懒得等广播时一键重连
+      RecentHostsCard({
+        mode: StreamMode.TCP,
+        onPick: (h: RecentHost) => {
+          this.connect(h.host, h.name);
+        }
+      })
     }
   }
 }

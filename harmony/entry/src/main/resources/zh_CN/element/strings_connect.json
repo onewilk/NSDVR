@@ -13,14 +13,6 @@
       "value": "推荐"
     },
     {
-      "name": "connect_hotspot_on_view",
-      "value": "专用热点已开启 · 查看"
-    },
-    {
-      "name": "connect_hotspot_turn_on",
-      "value": "去开启专用热点"
-    },
-    {
       "name": "connect_invalid_ip",
       "value": "请输入正确的 IP 地址，例如 192.168.1.23"
     },
@@ -235,6 +227,30 @@
     {
       "name": "usb_hint_no_devices_pc",
       "value": "没有检测到 USB 设备：请用数据线把游戏机底部的 USB-C 口连到本机，并确认游戏机处于掌机模式（不插底座）。"
+    },
+    {
+      "name": "recent_title",
+      "value": "最近连接"
+    },
+    {
+      "name": "recent_delete",
+      "value": "删除记录"
+    },
+    {
+      "name": "recent_just_now",
+      "value": "刚刚"
+    },
+    {
+      "name": "recent_minutes_ago",
+      "value": "%d 分钟前"
+    },
+    {
+      "name": "recent_hours_ago",
+      "value": "%d 小时前"
+    },
+    {
+      "name": "recent_days_ago",
+      "value": "%d 天前"
     }
   ]
 }

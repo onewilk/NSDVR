@@ -5,6 +5,8 @@ import { tr } from '../common/I18n';
 import { isValidIPv4, StreamMode } from '../common/Prefs';
 import { RtspPlayer } from '../common/RtspPlayer';
 import { StreamTarget } from '../common/StreamTarget';
+import { RecentHost } from '../common/RecentHosts';
+import { RecentHostsCard } from './RecentHostsCard';
 import { Card } from './Widgets';
 
 /** RTSP：SysDVR 在 Switch 上开 rtsp://IP:6666/，这里用 ijkplayer 播放；RTSP 模式下 Switch 不广播，只能手动填 IP */
@@ -49,7 +51,7 @@ export struct RtspPanel {
   }
 
   build() {
-    Column() {
+    Column({ space: 16 }) {
       Card({ title: tr('rtsp_address_title'), subtitle: tr('rtsp_address_subtitle') }) {
         Row({ space: 8 }) {
           TextInput({ placeholder: tr('rtsp_ip_hint'), text: this.host })
@@ -97,6 +99,14 @@ export struct RtspPanel {
             .copyOption(CopyOptions.LocalDevice)
         }
       }
+
+      RecentHostsCard({
+        mode: StreamMode.RTSP,
+        onPick: (h: RecentHost) => {
+          this.host = h.host;
+          this.connect();
+        }
+      })
     }
   }
 }

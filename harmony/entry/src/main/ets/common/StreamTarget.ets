@@ -10,4 +10,6 @@ export interface StreamTarget {
   label: string;
   /** USB：已授权并打开的设备 */
   usb: UsbLink | null;
+  /** 局域网发现到的设备名（如“SysDVR 6.3（协议 03）”），记进“最近连接”；手动输入时不填 */
+  name?: string;
 }
