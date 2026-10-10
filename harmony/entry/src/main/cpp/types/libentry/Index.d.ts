@@ -30,6 +30,8 @@ export interface SessionStats {
   /** TCP 快速确认是否开启 */
   netOpt: boolean;
   smoothDelayMs: number;
+  /** 网络预警是否生效中（缓冲已提前垫到档位上限） */
+  netGuard: boolean;
   videoLate: number;
   /** 当前缓存的 GOP（最近一个关键帧起）包数与字节数 */
   gopPackets: number;
@@ -211,6 +213,8 @@ export const setSmoothLevel: (level: number) => void;
 export const setNetOptimization: (enabled: boolean) => void;
 /** 播放中开关“丢帧时定格画面” */
 export const setFreezeOnLoss: (on: boolean) => void;
+/** 网络预警：系统报告弱信号/拥塞或预测即将变差时打开，平滑缓冲提前垫到当前档位上限；平滑关闭时不生效 */
+export const setNetworkGuard: (on: boolean) => void;
 /** 播放时请求的屏幕刷新率（Hz），0 = 撤销请求、交还系统决定。只是投票，实际刷新率由系统决定 */
 export const setRefreshRateHint: (fps: number) => void;
 /** 播放中切换画质增强档位（0 关闭 / 1 标准 / 2 高）。返回空串表示成功，否则为原因（已退回直出） */

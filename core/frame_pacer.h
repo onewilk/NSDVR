@@ -19,6 +19,7 @@ public:
         size_t windowFrames = 90;          // 统计窗口：约 3 秒
         int percentile = 90;               // 用第 90 百分位，偶发大卡顿不会把缓冲拉满
         int64_t shrinkPerFrameUs = 2'000;  // 缓冲缩小时每帧最多缩 2ms（约 60ms/秒），避免突然加速
+        int64_t growPerFrameUs = 5'000;    // 网络预警抬高下限时每帧多等 5ms（画面短暂放慢约 15%），不卡一下
         int64_t lateToleranceUs = 50'000;  // 比排期晚 50ms 以上算迟到（网络卡顿）
         int64_t catchUpSlackUs = 100'000;  // 积压超过“缓冲 + 100ms”就追赶
     };
@@ -30,6 +31,10 @@ public:
     bool Enabled() const { return enabled_; }
     // 调整缓冲范围（例如“游戏”档压到 80ms 以内），不清空已统计的抖动
     void SetLimits(int64_t minUs, int64_t maxUs, int64_t marginUs);
+    // 网络预警（系统报告弱信号、拥塞，或预测即将变差）：缓冲至少保持在 floorUs（不超过上限），0 = 取消。
+    // 抬高时每帧垫一点，取消后和平时一样每帧缩一点
+    void SetFloor(int64_t floorUs);
+    int64_t FloorUs() const { return floorUs_; }
     // 每帧到达时调用（网络线程送入队列时），用来统计抖动
     void OnArrival(int64_t nowUs, int64_t ptsUs);
     // 下一帧重新锚定（例如追帧结束后）
@@ -44,12 +49,18 @@ public:
 
 private:
     void UpdateTarget();
+    // 只按抖动算出的缓冲（不含网络预警的下限）
+    int64_t JitterWanted() const;
+    int64_t Wanted() const;
 
     Params p_;
     bool enabled_ = false;
     bool anchored_ = false;
     int64_t targetUs_ = 0;        // 当前实际使用的缓冲
-    int64_t wantedUs_ = 0;        // 按抖动算出来的理想缓冲
+    int64_t wantedUs_ = 0;        // 理想缓冲：按抖动算出来的，再不低于网络预警的下限
+    int64_t jitterWantedUs_ = 0;  // 按抖动算出来的部分
+    int64_t floorUs_ = 0;         // 网络预警要求的下限（0 = 没有）
+    int64_t adjustedPts_ = -1;    // 上次调整缓冲时的队首帧：同一帧可能排期多次（被新包唤醒），只调一次
     int64_t anchorLocalUs_ = 0;
     int64_t anchorPtsUs_ = 0;
     uint64_t late_ = 0;

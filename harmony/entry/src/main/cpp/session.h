@@ -25,6 +25,7 @@ struct SessionStats {
     uint64_t videoDropped = 0;
     int smoothLevel = 0;
     int smoothDelayMs = 0;
+    bool netGuard = false;
     bool netOpt = false;
     uint64_t videoLate = 0;
     int lastCatchUpMs = -1;
@@ -86,6 +87,8 @@ public:
     // 播放中快捷开关：不断开视频
     std::string SetAudioEnabled(bool enabled);
     void SetSmoothLevel(int level);
+    // 网络预警（ArkTS 侧根据系统的网络质量/场景信息判断）：平滑缓冲提前垫到当前档位上限
+    void SetNetworkGuard(bool on);
     void SetNetOptimization(bool enabled);
     void SetFreezeOnLoss(bool on);
     // 画质增强档位；开关状态变化时重建视频链路（重放 GOP，画面直接追到最新）。
@@ -131,6 +134,7 @@ private:
     std::unique_ptr<sysdvr::StreamSource> client_;
     std::atomic<bool> audioEnabled_{false};
     std::atomic<int> smoothLevel_{0};
+    std::atomic<bool> netGuard_{false};
     std::atomic<bool> netOpt_{true};
     std::atomic<bool> paused_{false};
     std::atomic<bool> freezeOnLoss_{true};

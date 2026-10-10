@@ -46,6 +46,8 @@ int64_t NowNs() {
 constexpr int64_t kMaxFreezeMs = 3000;
 // 顺延上屏最多排到当前时间之后这么多个刷新周期；再多说明积压了，跳过这一帧追实时
 constexpr int kMaxDeferPeriods = 3;
+// 网络预警时的缓冲下限：给到最大，由 FramePacer 夹到当前档位的上限（延迟优先 80ms / 流畅优先 300ms）
+constexpr int64_t kGuardFloorUs = 300'000;
 }  // namespace
 
 VideoDecoder::~VideoDecoder() { Release(); }
@@ -134,11 +136,20 @@ void VideoDecoder::SetSmoothLevel(int level) {
     } else {
         pacer_.SetLimits(40'000, 300'000, 30'000);
     }
+    pacer_.SetFloor(netGuard_ ? kGuardFloorUs : 0);
     if ((level > 0) != wasOn) pacer_.SetEnabled(level > 0, NowUs());
     smoothing_ = level > 0;
     targetDelayUs_ = pacer_.TargetDelayUs();
     static const char* kNames[] = {"关闭", "延迟优先", "流畅优先"};
     Logf(LogLevel::Info, "平滑模式：%s", kNames[level < 0 || level > 2 ? 0 : level]);
+    cv_.notify_one();
+}
+
+void VideoDecoder::SetNetworkGuard(bool on) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    if (on == netGuard_) return;
+    netGuard_ = on;
+    pacer_.SetFloor(on ? kGuardFloorUs : 0);
     cv_.notify_one();
 }
 

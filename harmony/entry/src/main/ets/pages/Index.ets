@@ -13,6 +13,7 @@ import {
 } from '../common/ExtAudio';
 import { HotspotService } from '../common/HotspotService';
 import { NetBooster } from '../common/NetBooster';
+import { NetQualityWatcher } from '../common/NetQuality';
 import { PipSession } from '../common/PipSession';
 import {
   APP_NAME, Breakpoint, breakpointOf, enhanceLabels, formatDuration, KEEP_ALIVE_MINUTES, keepAliveLabels,
@@ -152,6 +153,8 @@ struct Index {
   private pipTimer: number = -1;
   private keeper: BackgroundKeeper | null = null;
   private booster: NetBooster = new NetBooster();
+  // 网络质量感知：系统预警网络变差时提前加大平滑缓冲（TCP Bridge 经路由器连接时生效）
+  private netWatcher: NetQualityWatcher = new NetQualityWatcher();
   private recorder: StatsRecorder = new StatsRecorder();
   private rtsp: RtspPlayer = new RtspPlayer();
   private usbPump: UsbPump = new UsbPump();
@@ -350,6 +353,16 @@ struct Index {
     sysdvr.setRefreshRateHint(visible && this.lowRefresh ? PLAYBACK_REFRESH_HZ : 0);
   }
 
+  // 游戏机连在本机的专用热点上（和热点同一网段）：串流不走系统统计的 Wi-Fi 链路
+  private viaHotspot(host: string): boolean {
+    const goIp = AppStorage.get<string>('hs.goIp') ?? '';
+    if (goIp.length === 0) {
+      return false;
+    }
+    const prefix = (ip: string): string => ip.split('.').slice(0, 3).join('.');
+    return prefix(goIp) === prefix(host);
+  }
+
   // 用户关掉了小窗：之后和直接切后台一样（开了后台保持就继续接收，否则断开）
   private onPipClosed(): void {
     hilog.info(DOMAIN, TAG, 'pip closed by user');
@@ -521,6 +534,9 @@ struct Index {
       if (cfg.netOpt) {
         this.booster.enter();
       }
+      if (t.mode === StreamMode.TCP) {
+        this.netWatcher.start(!this.viaHotspot(t.host));
+      }
       if (this.pipSupported) {
         this.pip.open(getContext(this), this.xController, this.pipAuto, this.enableAudio);
       }
@@ -659,6 +675,12 @@ struct Index {
     }
     const s = sysdvr.getStats();
     const prev = this.lastStats;
+    if (this.netWatcher.tick(Date.now())) {
+      sysdvr.setNetworkGuard(this.netWatcher.guard);
+    }
+    for (const note of this.netWatcher.takeNotes()) {
+      this.recorder.note(note);
+    }
     this.rememberTarget(this.playMode === StreamMode.TCP && s.videoConnected && s.videoPackets > 0);
     let recvFps = 0;
     let fps = 0;
@@ -700,6 +722,10 @@ struct Index {
     let text = `${s.message}\n${video}\n${audio}${ext.length > 0 ? '\n' + ext : ''}\n${net}`;
     if (this.playMode === StreamMode.TCP) {
       text += '\n' + (s.netOpt ? tr('app_stats_netopt_on', this.booster.status) : tr('app_stats_netopt_off'));
+      const quality = this.netWatcher.statsText(Date.now(), s.smoothLevel > 0);
+      if (quality.length > 0) {
+        text += '\n' + quality;
+      }
       if (this.netOpt && !this.inBackground) {
         this.booster.updateFlows(sysdvr.getSocketFds());
       }
@@ -755,7 +781,7 @@ struct Index {
         delta(s.diagTotalAudioEncodeUs, prev.diagTotalAudioEncodeUs),
         ms1(delta(s.diagTotalAudioBlockUs, prev.diagTotalAudioBlockUs)), ms1(s.diagBlockMaxUs),
         pct(s.diagCore3IdlePermille), pct(s.diagCpuPermille), s.diagTosFlags,
-        this.rotation.running() ? this.rotation.index + 1 : 0]);
+        this.rotation.running() ? this.rotation.index + 1 : 0].concat(this.netWatcher.csvFields()));
     }
     if (s.decoderError.length > 0) {
       text += `\n${s.decoderError}`;
@@ -1085,6 +1111,7 @@ struct Index {
       t.usb = null;
     }
     this.booster.leave();
+    this.netWatcher.stop();
     if (this.rotation.running()) {
       this.recorder.note(this.rotation.summary());
     }

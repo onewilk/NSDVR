@@ -71,6 +71,7 @@ std::string Session::CreateVideo(uint64_t surfaceId, VideoPipeline* out) {
     auto d = std::make_unique<VideoDecoder>();
     std::string error;
     d->SetSmoothLevel(smoothLevel_);
+    d->SetNetworkGuard(netGuard_);
     d->SetFreezeOnLoss(freezeOnLoss_);
     {
         std::lock_guard<std::mutex> lock(videoMutex_);
@@ -364,6 +365,15 @@ void Session::SetSmoothLevel(int level) {
     SyncAudioToVideo();
 }
 
+void Session::SetNetworkGuard(bool on) {
+    if (netGuard_.exchange(on) == on) return;
+    {
+        std::lock_guard<std::mutex> lock(videoMutex_);
+        if (video_) video_->SetNetworkGuard(on);
+    }
+    Logf(LogLevel::Info, "网络预警：%s", on ? "提前加大缓冲" : "解除");
+}
+
 void Session::SetNetOptimization(bool enabled) {
     netOpt_ = enabled;
     if (client_) client_->SetQuickAck(enabled);
@@ -465,6 +475,7 @@ SessionStats Session::Stats() {
         s.framesRendered = renderedBase_;
         s.videoDropped = droppedBase_;
         s.smoothLevel = smoothLevel_;
+        s.netGuard = netGuard_;
         s.videoLate = lateBase_;
         s.netOpt = netOpt_;
         if (video_) {

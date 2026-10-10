@@ -367,6 +367,15 @@ napi_value SetFreezeOnLoss(napi_env env, napi_callback_info info) {
     return Undefined(env);
 }
 
+// setNetworkGuard(on: boolean): void —— 网络预警：平滑缓冲提前垫到当前档位上限
+napi_value SetNetworkGuard(napi_env env, napi_callback_info info) {
+    size_t argc = 1;
+    napi_value args[1] = {nullptr};
+    napi_get_cb_info(env, info, &argc, args, nullptr, nullptr);
+    if (g_session) g_session->SetNetworkGuard(argc >= 1 && GetBool(env, args[0], false));
+    return Undefined(env);
+}
+
 // setRefreshRateHint(fps: number): void —— 播放时请求的屏幕刷新率，0 = 交还系统决定（与会话无关，进程级）
 napi_value SetRefreshRateHint(napi_env env, napi_callback_info info) {
     size_t argc = 1;
@@ -433,6 +442,7 @@ napi_value GetStats(napi_env env, napi_callback_info) {
     Set(env, obj, "lastCatchUpMs", MakeNumber(env, double(s.lastCatchUpMs)));
     Set(env, obj, "smoothLevel", MakeNumber(env, s.smoothLevel));
     Set(env, obj, "netOpt", MakeBool(env, s.netOpt));
+    Set(env, obj, "netGuard", MakeBool(env, s.netGuard));
     Set(env, obj, "smoothDelayMs", MakeNumber(env, double(s.smoothDelayMs)));
     Set(env, obj, "videoLate", MakeNumber(env, double(s.videoLate)));
     Set(env, obj, "gopPackets", MakeNumber(env, double(s.gopPackets)));
@@ -603,6 +613,7 @@ static napi_value Init(napi_env env, napi_value exports) {
         {"setSmoothLevel", nullptr, SetSmoothLevel, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setNetOptimization", nullptr, SetNetOptimization, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setFreezeOnLoss", nullptr, SetFreezeOnLoss, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"setNetworkGuard", nullptr, SetNetworkGuard, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setRefreshRateHint", nullptr, SetRefreshRateHint, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setEnhanceLevel", nullptr, SetEnhanceLevel, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setExtAudio", nullptr, SetExtAudio, nullptr, nullptr, nullptr, napi_default, nullptr},

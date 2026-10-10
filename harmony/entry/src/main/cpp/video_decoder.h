@@ -68,6 +68,8 @@ public:
     void SetSmoothLevel(int level);
     bool Smoothing() const { return smoothing_; }
     int SmoothDelayMs() const { return smoothing_ ? int(targetDelayUs_ / 1000) : 0; }
+    // 网络预警：系统报告弱信号/拥塞或预测即将变差时，缓冲提前垫到当前档位上限；平滑关闭时不生效
+    void SetNetworkGuard(bool on);
     uint64_t LatePackets() const { return latePackets_; }
 
     // 丢帧定格：发现丢帧后不再送 P 帧（参考链已断，送进去只会花屏），画面停在最后一个完好的帧，
@@ -144,6 +146,7 @@ private:
     std::atomic<bool> smoothing_{false};
     std::atomic<int64_t> targetDelayUs_{0};
     std::atomic<uint64_t> latePackets_{0};
+    bool netGuard_ = false;  // 受 mutex_ 保护
 
     std::atomic<bool> freezeOnLoss_{true};
     std::atomic<bool> frozen_{false};

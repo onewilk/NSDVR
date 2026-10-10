@@ -62,6 +62,8 @@ AppStorage.setOrCreate('hs.detail', '');
 AppStorage.setOrCreate('hs.warn', '');
 AppStorage.setOrCreate('hs.channel', 0);
 AppStorage.setOrCreate('hs.staChannel', 0);
+// 专用热点（群组主）的 IP：判断游戏机是否连在热点上
+AppStorage.setOrCreate('hs.goIp', '');
 
 export class HotspotService {
   private static instance: HotspotService | null = null;
@@ -203,6 +205,7 @@ export class HotspotService {
     const st = this.hotspot.state;
     AppStorage.set('hs.channel', st.active ? st.channel : 0);
     AppStorage.set('hs.staChannel', st.staSsid.length > 0 ? st.staChannel : 0);
+    AppStorage.set('hs.goIp', st.active ? st.goIp : '');
     if (!st.active) {
       AppStorage.set('hs.summary', st.message);
       AppStorage.set('hs.detail', '');

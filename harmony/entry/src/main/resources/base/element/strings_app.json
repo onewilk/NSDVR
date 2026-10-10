@@ -439,6 +439,54 @@
     {
       "name": "app_toast_pip_failed",
       "value": "Could not open the mini window (%s)"
+    },
+    {
+      "name": "net_line",
+      "value": "Network quality: %s"
+    },
+    {
+      "name": "net_bandwidth",
+      "value": "bandwidth %s Mbps"
+    },
+    {
+      "name": "net_rtt",
+      "value": "RTT %d ms"
+    },
+    {
+      "name": "net_predict",
+      "value": "weak signal expected in %d s"
+    },
+    {
+      "name": "net_guard_on",
+      "value": " (early warning: buffer raised)"
+    },
+    {
+      "name": "net_guard_smooth_off",
+      "value": " (early warning: no effect while smoothing is off)"
+    },
+    {
+      "name": "net_not_applied",
+      "value": " (dedicated hotspot: recorded only)"
+    },
+    {
+      "name": "net_scene_normal",
+      "value": "normal"
+    },
+    {
+      "name": "net_scene_congestion",
+      "value": "congested"
+    },
+    {
+      "name": "net_scene_handover",
+      "value": "frequent handovers"
+    },
+    {
+      "name": "net_scene_weak",
+      "value": "weak signal"
+    },
+    {
+      "name": "net_scene_unknown",
+      "value": "unknown"
     }
   ]
 }

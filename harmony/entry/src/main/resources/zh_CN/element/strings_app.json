@@ -439,6 +439,54 @@
     {
       "name": "app_toast_pip_failed",
       "value": "无法打开小窗（%s）"
+    },
+    {
+      "name": "net_line",
+      "value": "网络质量：%s"
+    },
+    {
+      "name": "net_bandwidth",
+      "value": "带宽 %s Mbps"
+    },
+    {
+      "name": "net_rtt",
+      "value": "RTT %d ms"
+    },
+    {
+      "name": "net_predict",
+      "value": "预计 %d 秒后信号变弱"
+    },
+    {
+      "name": "net_guard_on",
+      "value": "（网络预警：已加大缓冲）"
+    },
+    {
+      "name": "net_guard_smooth_off",
+      "value": "（网络预警：平滑已关闭，不生效）"
+    },
+    {
+      "name": "net_not_applied",
+      "value": "（专用热点直连，仅记录）"
+    },
+    {
+      "name": "net_scene_normal",
+      "value": "正常"
+    },
+    {
+      "name": "net_scene_congestion",
+      "value": "拥塞"
+    },
+    {
+      "name": "net_scene_handover",
+      "value": "频繁切换"
+    },
+    {
+      "name": "net_scene_weak",
+      "value": "弱信号"
+    },
+    {
+      "name": "net_scene_unknown",
+      "value": "未知"
     }
   ]
 }

@@ -439,6 +439,54 @@
     {
       "name": "app_toast_pip_failed",
       "value": "無法開啟小窗（%s）"
+    },
+    {
+      "name": "net_line",
+      "value": "網路品質：%s"
+    },
+    {
+      "name": "net_bandwidth",
+      "value": "頻寬 %s Mbps"
+    },
+    {
+      "name": "net_rtt",
+      "value": "RTT %d ms"
+    },
+    {
+      "name": "net_predict",
+      "value": "預計 %d 秒後訊號變弱"
+    },
+    {
+      "name": "net_guard_on",
+      "value": "（網路預警：已加大緩衝）"
+    },
+    {
+      "name": "net_guard_smooth_off",
+      "value": "（網路預警：平滑已關閉，不生效）"
+    },
+    {
+      "name": "net_not_applied",
+      "value": "（專用熱點直連，僅記錄）"
+    },
+    {
+      "name": "net_scene_normal",
+      "value": "正常"
+    },
+    {
+      "name": "net_scene_congestion",
+      "value": "壅塞"
+    },
+    {
+      "name": "net_scene_handover",
+      "value": "頻繁切換"
+    },
+    {
+      "name": "net_scene_weak",
+      "value": "弱訊號"
+    },
+    {
+      "name": "net_scene_unknown",
+      "value": "未知"
     }
   ]
 }

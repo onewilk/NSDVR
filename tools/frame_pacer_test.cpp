@@ -52,8 +52,16 @@ std::vector<int64_t> Arrivals(const Net& net, int frames, uint32_t seed) {
     return arr;
 }
 
+// 网络预警：[fromUs, toUs) 这段时间把缓冲下限抬到 floorUs（0 = 不预警）
+struct Guard {
+    int64_t floorUs = 0;
+    int64_t fromUs = 0;
+    int64_t toUs = 0;
+};
+
 // level: 0 不平滑，1 游戏档（≤80ms），2 观看档（≤300ms）
-Result Simulate(const Net& net, int level, int seconds) {
+Result Simulate(const Net& net, int level, int seconds, Guard guard = {}, double* targetAtMs = nullptr,
+                int64_t probeUs = 0) {
     const int frames = seconds * 30;
     const auto arrival = Arrivals(net, frames, 42);
     FramePacer pacer;
@@ -65,6 +73,8 @@ Result Simulate(const Net& net, int level, int seconds) {
     int next = 0;
     const int64_t endUs = arrival.back() + 2'000'000;
     for (int64_t t = 0; t <= endUs; t += 1000) {  // 1ms 步进
+        if (guard.floorUs > 0) pacer.SetFloor(t >= guard.fromUs && t < guard.toUs ? guard.floorUs : 0);
+        if (targetAtMs != nullptr && t == probeUs) *targetAtMs = pacer.TargetDelayUs() / 1000.0;
         while (next < frames && arrival[next] <= t) {
             pacer.OnArrival(t, next * kFrameUs);
             queue.push_back(next++);
@@ -149,6 +159,30 @@ int main() {
             Check(on.stutters * 10 < off.stutters, "一般网络下卡顿降到 1/10 以下");
             Check(on.meanLatencyMs < 120, "一般网络下平均延迟不超过 120ms");
         }
+    }
+    {
+        // 网络预警：稳定网络（游戏档缓冲压到 20ms），每 20 秒有一次 70ms 的短卡顿。
+        // 15–45 秒收到预警，缓冲提前垫到上限 80ms，能把 20 秒、40 秒的两次卡顿吸收掉
+        const Net blips{"稳定网络 + 每 20 秒卡 70ms", 5'000, 0, 20'000'000, 70'000};
+        const Guard warn{80'000, 15'000'000, 45'000'000};
+        std::printf("\n[网络预警：%s] 50 秒\n", blips.name);
+        double during = 0, after = 0;
+        const Result plain = Simulate(blips, 1, 50);
+        const Result guarded = Simulate(blips, 1, 50, warn, &during, 30'000'000);
+        Simulate(blips, 1, 50, warn, &after, 49'000'000);
+        Print("游戏档", plain);
+        Print("预警", guarded);
+        std::printf("  预警中缓冲 %.0f ms，解除 4 秒后 %.0f ms\n", during, after);
+        Check(plain.stutters >= 2, "不预警时两次短卡顿都看得出来");
+        Check(guarded.stutters == 0, "预警期间的短卡顿被缓冲吸收");
+        Check(during >= 79 && during <= 80, "预警期间缓冲垫到游戏档上限 80ms");
+        Check(after <= 25, "预警解除后缓冲缩回（≤25ms）");
+
+        // 稳定网络下垫缓冲本身不能造成卡顿（每帧只多等 5ms）
+        const Net calm{"稳定 5GHz", 5'000, 0, 0, 0};
+        const Result ramp = Simulate(calm, 2, 30, Guard{300'000, 10'000'000, 20'000'000});
+        Print("观看档", ramp);
+        Check(ramp.stutters == 0, "观看档垫到 300ms 的过程中没有卡顿");
     }
     std::printf(g_failed ? "\n失败 %d 项\n" : "\n全部通过\n", g_failed);
     return g_failed ? 1 : 0;

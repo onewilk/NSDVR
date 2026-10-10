@@ -29,7 +29,10 @@ export class StatsRecorder {
     'diag_interval_ms,diag_frames,grc_gaps,block_total_ms,sends_over_20ms,gaps_after_slow,diag_audio_pkts,' +
     'diag_enc_us,audio_block_ms,block_max_ms,core3_idle_pct,sysdvr_cpu_pct,tos_flags,' +
     // 自动轮换：当前组合编号（从 1 起，0 = 没在轮换）
-    'rotation_combo';
+    'rotation_combo,' +
+    // 网络质量（系统网络加速服务，Wi-Fi 链路）：预警是否生效、场景（-1 未知 / 0 正常 / 1 拥塞 / 2 频繁切换 / 3 弱信号）、
+    // 下行带宽（Mbps）、RTT（ms，-1 未知）
+    'net_guard,net_scene,net_bw_mbps,net_rtt_ms';
 
   private file: fileIo.File | null = null;
   private startMs: number = 0;

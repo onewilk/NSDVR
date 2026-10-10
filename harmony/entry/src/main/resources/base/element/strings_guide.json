@@ -174,7 +174,7 @@
     },
     {
       "name": "guide_opt_smooth_body",
-      "value": "Trades a little buffering for smoothness when the network jitters. Off: no extra buffering, lower latency. Low latency: ≤80 ms buffer, for playing yourself and action games. Smoothness: ≤300 ms buffer, smoother, for watching story scenes or streams. “Low latency” is on by default — turn it off for even lower latency in rhythm or fighting games, or switch to “Smoothness” if it still stutters. The buffer adapts to the actual jitter and audio stays in sync."
+      "value": "Trades a little buffering for smoothness when the network jitters. Off: no extra buffering, lower latency. Low latency: ≤80 ms buffer, for playing yourself and action games. Smoothness: ≤300 ms buffer, smoother, for watching story scenes or streams. “Low latency” is on by default — turn it off for even lower latency in rhythm or fighting games, or switch to “Smoothness” if it still stutters. The buffer adapts to the actual jitter and audio stays in sync. With TCP Bridge over router Wi-Fi, when the system warns that the network is getting worse (weak signal, congestion, or a weak spot predicted ahead), the buffer is raised to the mode’s limit in advance and shrinks back once things recover."
     },
     {
       "name": "guide_opt_net_title",
