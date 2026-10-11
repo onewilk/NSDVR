@@ -389,8 +389,8 @@ std::string Session::SetExtAudio(const sysdvr::ExtAudioConfig& config) {
     return "";
 }
 
-std::vector<int> Session::SocketFds() const {
-    return client_ ? client_->SocketFds() : std::vector<int>{};
+std::vector<sysdvr::SocketFlow> Session::SocketFlows() const {
+    return client_ ? client_->SocketFlows() : std::vector<sysdvr::SocketFlow>{};
 }
 
 void Session::SyncAudioToVideo() {

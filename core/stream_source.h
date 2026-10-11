@@ -75,6 +75,14 @@ struct StreamCallbacks {
     LossFn onVideoLoss;
 };
 
+// 一条已连接的 TCP 连接的地址（给系统网络加速标记数据流用）
+struct SocketFlow {
+    std::string localAddress;
+    uint16_t localPort = 0;
+    std::string remoteAddress;
+    uint16_t remotePort = 0;
+};
+
 class StreamSource {
 public:
     virtual ~StreamSource() = default;
@@ -86,7 +94,7 @@ public:
     virtual void SetAudioEnabled(bool enabled) = 0;
     // 网络相关的可选能力，USB 下没有意义
     virtual void SetQuickAck(bool) {}
-    virtual std::vector<int> SocketFds() const { return {}; }
+    virtual std::vector<SocketFlow> SocketFlows() const { return {}; }
     // 实验扩展：运行中切换音频编码/Opus 参数。返回 true 表示已发出控制消息；
     // false 表示服务端（还）没表明支持扩展或音频没连上——请求会记下来，下次音频握手时带上
     virtual bool SetExtAudio(const ExtAudioConfig&) { return false; }

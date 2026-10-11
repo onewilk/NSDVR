@@ -893,7 +893,7 @@ struct Index {
         netTab.push(quality);
       }
       if (this.netOpt && !this.inBackground) {
-        this.booster.updateFlows(sysdvr.getSocketFds());
+        this.booster.updateFlows(sysdvr.getSocketFlows());
       }
     } else if (this.target !== null && this.target.usb !== null) {
       netTab.push(tr('app_stats_transport', this.target.usb.transport));

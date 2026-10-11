@@ -97,7 +97,7 @@ public:
     // 实验扩展：运行中切换音频编码/Opus 参数（控制消息，不重连）。
     // 返回空串表示已发出或已记下（音频关着时下次打开生效）；服务端不支持扩展时返回提示文字
     std::string SetExtAudio(const sysdvr::ExtAudioConfig& config);
-    std::vector<int> SocketFds() const;
+    std::vector<sysdvr::SocketFlow> SocketFlows() const;
     SessionStats Stats();
 
 private:

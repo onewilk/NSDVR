@@ -34,7 +34,7 @@ public:
     // Switch 发送缓冲很小，吞吐约等于“缓冲 / 往返时间”，延迟 ACK 会让它干等
     void SetQuickAck(bool enabled) override { quickAck_ = enabled; }
     // 当前已连接的 socket（给系统网络加速接口标记高优先级用）
-    std::vector<int> SocketFds() const override;
+    std::vector<SocketFlow> SocketFlows() const override;
     // 实验扩展：记下新的音频编码（之后的音频握手都带它）；服务端已表明支持扩展且音频连着时，
     // 立即在 9922 上发 8 字节控制消息，不重连。生效与否看之后音频包的标记（GetStats 里的 extAudioPending）
     bool SetExtAudio(const ExtAudioConfig& config) override;
@@ -48,7 +48,7 @@ private:
         const uint16_t port;
         const char* const name;
         std::atomic<bool> stop{false};  // 单独停这一路（音频开关用）
-        std::mutex fdMutex;             // 主线程往 socket 上发控制消息时，防止接收线程同时关掉它
+        mutable std::mutex fdMutex;     // 主线程往 socket 上发控制消息、读地址时，防止接收线程同时关掉它
         std::atomic<int> fd{-1};
         std::atomic<bool> connected{false};
         std::thread thread;

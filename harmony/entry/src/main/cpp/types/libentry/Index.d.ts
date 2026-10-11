@@ -224,8 +224,15 @@ export const setEnhanceLevel: (level: number) => string;
  * 返回空串表示已发出（音频关着时已记下，下次打开生效），否则为原因（例如当前服务端不支持）
  */
 export const setExtAudio: (codec: number, kbps: number, complexity: number, frameMs: number) => string;
-/** 当前已连接的 socket 描述符 */
-export const getSocketFds: () => number[];
+/** 一条已连接的 TCP 连接的地址 */
+export interface SocketFlow {
+  localAddress: string;
+  localPort: number;
+  remoteAddress: string;
+  remotePort: number;
+}
+/** 当前已连接的 TCP 连接（TCP Bridge 下最多视频、音频两条） */
+export const getSocketFlows: () => SocketFlow[];
 export const getStats: () => SessionStats;
 
 export interface RtspProbeResult {

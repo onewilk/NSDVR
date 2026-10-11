@@ -408,13 +408,22 @@ napi_value SetExtAudio(napi_env env, napi_callback_info info) {
                                                                GetInt(env, args[2], 5), GetInt(env, args[3], 20))));
 }
 
-// getSocketFds(): number[] —— 当前已连接的 socket，给网络加速接口标记高优先级
-napi_value GetSocketFds(napi_env env, napi_callback_info) {
+// getSocketFlows(): SocketFlow[] —— 当前已连接的 TCP 连接的地址，给网络加速接口标记高优先级。
+// 不传 socket 描述符：传给系统服务的描述符会被它持有，我们 close() 后连接仍然不断开
+napi_value GetSocketFlows(napi_env env, napi_callback_info) {
     napi_value arr;
     napi_create_array(env, &arr);
     if (!g_session) return arr;
-    const auto fds = g_session->SocketFds();
-    for (size_t i = 0; i < fds.size(); ++i) napi_set_element(env, arr, uint32_t(i), MakeNumber(env, fds[i]));
+    const auto flows = g_session->SocketFlows();
+    for (size_t i = 0; i < flows.size(); ++i) {
+        napi_value obj;
+        napi_create_object(env, &obj);
+        Set(env, obj, "localAddress", MakeString(env, flows[i].localAddress));
+        Set(env, obj, "localPort", MakeNumber(env, flows[i].localPort));
+        Set(env, obj, "remoteAddress", MakeString(env, flows[i].remoteAddress));
+        Set(env, obj, "remotePort", MakeNumber(env, flows[i].remotePort));
+        napi_set_element(env, arr, uint32_t(i), obj);
+    }
     return arr;
 }
 
@@ -617,7 +626,7 @@ static napi_value Init(napi_env env, napi_value exports) {
         {"setRefreshRateHint", nullptr, SetRefreshRateHint, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setEnhanceLevel", nullptr, SetEnhanceLevel, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"setExtAudio", nullptr, SetExtAudio, nullptr, nullptr, nullptr, napi_default, nullptr},
-        {"getSocketFds", nullptr, GetSocketFds, nullptr, nullptr, nullptr, napi_default, nullptr},
+        {"getSocketFlows", nullptr, GetSocketFlows, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"getStats", nullptr, GetStats, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"usbProbe", nullptr, UsbProbe, nullptr, nullptr, nullptr, napi_default, nullptr},
         {"usbFeed", nullptr, UsbFeed, nullptr, nullptr, nullptr, napi_default, nullptr},

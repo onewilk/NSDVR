@@ -175,11 +175,23 @@ void TcpBridgeClient::SetAudioEnabled(bool enabled) {
     }
 }
 
-std::vector<int> TcpBridgeClient::SocketFds() const {
-    std::vector<int> fds;
-    if (video_.connected && video_.fd >= 0) fds.push_back(video_.fd);
-    if (audio_.connected && audio_.fd >= 0) fds.push_back(audio_.fd);
-    return fds;
+std::vector<SocketFlow> TcpBridgeClient::SocketFlows() const {
+    std::vector<SocketFlow> flows;
+    for (const Channel* ch : {&video_, &audio_}) {
+        std::lock_guard<std::mutex> lock(ch->fdMutex);
+        const int fd = ch->fd;
+        if (!ch->connected || fd < 0) continue;
+        sockaddr_in local{}, remote{};
+        socklen_t localLen = sizeof(local), remoteLen = sizeof(remote);
+        if (getsockname(fd, reinterpret_cast<sockaddr*>(&local), &localLen) != 0 ||
+            getpeername(fd, reinterpret_cast<sockaddr*>(&remote), &remoteLen) != 0)
+            continue;
+        char localIp[INET_ADDRSTRLEN] = {}, remoteIp[INET_ADDRSTRLEN] = {};
+        inet_ntop(AF_INET, &local.sin_addr, localIp, sizeof(localIp));
+        inet_ntop(AF_INET, &remote.sin_addr, remoteIp, sizeof(remoteIp));
+        flows.push_back({localIp, ntohs(local.sin_port), remoteIp, ntohs(remote.sin_port)});
+    }
+    return flows;
 }
 
 BridgeStats TcpBridgeClient::GetStats() const {
