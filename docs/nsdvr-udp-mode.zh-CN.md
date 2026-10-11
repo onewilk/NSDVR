@@ -2,6 +2,11 @@
 
 状态：设计稿，尚未实现。服务端改动在 NSDVR-server 分支上进行，与 [实验扩展协议](nsdvr-ext-protocol.zh-CN.md) 相互独立。
 
+> **2026-10-11 评估：暂不实施，留作参考。** [音频压缩测试](https://github.com/onewilk/NSDVR-server/blob/nsdvr/reports/2026-10-11-audio-compression/README.zh-CN.md)
+> 的数据显示：网络良好时游戏中几乎不丢帧，也没有发送卡顿；弱网下丢多少帧取决于串流码率超出链路容量多少，链路装得下时
+> TCP 几乎不丢帧；马车 8 菜单页的周期性卡顿来自主机 CPU。这几种情况换成 UDP 都改善不了。降低码率（Opus 64k）在临界
+> 链路上效果明显，优先级高于传输层改造。如果以后出现「链路容量足够但 TCP 仍然卡顿」的数据，再重新评估。
+
 ## 1. 目标与范围
 
 在 SysDVR 现有的 USB、TCP Bridge、RTSP 之外新增第四种模式 **UDP**。和其他模式一样互斥：Switch 上同一时间只运行一种。
