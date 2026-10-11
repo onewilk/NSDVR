@@ -71,6 +71,17 @@ class StreamSurfaceController extends XComponentController {
   }
 }
 
+// 统计信息浮层的页签（资源键）：概览、视频、音频、网络、设备（游戏机）
+const STATS_TABS: string[] = ['stats_tab_overview', 'stats_tab_video', 'stats_tab_audio', 'stats_tab_network',
+  'stats_tab_device'];
+
+/** 实验扩展的统计，按页签拆开：编码进音频、发送进网络、CPU 进设备 */
+interface ExtStatsLines {
+  audio: string[];
+  network: string[];
+  device: string[];
+}
+
 function selectOptions(labels: string[]): SelectOption[] {
   return labels.map((label: string): SelectOption => {
     const option: SelectOption = { value: label };
@@ -136,7 +147,9 @@ struct Index {
   @State playing: boolean = false;
   @State playMode: number = StreamMode.TCP;
   @State showPanel: boolean = false;
-  @State statsText: string = '';
+  // 统计信息浮层：每个页签一组行；选中的页签记住（下次播放还停在这一页）
+  @State statsLines: string[][] = [[], [], [], [], []];
+  @StorageLink('sysdvr.statsTab') statsTab: number = 0;
   @State statusText: string = '';
   // 播放页：点画面显示/隐藏按钮；锁定后只显示锁形图标
   @State controlsVisible: boolean = true;
@@ -553,7 +566,7 @@ struct Index {
       await this.startKeeper();
     }
     this.statusText = tr('app_connecting', target.label);
-    this.statsText = '';
+    this.statsLines = [[], [], [], [], []];
     this.locked = false;
     this.controlsVisible = true;
     this.showPanel = false;
@@ -821,50 +834,120 @@ struct Index {
     // 画面起来之前显示连接状态，起来之后收起；丢帧定格时这一秒可能一帧都没出，但画面是有意停住的，不显示“连接中”
     this.statusText = s.videoConnected && (fps > 0 || s.frozen) ? '' : s.message;
 
-    let video = tr('app_stats_video', s.videoConnected ? '●' : '○', recvFps, fps, kbps, s.videoDropped);
+    const overview: string[] = [];
+    const videoTab: string[] = [];
+    const audioTab: string[] = [];
+    const netTab: string[] = [];
+    const deviceTab: string[] = [];
+    const live = s.videoConnected ? '●' : '○';
+    if (s.message.length > 0) {
+      overview.push(s.message);
+    }
+
+    // 视频
+    overview.push(tr('stats_ov_video', live, recvFps, fps, kbps));
+    let video = tr('app_stats_video', live, recvFps, fps, kbps, s.videoDropped);
     if (s.smoothLevel > 0) {
       video += tr('app_stats_smooth', smoothLabels()[s.smoothLevel], s.smoothDelayMs, s.videoLate);
     }
-    let audio = this.playMode === StreamMode.TCP ? tr('app_stats_audio_off_tcp') : tr('app_stats_audio_off');
-    if (s.audioEnabled) {
-      audio = tr('app_stats_audio', s.audioConnected ? '●' : '○', s.audioBufferedMs, s.audioTargetMs, s.audioUnderruns,
-        s.audioFastMode ? tr('app_stats_audio_fast') : tr('app_stats_audio_normal'));
+    videoTab.push(video);
+    for (const line of this.lossStatsText(s).split('\n')) {
+      if (line.length > 0) {
+        videoTab.push(line);
+      }
     }
-    const linkName = this.playMode === StreamMode.USB ? 'USB' : tr('app_stats_link_network');
-    const net = tr('app_stats_net', linkName, linkMbps.toFixed(1), s.replayHits, s.resyncs, s.reconnects);
+    videoTab.push(this.renderStatsText(s));
+    const resume = s.lastCatchUpMs >= 0 ? `${s.lastCatchUpMs} ms` : '—';
+    videoTab.push(tr('app_stats_gop', s.gopPackets, Math.round(s.gopBytes / 1024), resume));
+    const enhance = this.enhanceStatsText(s);
+    if (enhance.length > 0) {
+      videoTab.push(enhance);
+    }
+
+    // 音频
     if (this.playMode === StreamMode.TCP) {
       this.updateExt(s, prev);
     }
-    const ext = this.extStatsText(s, prev, audioKbps);
-    let text = `${s.message}\n${video}\n${audio}${ext.length > 0 ? '\n' + ext : ''}\n${net}`;
+    const ext = this.extStatsLines(s, prev, audioKbps);
+    if (s.audioEnabled) {
+      const codec = s.extSupported && s.audioCodec >= 0 ? comboLabel({
+        codec: s.audioCodec, kbps: s.audioKbpsConfig, complexity: s.opusComplexity, frameMs: s.opusFrameMs
+      }) : 'PCM';
+      overview.push(tr('stats_ov_audio', s.audioConnected ? '●' : '○', codec, audioKbps, s.audioBufferedMs));
+      audioTab.push(tr('app_stats_audio', s.audioConnected ? '●' : '○', s.audioBufferedMs, s.audioTargetMs,
+        s.audioUnderruns, s.audioFastMode ? tr('app_stats_audio_fast') : tr('app_stats_audio_normal')));
+    } else {
+      const off = this.playMode === StreamMode.TCP ? tr('app_stats_audio_off_tcp') : tr('app_stats_audio_off');
+      overview.push(off);
+      audioTab.push(off);
+    }
+    audioTab.push(...ext.audio);
+
+    // 网络
+    const linkName = this.playMode === StreamMode.USB ? 'USB' : tr('app_stats_link_network');
+    netTab.push(tr('app_stats_net', linkName, linkMbps.toFixed(1), s.replayHits, s.resyncs, s.reconnects));
     if (this.playMode === StreamMode.TCP) {
-      text += '\n' + (s.netOpt ? tr('app_stats_netopt_on', this.booster.status) : tr('app_stats_netopt_off'));
+      netTab.push(s.netOpt ? tr('app_stats_netopt_on', this.booster.status) : tr('app_stats_netopt_off'));
       const quality = this.netWatcher.statsText(Date.now(), s.smoothLevel > 0);
       if (quality.length > 0) {
-        text += '\n' + quality;
+        netTab.push(quality);
       }
       if (this.netOpt && !this.inBackground) {
         this.booster.updateFlows(sysdvr.getSocketFds());
       }
     } else if (this.target !== null && this.target.usb !== null) {
-      text += '\n' + tr('app_stats_transport', this.target.usb.transport);
-    }
-    const resume = s.lastCatchUpMs >= 0 ? `${s.lastCatchUpMs} ms` : '—';
-    text += '\n' + tr('app_stats_gop', s.gopPackets, Math.round(s.gopBytes / 1024), resume);
-    text += '\n' + this.lossStatsText(s);
-    text += '\n' + this.renderStatsText(s);
-    const enhance = this.enhanceStatsText(s);
-    if (enhance.length > 0) {
-      text += '\n' + enhance;
+      netTab.push(tr('app_stats_transport', this.target.usb.transport));
     }
     const channel = this.channelStatsText();
     if (channel.length > 0) {
-      text += '\n' + channel;
+      netTab.push(channel);
     }
+    netTab.push(...ext.network);
+
+    // 设备（游戏机）
+    deviceTab.push(...ext.device);
     if (s.videoConnected) {
-      text += '\n' + this.memoryStatsText(s);
+      deviceTab.push(this.memoryStatsText(s));
       this.recordMemory(s);
     }
+    const t = this.target;
+    if (t !== null) {
+      if (t.name !== undefined && t.name.length > 0) {
+        deviceTab.push(tr('stats_dev_server', t.name));
+      }
+      if (this.playMode === StreamMode.TCP) {
+        deviceTab.push(s.extSupported ? tr('stats_dev_ext_yes') : tr('stats_dev_ext_no'));
+      }
+    }
+    const consoleParts: string[] = [];
+    if (s.diagPackets > 0 && s.diagCore3IdlePermille !== 0xFFFFFFFF) {
+      consoleParts.push(tr('stats_ov_core3', `${(Math.max(0, 1000 - s.diagCore3IdlePermille) / 10).toFixed(0)}%`));
+    }
+    if (s.diagPackets > 0 && s.diagCpuPermille !== 0xFFFFFFFF) {
+      consoleParts.push(`SysDVR ${(s.diagCpuPermille / 10).toFixed(1)}%`);
+    }
+    if (s.switchMemValid) {
+      consoleParts.push(tr('stats_ov_mem', ((s.systemPoolSize - s.systemPoolUsed) / 1048576).toFixed(1)));
+    }
+    if (consoleParts.length > 0) {
+      overview.push(tr('stats_ov_console', consoleParts.join(' · ')));
+    }
+
+    // 概览：各项设置当前的状态
+    const onOff = (on: boolean): string => on ? tr('app_on') : tr('app_off');
+    const config: string[] = [
+      s.smoothLevel > 0 ? tr('stats_ov_smooth', smoothLabels()[s.smoothLevel], s.smoothDelayMs) :
+        tr('stats_ov_smooth_off'),
+      tr('stats_ov_enhance', enhanceLabels()[s.enhanceLevel])
+    ];
+    if (this.playMode === StreamMode.TCP) {
+      config.push(tr('stats_ov_netopt', onOff(s.netOpt)));
+    }
+    config.push(tr('stats_ov_freeze', onOff(s.freezeOnLoss)));
+    if (s.vsyncPeriodUs > 0) {
+      config.push(tr('stats_ov_refresh', Math.round(1e6 / s.vsyncPeriodUs)));
+    }
+    overview.push(tr('stats_ov_config', config.join(' · ')));
     if (!this.enhanceWarned && s.enhanceRequested > 0 && s.enhanceLevel === 0 && s.enhanceError.length > 0) {
       // 设置里开了画质增强但本机不支持：只提示一次，播放照常进行
       this.enhanceWarned = true;
@@ -901,9 +984,10 @@ struct Index {
         this.rotation.running() ? this.rotation.index + 1 : 0].concat(this.netWatcher.csvFields()));
     }
     if (s.decoderError.length > 0) {
-      text += `\n${s.decoderError}`;
+      overview.push(s.decoderError);
+      videoTab.push(s.decoderError);
     }
-    this.statsText = text;
+    this.statsLines = [overview, videoTab, audioTab, netTab, deviceTab];
   }
 
   // ---------------------------------------------------------------- 实验扩展（仅 TCP Bridge）
@@ -1055,14 +1139,17 @@ struct Index {
   }
 
   // 统计浮层里的实验扩展部分：当前编码与实际码率、Switch 编码耗时占实时的比例、诊断数据、轮换进度
-  private extStatsText(s: SessionStats, prev: SessionStats | null, audioKbps: number): string {
+  private extStatsLines(s: SessionStats, prev: SessionStats | null, audioKbps: number): ExtStatsLines {
+    const out: ExtStatsLines = { audio: [], network: [], device: [] };
     if (this.playMode !== StreamMode.TCP) {
-      return '';
+      return out;
     }
     if (!s.extSupported) {
-      return this.devMode ? tr('ext_stats_unsupported') : '';
+      if (this.devMode) {
+        out.audio.push(tr('ext_stats_unsupported'));
+      }
+      return out;
     }
-    const lines: string[] = [];
     const codec = s.audioCodec >= 0 ? comboLabel({
       codec: s.audioCodec, kbps: s.audioKbpsConfig, complexity: s.opusComplexity, frameMs: s.opusFrameMs
     }) : '—';
@@ -1086,23 +1173,25 @@ struct Index {
     if (s.audioDecodeErrors > 0) {
       audio += tr('ext_stats_dec_err', s.audioDecodeErrors);
     }
-    lines.push(audio);
+    out.audio.push(audio);
+    const c = this.rotation.current();
+    if (c !== null) {
+      out.audio.push(tr('ext_stats_rotate', this.rotation.index + 1, this.rotation.plan.length, comboLabel(c),
+        formatDuration(this.rotation.remainingMs(Date.now()))));
+    }
     if (s.diagPackets > 0) {
       const perSec = s.diagIntervalMs > 0 ? s.diagBlockTotalUs / s.diagIntervalMs : 0;
-      lines.push(tr('ext_stats_send', perSec.toFixed(1), (s.diagBlockMaxUs / 1000).toFixed(1), s.diagSendsOver20ms,
-        s.diagTotalSendsOver20ms, s.diagGrcGaps, s.diagTotalGrcGaps, s.diagTotalGapsAfterSlowSend));
+      out.network.push(tr('ext_stats_send', perSec.toFixed(1), (s.diagBlockMaxUs / 1000).toFixed(1),
+        s.diagSendsOver20ms, s.diagTotalSendsOver20ms, s.diagGrcGaps, s.diagTotalGrcGaps,
+        s.diagTotalGapsAfterSlowSend));
       const pct = (permille: number): string => permille === 0xFFFFFFFF ? '—' : `${(permille / 10).toFixed(1)}%`;
       // 3 号核心显示占用率（服务端报的是空闲千分比）
       const core3Used = s.diagCore3IdlePermille === 0xFFFFFFFF ? 0xFFFFFFFF : Math.max(0, 1000 - s.diagCore3IdlePermille);
-      lines.push(tr('ext_stats_cpu', pct(core3Used), pct(s.diagCpuPermille),
-        (s.diagTosFlags & 1) !== 0 ? '✓' : '✗', (s.diagTosFlags & 2) !== 0 ? '✓' : '✗'));
+      out.network.push(tr('ext_stats_tos', (s.diagTosFlags & 1) !== 0 ? '✓' : '✗',
+        (s.diagTosFlags & 2) !== 0 ? '✓' : '✗'));
+      out.device.push(tr('ext_stats_cpu', pct(core3Used), pct(s.diagCpuPermille)));
     }
-    const c = this.rotation.current();
-    if (c !== null) {
-      lines.push(tr('ext_stats_rotate', this.rotation.index + 1, this.rotation.plan.length, comboLabel(c),
-        formatDuration(this.rotation.remainingMs(Date.now()))));
-    }
-    return lines.join('\n');
+    return out;
   }
 
   // 丢帧与定格：原因分类 + 定格次数/累计/最近一次 + 帧间隔与关键帧间隔
@@ -1196,10 +1285,12 @@ struct Index {
     this.statusText = r.playing ? '' : r.message;
     this.rememberTarget(r.playing);
     const decoder = r.decoder === 2 ? tr('app_stats_decoder_hw') : (r.decoder === 1 ? tr('app_stats_decoder_sw') : '—');
-    this.statsText = `${r.message}\n` +
-      tr('app_stats_rtsp_video', r.playing ? '●' : '○', r.decodeFps.toFixed(0), r.outputFps.toFixed(0), r.kbps, decoder) +
-      '\n' + tr('app_stats_rtsp_buffer', r.videoCachedMs, r.audioCachedMs, r.dropFrameRate.toFixed(2)) + '\n' +
-      tr('app_stats_rtsp_misc', this.enableAudio ? tr('app_on') : tr('app_muted'), r.reconnects);
+    const video = tr('app_stats_rtsp_video', r.playing ? '●' : '○', r.decodeFps.toFixed(0), r.outputFps.toFixed(0),
+      r.kbps, decoder);
+    const buffer = tr('app_stats_rtsp_buffer', r.videoCachedMs, r.audioCachedMs, r.dropFrameRate.toFixed(2));
+    const misc = tr('app_stats_rtsp_misc', this.enableAudio ? tr('app_on') : tr('app_muted'), r.reconnects);
+    const overview = r.message.length > 0 ? [r.message, video, misc] : [video, misc];
+    this.statsLines = [overview, [video, buffer], [misc], [misc], [tr('stats_dev_rtsp')]];
     if (!this.inBackground) {
       this.recorder.write([0, Math.round(r.decodeFps), Math.round(r.outputFps), r.kbps, 0, 0, 0, 0, 0,
         this.enableAudio ? 1 : 0, r.audioCachedMs, 0, 0, 0, r.reconnects, 0]);
@@ -1564,6 +1655,56 @@ struct Index {
     }
   }
 
+  private hasStats(): boolean {
+    return this.statsLines.some((lines: string[]) => lines.length > 0);
+  }
+
+  private statsTabIndex(): number {
+    return this.statsTab >= 0 && this.statsTab < STATS_TABS.length ? this.statsTab : 0;
+  }
+
+  // 统计页签按钮：点它只切换页签（自己消费点击，不会触发点画面显示/隐藏控件）
+  @Builder
+  StatsTabButton(index: number) {
+    Text(tr(STATS_TABS[index]))
+      .fontSize(11)
+      .fontColor(index === this.statsTabIndex() ? Color.White : '#AAAAAA')
+      .fontWeight(index === this.statsTabIndex() ? FontWeight.Medium : FontWeight.Normal)
+      .padding({ left: 8, right: 8, top: 3, bottom: 3 })
+      .borderRadius(10)
+      .backgroundColor(index === this.statsTabIndex() ? '#33FFFFFF' : Color.Transparent)
+      .onClick(() => {
+        this.statsTab = index;
+      })
+  }
+
+  // 统计信息浮层：顶部 5 个页签，下面是当前页签的内容。内容区点击穿透到画面（和以前一样点一下显示/隐藏控件）。
+  // 从锁形按钮右侧开始排；宽度由外层（右上角按钮剩下的空间）限制
+  @Builder
+  StatsPanel() {
+    Column({ space: 6 }) {
+      Row({ space: 2 }) {
+        this.StatsTabButton(0)
+        this.StatsTabButton(1)
+        this.StatsTabButton(2)
+        this.StatsTabButton(3)
+        this.StatsTabButton(4)
+      }
+
+      Text(this.statsLines[this.statsTabIndex()].length > 0 ? this.statsLines[this.statsTabIndex()].join('\n') : '—')
+        .fontSize(11)
+        .lineHeight(16)
+        .fontColor(Color.White)
+        .hitTestBehavior(HitTestMode.Transparent)
+    }
+    .alignItems(HorizontalAlign.Start)
+    .backgroundColor('#99000000')
+    .padding(8)
+    .borderRadius(8)
+    .margin({ left: 56 })
+    .hitTestBehavior(HitTestMode.Transparent)
+  }
+
   @Builder
   CapsuleButton(icon: Resource, text: string, bg: ResourceColor, onTap: () => void) {
     Button({ type: ButtonType.Capsule }) {
@@ -1625,30 +1766,25 @@ struct Index {
       if (!this.locked) {
         Column() {
           Row({ space: 8 }) {
-            if (this.controlsVisible && this.showStats && this.statsText.length > 0) {
-              // 统计行数较多：从锁形按钮右侧开始排，限制宽度，不压住左边的锁和右上角按钮
-              Text(this.statsText)
-                .fontSize(11)
-                .lineHeight(16)
-                .fontColor(Color.White)
+            // 左侧只占右上角按钮剩下的宽度：统计内容再长也只会换行，不会把按钮挤出屏幕
+            Column() {
+              if (this.controlsVisible && this.showStats && this.hasStats()) {
+                this.StatsPanel()
+              } else if (this.statusText.length > 0) {
+                // 连接中的状态不受控件显隐影响，避免以为卡住了
+                Row({ space: 8 }) {
+                  LoadingProgress().width(18).height(18).color(Color.White)
+                  Text(this.statusText).fontSize(13).fontColor(Color.White)
+                }
+                .padding({ left: 12, right: 12, top: 6, bottom: 6 })
                 .backgroundColor('#99000000')
-                .padding(8)
-                .borderRadius(8)
-                .margin({ left: 56 })
-                .constraintSize({ maxWidth: '72%' })
+                .borderRadius(16)
                 .hitTestBehavior(HitTestMode.Transparent)
-            } else if (this.statusText.length > 0) {
-              // 连接中的状态不受控件显隐影响，避免以为卡住了
-              Row({ space: 8 }) {
-                LoadingProgress().width(18).height(18).color(Color.White)
-                Text(this.statusText).fontSize(13).fontColor(Color.White)
               }
-              .padding({ left: 12, right: 12, top: 6, bottom: 6 })
-              .backgroundColor('#99000000')
-              .borderRadius(16)
-              .hitTestBehavior(HitTestMode.Transparent)
             }
-            Blank()
+            .layoutWeight(1)
+            .alignItems(HorizontalAlign.Start)
+            .hitTestBehavior(HitTestMode.Transparent)
             if (this.controlsVisible) {
               if (this.pipSupported && this.playMode !== StreamMode.RTSP) {
                 this.CapsuleButton($r('sys.symbol.rectangle_on_square'), tr('app_btn_pip'), '#66000000', () => {

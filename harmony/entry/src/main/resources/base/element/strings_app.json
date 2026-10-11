@@ -519,6 +519,90 @@
     {
       "name": "shortcut_wait_timeout",
       "value": "The console didn’t show up. Make sure it has joined the dedicated hotspot."
+    },
+    {
+      "name": "stats_tab_overview",
+      "value": "Overview"
+    },
+    {
+      "name": "stats_tab_video",
+      "value": "Video"
+    },
+    {
+      "name": "stats_tab_audio",
+      "value": "Audio"
+    },
+    {
+      "name": "stats_tab_network",
+      "value": "Network"
+    },
+    {
+      "name": "stats_tab_device",
+      "value": "Device"
+    },
+    {
+      "name": "stats_ov_video",
+      "value": "Video %s  %d / %d fps · %d kbps"
+    },
+    {
+      "name": "stats_ov_audio",
+      "value": "Audio %s  %s · %d kbps · buffer %d ms"
+    },
+    {
+      "name": "stats_ov_console",
+      "value": "Console  %s"
+    },
+    {
+      "name": "stats_ov_core3",
+      "value": "core 3 %s"
+    },
+    {
+      "name": "stats_ov_mem",
+      "value": "system memory free %s MB"
+    },
+    {
+      "name": "stats_ov_config",
+      "value": "Settings  %s"
+    },
+    {
+      "name": "stats_ov_smooth",
+      "value": "smoothing %s %d ms"
+    },
+    {
+      "name": "stats_ov_smooth_off",
+      "value": "smoothing off"
+    },
+    {
+      "name": "stats_ov_enhance",
+      "value": "enhancement %s"
+    },
+    {
+      "name": "stats_ov_netopt",
+      "value": "network optimization %s"
+    },
+    {
+      "name": "stats_ov_freeze",
+      "value": "freeze on loss %s"
+    },
+    {
+      "name": "stats_ov_refresh",
+      "value": "refresh %d Hz"
+    },
+    {
+      "name": "stats_dev_server",
+      "value": "Server: %s"
+    },
+    {
+      "name": "stats_dev_ext_yes",
+      "value": "NSDVR extension: supported"
+    },
+    {
+      "name": "stats_dev_ext_no",
+      "value": "NSDVR extension: not supported (official SysDVR)"
+    },
+    {
+      "name": "stats_dev_rtsp",
+      "value": "No console information in RTSP mode"
     }
   ]
 }

@@ -519,6 +519,90 @@
     {
       "name": "shortcut_wait_timeout",
       "value": "没有等到游戏机，请确认游戏机已连上专用热点"
+    },
+    {
+      "name": "stats_tab_overview",
+      "value": "概览"
+    },
+    {
+      "name": "stats_tab_video",
+      "value": "视频"
+    },
+    {
+      "name": "stats_tab_audio",
+      "value": "音频"
+    },
+    {
+      "name": "stats_tab_network",
+      "value": "网络"
+    },
+    {
+      "name": "stats_tab_device",
+      "value": "设备"
+    },
+    {
+      "name": "stats_ov_video",
+      "value": "视频 %s  收 %d / 显 %d fps · %d kbps"
+    },
+    {
+      "name": "stats_ov_audio",
+      "value": "音频 %s  %s · %d kbps · 缓冲 %d ms"
+    },
+    {
+      "name": "stats_ov_console",
+      "value": "游戏机  %s"
+    },
+    {
+      "name": "stats_ov_core3",
+      "value": "3 号核心占用 %s"
+    },
+    {
+      "name": "stats_ov_mem",
+      "value": "系统内存剩余 %s MB"
+    },
+    {
+      "name": "stats_ov_config",
+      "value": "设置  %s"
+    },
+    {
+      "name": "stats_ov_smooth",
+      "value": "平滑 %s %d ms"
+    },
+    {
+      "name": "stats_ov_smooth_off",
+      "value": "平滑 关闭"
+    },
+    {
+      "name": "stats_ov_enhance",
+      "value": "画质增强 %s"
+    },
+    {
+      "name": "stats_ov_netopt",
+      "value": "网络优化 %s"
+    },
+    {
+      "name": "stats_ov_freeze",
+      "value": "丢帧定格 %s"
+    },
+    {
+      "name": "stats_ov_refresh",
+      "value": "刷新 %d Hz"
+    },
+    {
+      "name": "stats_dev_server",
+      "value": "服务端：%s"
+    },
+    {
+      "name": "stats_dev_ext_yes",
+      "value": "NSDVR 扩展：支持"
+    },
+    {
+      "name": "stats_dev_ext_no",
+      "value": "NSDVR 扩展：不支持（官方 SysDVR）"
+    },
+    {
+      "name": "stats_dev_rtsp",
+      "value": "RTSP 模式下没有游戏机信息"
     }
   ]
 }

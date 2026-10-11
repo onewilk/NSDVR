@@ -519,6 +519,90 @@
     {
       "name": "shortcut_wait_timeout",
       "value": "沒有等到遊戲機，請確認遊戲機已連上專用熱點"
+    },
+    {
+      "name": "stats_tab_overview",
+      "value": "概覽"
+    },
+    {
+      "name": "stats_tab_video",
+      "value": "視訊"
+    },
+    {
+      "name": "stats_tab_audio",
+      "value": "音訊"
+    },
+    {
+      "name": "stats_tab_network",
+      "value": "網路"
+    },
+    {
+      "name": "stats_tab_device",
+      "value": "裝置"
+    },
+    {
+      "name": "stats_ov_video",
+      "value": "視訊 %s  收 %d / 顯示 %d fps · %d kbps"
+    },
+    {
+      "name": "stats_ov_audio",
+      "value": "音訊 %s  %s · %d kbps · 緩衝 %d ms"
+    },
+    {
+      "name": "stats_ov_console",
+      "value": "遊戲機  %s"
+    },
+    {
+      "name": "stats_ov_core3",
+      "value": "3 號核心使用率 %s"
+    },
+    {
+      "name": "stats_ov_mem",
+      "value": "系統記憶體剩餘 %s MB"
+    },
+    {
+      "name": "stats_ov_config",
+      "value": "設定  %s"
+    },
+    {
+      "name": "stats_ov_smooth",
+      "value": "平滑 %s %d ms"
+    },
+    {
+      "name": "stats_ov_smooth_off",
+      "value": "平滑 關閉"
+    },
+    {
+      "name": "stats_ov_enhance",
+      "value": "畫質增強 %s"
+    },
+    {
+      "name": "stats_ov_netopt",
+      "value": "網路最佳化 %s"
+    },
+    {
+      "name": "stats_ov_freeze",
+      "value": "掉幀定格 %s"
+    },
+    {
+      "name": "stats_ov_refresh",
+      "value": "更新率 %d Hz"
+    },
+    {
+      "name": "stats_dev_server",
+      "value": "伺服器：%s"
+    },
+    {
+      "name": "stats_dev_ext_yes",
+      "value": "NSDVR 擴充：支援"
+    },
+    {
+      "name": "stats_dev_ext_no",
+      "value": "NSDVR 擴充：不支援（官方 SysDVR）"
+    },
+    {
+      "name": "stats_dev_rtsp",
+      "value": "RTSP 模式下沒有遊戲機資訊"
     }
   ]
 }

@@ -166,7 +166,11 @@
     },
     {
       "name": "ext_stats_cpu",
-      "value": "Console core 3 usage %s · SysDVR CPU %s · TOS video %s audio %s"
+      "value": "Console core 3 usage %s · SysDVR CPU %s"
+    },
+    {
+      "name": "ext_stats_tos",
+      "value": "Console TOS marking: video %s · audio %s"
     },
     {
       "name": "ext_stats_rotate",

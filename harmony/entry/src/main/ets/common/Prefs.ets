@@ -39,6 +39,8 @@ PersistentStorage.persistProp('sysdvr.freezeOnLoss', true);
 PersistentStorage.persistProp('sysdvr.enhanceLevel', 0);
 // 统计信息浮层默认关闭（换了新键名：老版本默认开启，升级后也按关闭处理）
 PersistentStorage.persistProp('sysdvr.showStatsOverlay', false);
+// 统计信息浮层上次选的页签（0 概览 / 1 视频 / 2 音频 / 3 网络 / 4 设备）
+PersistentStorage.persistProp('sysdvr.statsTab', 0);
 PersistentStorage.persistProp('sysdvr.lastHost', '');
 PersistentStorage.persistProp('sysdvr.rtspHost', '');
 // Switch 专用热点的名称和密码固定下来，Switch 记住一次后下次自动连上

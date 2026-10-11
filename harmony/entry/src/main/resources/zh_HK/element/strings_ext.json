@@ -166,7 +166,11 @@
     },
     {
       "name": "ext_stats_cpu",
-      "value": "遊戲機 3 號核心使用率 %s · SysDVR CPU %s · TOS 視訊 %s 音訊 %s"
+      "value": "遊戲機 3 號核心使用率 %s · SysDVR CPU %s"
+    },
+    {
+      "name": "ext_stats_tos",
+      "value": "遊戲機發包 TOS 標記：視訊 %s · 音訊 %s"
     },
     {
       "name": "ext_stats_rotate",

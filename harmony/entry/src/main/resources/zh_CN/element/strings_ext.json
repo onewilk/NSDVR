@@ -166,7 +166,11 @@
     },
     {
       "name": "ext_stats_cpu",
-      "value": "游戏机 3 号核心占用 %s · SysDVR CPU %s · TOS 视频 %s 音频 %s"
+      "value": "游戏机 3 号核心占用 %s · SysDVR CPU %s"
+    },
+    {
+      "name": "ext_stats_tos",
+      "value": "游戏机发包 TOS 标记：视频 %s · 音频 %s"
     },
     {
       "name": "ext_stats_rotate",
