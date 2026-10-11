@@ -104,6 +104,13 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            CHANGELOG.md
+            CHANGELOG.zh-CN.md
+          sparse-checkout-cone-mode: false
+
       - uses: actions/download-artifact@v4
         with:
           name: NSDVR-${{ needs.build.outputs.version }}-unsigned
@@ -114,7 +121,27 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ needs.build.outputs.version }}
         run: |
+          # The "## <version> — <date>" section of each changelog, up to the next "## " heading
+          section() {
+            awk -v v="$VERSION" '/^## /{p = ($2 == v); next} p' "$1" | sed -e '/./,$!d'   # $(…) drops trailing blank lines
+          }
+          en=$(section CHANGELOG.md)
+          zh=$(section CHANGELOG.zh-CN.md)
+          if [ -z "$en" ] || [ -z "$zh" ]; then
+            echo "::error::CHANGELOG.md and CHANGELOG.zh-CN.md need a '## ${VERSION} — <date>' section"
+            exit 1
+          fi
           {
+            echo "## What's new"
+            echo
+            echo "$en"
+            echo
+            echo "## 更新内容"
+            echo
+            echo "$zh"
+            echo
+            echo "---"
+            echo
             echo "Unsigned build of NSDVR ${VERSION}, built by GitHub Actions from ${GITHUB_SHA}."
             echo
             echo "It must be signed with your own certificate before it can be installed. See"

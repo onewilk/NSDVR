@@ -92,6 +92,7 @@ harmony/entry/src/main/ets/
 | `tools/test_e2e.sh` | 端到端协议测试和单元测试 |
 | `tools/ohos/` | 不开 DevEco 的离线检查：native 交叉编译、ArkTS 类型检查与 linter |
 | `docs/nsdvr-ext-protocol.zh-CN.md` | 实验扩展协议 |
+| `CHANGELOG.zh-CN.md` | 各版本更新记录 |
 | `screenshot/` | README 里展示的截图 |
 | `.github/workflows/build.yml` | CI：测试和未签名构建，`v*` 标签发布到 Releases |
 
@@ -171,7 +172,8 @@ hdc hilog | grep SysDVR
 ## 未签名安装包
 
 每次推送都由 GitHub Actions 构建（[`.github/workflows/build.yml`](.github/workflows/build.yml)），每个 `v*` 标签会把
-**未签名**的 HAP 和它的 SHA-256 发布到 [Releases](../../releases)。签名版通过华为应用市场分发，另外单独构建。
+**未签名**的 HAP 和它的 SHA-256 发布到 [Releases](../../releases)，更新说明取自 [CHANGELOG.zh-CN.md](CHANGELOG.zh-CN.md)
+和 CHANGELOG.md 里对应版本的一节（没有这一节时发布会失败）。签名版通过华为应用市场分发，另外单独构建。
 
 鸿蒙只安装签过名的包，所以未签名的 HAP 要先用你自己的证书签名：
 

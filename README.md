@@ -92,6 +92,7 @@ harmony/entry/src/main/ets/
 | `tools/test_e2e.sh` | End-to-end protocol tests and unit tests |
 | `tools/ohos/` | Offline checks without DevEco: native cross-compile, ArkTS type check and linter |
 | `docs/nsdvr-ext-protocol.md` | Experimental protocol extension |
+| `CHANGELOG.md` | Changes in each release |
 | `screenshot/` | Screenshots shown in this README |
 | `.github/workflows/build.yml` | CI: tests and unsigned builds, published to Releases for `v*` tags |
 
@@ -171,7 +172,8 @@ hdc hilog | grep SysDVR
 ## Unsigned builds
 
 Every push is built by GitHub Actions ([`.github/workflows/build.yml`](.github/workflows/build.yml)), and every `v*` tag
-publishes an **unsigned** HAP with its SHA-256 to [Releases](../../releases). The signed version is distributed through
+publishes an **unsigned** HAP with its SHA-256 to [Releases](../../releases), with that version's section of
+[CHANGELOG.md](CHANGELOG.md) as the release notes (the tag fails without one). The signed version is distributed through
 Huawei AppGallery and is built separately.
 
 HarmonyOS only installs signed packages, so the unsigned HAP has to be signed with your own certificate first:
