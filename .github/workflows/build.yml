@@ -123,8 +123,10 @@ jobs:
         run: |
           # The "## <version> — <date>" section of each changelog, up to the next "## " heading
           section() {
-            awk -v v="$VERSION" '/^## /{p = ($2 == v); next} p' "$1" | sed -e '/./,$!d'   # $(…) drops trailing blank lines
-          }
+            # Relative links would resolve against the release page, so point them at the files in this tag
+            awk -v v="$VERSION" '/^## /{p = ($2 == v); next} p' "$1" | sed -e '/./,$!d' \
+              -e "s#](\([^):#][^):]*\))#](https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/\1)#g"
+          }   # $(…) drops trailing blank lines
           en=$(section CHANGELOG.md)
           zh=$(section CHANGELOG.zh-CN.md)
           if [ -z "$en" ] || [ -z "$zh" ]; then
