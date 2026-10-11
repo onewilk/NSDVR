@@ -31,7 +31,10 @@ function sections(): GuideSection[] {
       icon: $r('sys.symbol.gamecontroller'),
       intro: tr('guide_prepare_intro'),
       steps: [tr('guide_prepare_step1'), tr('guide_prepare_step2'), tr('guide_prepare_step3'), tr('guide_prepare_step4')],
-      items: [],
+      items: [
+        item(tr('guide_prepare_quality_title'), tr('guide_prepare_quality_body')),
+        item(tr('guide_prepare_scope_title'), tr('guide_prepare_scope_body'))
+      ],
       tip: tr('guide_prepare_tip')
     },
     {

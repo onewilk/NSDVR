@@ -33,6 +33,22 @@
       "value": "The mode on the device must match the one selected here. After switching modes, restarting the game is recommended."
     },
     {
+      "name": "guide_prepare_quality_title",
+      "value": "Picture quality: 720p at 30 fps"
+    },
+    {
+      "name": "guide_prepare_quality_body",
+      "value": "SysDVR streams what the device's built-in recording feature produces, which is fixed at 720p and 30 fps, also when it is docked and connected to a TV. This is a limit of the device's hardware and system that neither this app nor the network can change; Enhancement only makes the upscaled picture look sharper, it does not raise the source resolution or frame rate."
+    },
+    {
+      "name": "guide_prepare_scope_title",
+      "value": "What it is for"
+    },
+    {
+      "name": "guide_prepare_scope_body",
+      "value": "This is meant for temporarily playing or watching on your phone or tablet when you don't have a dock or capture card at hand. If you want a better picture and smoother motion (higher resolution, 60 fps, lower latency), consider getting a dock or a capture card and using a monitor, TV or computer."
+    },
+    {
       "name": "guide_tcp_title",
       "value": "TCP Bridge (Wi-Fi, recommended)"
     },

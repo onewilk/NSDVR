@@ -33,6 +33,22 @@
       "value": "设备端的模式和本应用选择的模式必须一致；切换模式后建议重启一次游戏。"
     },
     {
+      "name": "guide_prepare_quality_title",
+      "value": "画面质量：720p · 30 帧"
+    },
+    {
+      "name": "guide_prepare_quality_body",
+      "value": "SysDVR 串流的是设备系统录像功能输出的画面，分辨率和帧率固定为 720p、30 帧，插着底座接电视时也一样。这是设备硬件和系统的限制，本应用和网络都改变不了；“画质增强”只能让放大后的画面看起来更清晰，不会提高原始分辨率和帧率。"
+    },
+    {
+      "name": "guide_prepare_scope_title",
+      "value": "适合什么场景"
+    },
+    {
+      "name": "guide_prepare_scope_body",
+      "value": "本方案适合手边没有底座或采集卡时，临时把画面投到手机、平板上玩或看。如果对画质和流畅度有更高要求（更高分辨率、60 帧、更低延迟），建议购买底座或采集卡等配件，接显示器、电视或电脑使用。"
+    },
+    {
       "name": "guide_tcp_title",
       "value": "TCP Bridge（Wi-Fi 无线，推荐）"
     },
