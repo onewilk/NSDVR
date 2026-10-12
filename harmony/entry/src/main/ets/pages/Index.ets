@@ -1454,7 +1454,8 @@ struct Index {
     }
   }
 
-  // 播放时全屏、常亮；手机和平板横屏。折叠屏展开、PC 窗口保持当前方向
+  // 播放时全屏、常亮；手机（含折叠屏外屏）和平板强制横屏。其他时候（首页、折叠屏展开播放）跟随设备旋转，
+  // 服从控制中心的旋转锁（module.json5 里启动时也是这个方向）。PC 窗口和电视不设方向
   private async setImmersive(on: boolean): Promise<void> {
     try {
       const ctx = getContext(this) as common.UIAbilityContext;
@@ -1466,9 +1467,12 @@ struct Index {
       }
       await win.setWindowLayoutFullScreen(on);
       await win.setWindowSystemBarEnable(on ? [] : ['status', 'navigation']);
-      const rotate = type === 'tablet' || (type === 'phone' && this.bp === 'sm');
-      await win.setPreferredOrientation(on && rotate ? window.Orientation.AUTO_ROTATION_LANDSCAPE :
-        window.Orientation.UNSPECIFIED);
+      if (type === 'tv') {
+        return;
+      }
+      const landscape = type === 'tablet' || (type === 'phone' && this.bp === 'sm');
+      await win.setPreferredOrientation(on && landscape ? window.Orientation.AUTO_ROTATION_LANDSCAPE :
+        window.Orientation.AUTO_ROTATION_RESTRICTED);
     } catch (e) {
       hilog.warn(DOMAIN, TAG, 'setImmersive failed: %{public}s', JSON.stringify(e));
     }

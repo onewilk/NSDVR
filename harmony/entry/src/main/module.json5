@@ -17,6 +17,8 @@
         "label": "$string:EntryAbility_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
+        // 跟随设备旋转（服从控制中心的旋转锁）：手机、折叠屏外屏和展开的内屏都能横过来用
+        "orientation": "auto_rotation_restricted",
         "exported": true,
         // 长按桌面图标的快捷方式：连接上次 / 热点+连接（见 resources/base/profile/shortcuts_config.json）
         "metadata": [
