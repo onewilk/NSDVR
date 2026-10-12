@@ -6,6 +6,7 @@ import {
 import { tr } from '../common/I18n';
 import { scopeTcpOnly } from '../common/Prefs';
 import { Card, SettingRow } from './Widgets';
+import { FOCUS_BOX } from '../common/Focus';
 
 function selectOptions(labels: string[]): SelectOption[] {
   return labels.map((label: string): SelectOption => {
@@ -183,6 +184,8 @@ export struct ExtAudioCard {
             .fontSize(18)
             .fontColor([$r('app.color.text_secondary')])
             .padding(6)
+            .focusable(true)
+            .focusBox(FOCUS_BOX)
             .onClick(() => {
               this.removeAt(index);
             })

@@ -1,6 +1,38 @@
 // 各页面共用的小组件：卡片、设置行、提示条、标签
+import { FOCUS_BOX } from '../common/Focus';
+
 @Builder
 function emptyBuilder() {
+}
+
+/**
+ * 能用电视遥控器、键盘选中的点击区域。Row、Column 这类容器没有可获焦的子组件时不能获焦，
+ * 所以套在透明的 Button 里：Button 能获焦，按确认键也会触发点击；焦点框用 FOCUS_BOX，触屏上看不到
+ */
+@Component
+export struct Tappable {
+  @BuilderParam content: () => void = emptyBuilder;
+  radius: number = 12;
+  // 页面打开时默认获焦（电视上没有默认焦点时方向键无从下手）
+  @Prop isDefaultFocus: boolean = false;
+  onTap: () => void = () => {
+  };
+
+  build() {
+    Button({ type: ButtonType.Normal, stateEffect: true }) {
+      this.content()
+    }
+    .width('100%')
+    .height('auto')
+    .padding(0)
+    .backgroundColor(Color.Transparent)
+    .borderRadius(this.radius)
+    .focusBox(FOCUS_BOX)
+    .defaultFocus(this.isDefaultFocus)
+    .onClick(() => {
+      this.onTap();
+    })
+  }
 }
 
 /** 圆角卡片：可选标题和说明，内容由尾随闭包提供 */
@@ -107,6 +139,8 @@ export struct TipBar {
             .fontSize(13)
             .fontWeight(FontWeight.Medium)
             .fontColor($r('app.color.accent'))
+            .focusable(true)
+            .focusBox(FOCUS_BOX)
             .onClick(() => {
               this.onAction();
             })
@@ -161,6 +195,8 @@ export struct Step {
         .lineHeight(22)
         .fontColor($r('app.color.text_primary'))
         .layoutWeight(1)
+        .focusable(true)
+        .focusBox(FOCUS_BOX)
     }
     .alignItems(VerticalAlign.Top)
     .width('100%')
@@ -178,32 +214,31 @@ export struct NavRow {
   };
 
   build() {
-    Row({ space: 12 }) {
-      if (this.icon !== null) {
-        SymbolGlyph(this.icon).fontSize(22).fontColor([$r('app.color.accent')])
-      }
-      Column({ space: 2 }) {
-        Text(this.title).fontSize(15).fontColor($r('app.color.text_primary'))
-        if (this.desc.length > 0) {
-          Text(this.desc)
-            .fontSize(12)
-            .fontColor($r('app.color.text_secondary'))
-            .maxLines(2)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
+    Tappable({ onTap: this.onTap }) {
+      Row({ space: 12 }) {
+        if (this.icon !== null) {
+          SymbolGlyph(this.icon).fontSize(22).fontColor([$r('app.color.accent')])
         }
-      }
-      .alignItems(HorizontalAlign.Start)
-      .layoutWeight(1)
+        Column({ space: 2 }) {
+          Text(this.title).fontSize(15).fontColor($r('app.color.text_primary'))
+          if (this.desc.length > 0) {
+            Text(this.desc)
+              .fontSize(12)
+              .fontColor($r('app.color.text_secondary'))
+              .maxLines(2)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
+          }
+        }
+        .alignItems(HorizontalAlign.Start)
+        .layoutWeight(1)
 
-      SymbolGlyph(this.external ? $r('sys.symbol.arrow_up_right') : $r('sys.symbol.chevron_right'))
-        .fontSize(18)
-        .fontColor([$r('app.color.text_tertiary')])
+        SymbolGlyph(this.external ? $r('sys.symbol.arrow_up_right') : $r('sys.symbol.chevron_right'))
+          .fontSize(18)
+          .fontColor([$r('app.color.text_tertiary')])
+      }
+      .width('100%')
+      .constraintSize({ minHeight: 48 })
     }
-    .width('100%')
-    .constraintSize({ minHeight: 48 })
-    .onClick(() => {
-      this.onTap();
-    })
   }
 }
 

@@ -81,6 +81,10 @@
       "value": "屏幕已锁定，点击锁形图标解锁"
     },
     {
+      "name": "app_toast_back_again",
+      "value": "再按一次返回键断开连接"
+    },
+    {
       "name": "app_connecting",
       "value": "正在连接 %s …"
     },

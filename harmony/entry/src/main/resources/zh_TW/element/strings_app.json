@@ -81,6 +81,10 @@
       "value": "螢幕已鎖定，點擊鎖形圖示解鎖"
     },
     {
+      "name": "app_toast_back_again",
+      "value": "再按一次返回鍵中斷連線"
+    },
+    {
       "name": "app_connecting",
       "value": "正在連線 %s …"
     },

@@ -74,7 +74,7 @@ export struct TcpPanel {
       }) {
         if (this.devices.length === 0 && this.discoveryOk) {
           Row({ space: 8 }) {
-            LoadingProgress().width(20).height(20).color($r('app.color.accent'))
+            LoadingProgress().width(20).height(20).color($r('app.color.accent')).focusable(false)
             Text(tr('connect_searching')).fontSize(13).fontColor($r('app.color.text_tertiary'))
           }
         }
@@ -113,6 +113,9 @@ export struct TcpPanel {
           TextInput({ placeholder: tr('connect_manual_ip_hint'), text: this.manualIp })
             .layoutWeight(1)
             .height(40)
+            // 显式字号：电视主题的默认字号更大，固定高度里放不下，y、g 这类字母的下半截会被切掉
+            .fontSize(16)
+            .placeholderFont({ size: 16 })
             .type(InputType.URL)
             .onChange((value: string) => {
               this.manualIp = value;
@@ -120,7 +123,7 @@ export struct TcpPanel {
             .onSubmit(() => {
               this.connect(this.manualIp);
             })
-          Button(tr('connect_button')).height(40).onClick(() => {
+          Button(tr('connect_button')).height(40).fontSize(16).onClick(() => {
             this.connect(this.manualIp);
           })
         }

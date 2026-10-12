@@ -1,6 +1,7 @@
 import { tr } from '../common/I18n';
 import { Breakpoint } from '../common/Prefs';
-import { Card, Step, TipBar } from './Widgets';
+import { Card, Step, Tappable, TipBar } from './Widgets';
+import { FOCUS_BOX } from '../common/Focus';
 
 interface GuideItem {
   title: string;
@@ -189,11 +190,14 @@ export struct GuideView {
   @Builder
   SectionCard(s: GuideSection) {
     Card({ title: s.title }) {
+      // 正文能获焦：电视上没有触屏，方向键一段一段往下读，列表跟着滚动
       if (s.intro.length > 0) {
         Text(s.intro)
           .fontSize(14)
           .lineHeight(22)
           .fontColor($r('app.color.text_secondary'))
+          .focusable(true)
+          .focusBox(FOCUS_BOX)
       }
       ForEach(s.steps, (step: string, i: number) => {
         Step({ index: i + 1, text: step })
@@ -208,6 +212,8 @@ export struct GuideView {
             .fontSize(13)
             .lineHeight(21)
             .fontColor($r('app.color.text_secondary'))
+            .focusable(true)
+            .focusBox(FOCUS_BOX)
         }
         .alignItems(HorizontalAlign.Start)
         .width('100%')
@@ -222,25 +228,30 @@ export struct GuideView {
   Toc() {
     Column({ space: 4 }) {
       ForEach(this.sections, (s: GuideSection, i: number) => {
-        Row({ space: 10 }) {
-          SymbolGlyph(s.icon)
-            .fontSize(18)
-            .fontColor([this.current === i ? $r('app.color.accent') : $r('app.color.text_secondary')])
-          Text(s.title)
-            .fontSize(14)
-            .fontColor(this.current === i ? $r('app.color.accent') : $r('app.color.text_primary'))
-            .maxLines(2)
-            .textOverflow({ overflow: TextOverflow.Ellipsis })
-            .layoutWeight(1)
+        Tappable({
+          radius: 10,
+          isDefaultFocus: i === 0,
+          onTap: () => {
+            this.current = i;
+            this.scroller.scrollToIndex(i + 1, true); // 第 0 项是页头
+          }
+        }) {
+          Row({ space: 10 }) {
+            SymbolGlyph(s.icon)
+              .fontSize(18)
+              .fontColor([this.current === i ? $r('app.color.accent') : $r('app.color.text_secondary')])
+            Text(s.title)
+              .fontSize(14)
+              .fontColor(this.current === i ? $r('app.color.accent') : $r('app.color.text_primary'))
+              .maxLines(2)
+              .textOverflow({ overflow: TextOverflow.Ellipsis })
+              .layoutWeight(1)
+          }
+          .width('100%')
+          .padding({ left: 12, right: 12, top: 10, bottom: 10 })
+          .borderRadius(10)
+          .backgroundColor(this.current === i ? $r('app.color.accent_soft') : Color.Transparent)
         }
-        .width('100%')
-        .padding({ left: 12, right: 12, top: 10, bottom: 10 })
-        .borderRadius(10)
-        .backgroundColor(this.current === i ? $r('app.color.accent_soft') : Color.Transparent)
-        .onClick(() => {
-          this.current = i;
-          this.scroller.scrollToIndex(i + 1, true); // 第 0 项是页头
-        })
       }, (s: GuideSection) => s.key)
     }
     .width(280)

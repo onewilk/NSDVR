@@ -144,7 +144,7 @@ export struct UsbPanel {
           .width('100%')
       } else if (this.device === undefined) {
         Row({ space: 8 }) {
-          LoadingProgress().width(20).height(20).color($r('app.color.accent'))
+          LoadingProgress().width(20).height(20).color($r('app.color.accent')).focusable(false)
           Text(tr('usb_not_detected'))
             .fontSize(13)
             .fontColor($r('app.color.text_tertiary'))
@@ -195,7 +195,7 @@ export struct UsbPanel {
           .layoutWeight(1)
 
           if (this.busy) {
-            LoadingProgress().width(28).height(28).color($r('app.color.accent'))
+            LoadingProgress().width(28).height(28).color($r('app.color.accent')).focusable(false)
           } else {
             Button(tr('connect_button')).height(34).fontSize(14).onClick(() => {
               this.connect();

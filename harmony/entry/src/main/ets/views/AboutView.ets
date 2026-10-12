@@ -6,7 +6,7 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { productViewManager } from '@kit.StoreKit';
 import { APP_NAME, Breakpoint, IJKPLAYER_REPO, PROJECT_GITHUB, SYSDVR_GITHUB } from '../common/Prefs';
 import { tr } from '../common/I18n';
-import { Card, NavRow } from './Widgets';
+import { Card, NavRow, Tappable } from './Widgets';
 import { PAGE_ANCHORS, ScrollAnchor } from '../common/ScrollAnchor';
 
 const DOMAIN = 0x5344;
@@ -133,23 +133,26 @@ export struct AboutView {
 
   @Builder
   LinkRow(icon: Resource, title: string, url: string) {
-    Row({ space: 12 }) {
-      SymbolGlyph(icon).fontSize(22).fontColor([$r('app.color.accent')])
-      Column({ space: 2 }) {
-        Text(title).fontSize(15).fontColor($r('app.color.text_primary'))
-        Text(url).fontSize(12).fontColor($r('app.color.text_secondary')).maxLines(1)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
+    Tappable({
+      onTap: () => {
+        this.open(url);
       }
-      .alignItems(HorizontalAlign.Start)
-      .layoutWeight(1)
+    }) {
+      Row({ space: 12 }) {
+        SymbolGlyph(icon).fontSize(22).fontColor([$r('app.color.accent')])
+        Column({ space: 2 }) {
+          Text(title).fontSize(15).fontColor($r('app.color.text_primary'))
+          Text(url).fontSize(12).fontColor($r('app.color.text_secondary')).maxLines(1)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
+        }
+        .alignItems(HorizontalAlign.Start)
+        .layoutWeight(1)
 
-      SymbolGlyph($r('sys.symbol.arrow_up_right')).fontSize(18).fontColor([$r('app.color.text_tertiary')])
+        SymbolGlyph($r('sys.symbol.arrow_up_right')).fontSize(18).fontColor([$r('app.color.text_tertiary')])
+      }
+      .width('100%')
+      .padding({ top: 4, bottom: 4 })
     }
-    .width('100%')
-    .padding({ top: 4, bottom: 4 })
-    .onClick(() => {
-      this.open(url);
-    })
   }
 
   build() {
@@ -221,32 +224,35 @@ export struct AboutView {
         Column() {
           Card({ title: tr('about_licenses_title') }) {
             ForEach(this.licenses, (l: LicenseItem) => {
-              Row({ space: 8 }) {
-                Column({ space: 2 }) {
-                  Text(l.name).fontSize(14).fontColor($r('app.color.text_primary'))
-                  Text(l.note).fontSize(12).fontColor($r('app.color.text_secondary'))
-                }
-                .alignItems(HorizontalAlign.Start)
-                .layoutWeight(1)
-
-                if (l.textFile.length > 0) {
-                  Column({ space: 2 }) {
-                    Text(l.license).fontSize(12).fontColor($r('app.color.text_secondary'))
-                    Text(tr('about_lic_view')).fontSize(12).fontColor($r('app.color.accent'))
+              Tappable({
+                onTap: () => {
+                  if (l.textFile.length > 0) {
+                    this.openLicense(l);
                   }
-                  .alignItems(HorizontalAlign.End)
+                }
+              }) {
+                Row({ space: 8 }) {
+                  Column({ space: 2 }) {
+                    Text(l.name).fontSize(14).fontColor($r('app.color.text_primary'))
+                    Text(l.note).fontSize(12).fontColor($r('app.color.text_secondary'))
+                  }
+                  .alignItems(HorizontalAlign.Start)
+                  .layoutWeight(1)
 
-                  SymbolGlyph($r('sys.symbol.chevron_right')).fontSize(16).fontColor([$r('app.color.text_tertiary')])
-                } else {
-                  Text(l.license).fontSize(12).fontColor($r('app.color.text_secondary'))
+                  if (l.textFile.length > 0) {
+                    Column({ space: 2 }) {
+                      Text(l.license).fontSize(12).fontColor($r('app.color.text_secondary'))
+                      Text(tr('about_lic_view')).fontSize(12).fontColor($r('app.color.accent'))
+                    }
+                    .alignItems(HorizontalAlign.End)
+
+                    SymbolGlyph($r('sys.symbol.chevron_right')).fontSize(16).fontColor([$r('app.color.text_tertiary')])
+                  } else {
+                    Text(l.license).fontSize(12).fontColor($r('app.color.text_secondary'))
+                  }
                 }
+                .width('100%')
               }
-              .width('100%')
-              .onClick(() => {
-                if (l.textFile.length > 0) {
-                  this.openLicense(l);
-                }
-              })
             }, (l: LicenseItem) => l.name)
           }
         }

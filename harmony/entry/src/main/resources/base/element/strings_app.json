@@ -81,6 +81,10 @@
       "value": "Screen locked. Tap the lock icon to unlock."
     },
     {
+      "name": "app_toast_back_again",
+      "value": "Press back again to disconnect"
+    },
+    {
       "name": "app_connecting",
       "value": "Connecting to %s…"
     },

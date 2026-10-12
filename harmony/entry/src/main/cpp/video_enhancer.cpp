@@ -5,6 +5,8 @@
 #include <multimedia/video_processing_engine/video_processing_types.h>
 #include <native_window/external_window.h>
 
+#include <dlfcn.h>
+
 #include <chrono>
 
 #include "i18n.h"
@@ -21,9 +23,78 @@ int64_t NowNs() {
     return duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
 }
 
+// 视频处理引擎（libvideo_processing.so）用到时才加载：有的设备没有这个库（例如智慧屏），
+// 直接链接的话整个 libentry.so 都加载不了。拿不到任何一个符号就当作本机不支持画质增强
+struct VpeApi {
+    bool ok = false;
+    decltype(&OH_VideoProcessing_InitializeEnvironment) InitializeEnvironment = nullptr;
+    decltype(&OH_VideoProcessing_Create) Create = nullptr;
+    decltype(&OH_VideoProcessing_Destroy) Destroy = nullptr;
+    decltype(&OH_VideoProcessing_RegisterCallback) RegisterCallback = nullptr;
+    decltype(&OH_VideoProcessing_SetSurface) SetSurface = nullptr;
+    decltype(&OH_VideoProcessing_GetSurface) GetSurface = nullptr;
+    decltype(&OH_VideoProcessing_SetParameter) SetParameter = nullptr;
+    decltype(&OH_VideoProcessing_Start) Start = nullptr;
+    decltype(&OH_VideoProcessing_Stop) Stop = nullptr;
+    decltype(&OH_VideoProcessing_RenderOutputBuffer) RenderOutputBuffer = nullptr;
+    decltype(&OH_VideoProcessingCallback_Create) CallbackCreate = nullptr;
+    decltype(&OH_VideoProcessingCallback_Destroy) CallbackDestroy = nullptr;
+    decltype(&OH_VideoProcessingCallback_BindOnError) BindOnError = nullptr;
+    decltype(&OH_VideoProcessingCallback_BindOnState) BindOnState = nullptr;
+    decltype(&OH_VideoProcessingCallback_BindOnNewOutputBuffer) BindOnNewOutputBuffer = nullptr;
+    int32_t typeDetailEnhancer = 0;               // VIDEO_PROCESSING_TYPE_DETAIL_ENHANCER（库里的常量）
+    const char* keyQualityLevel = nullptr;        // VIDEO_DETAIL_ENHANCER_PARAMETER_KEY_QUALITY_LEVEL
+};
+
+const VpeApi& Vpe() {
+    static const VpeApi api = [] {
+        VpeApi a;
+        void* lib = dlopen("libvideo_processing.so", RTLD_NOW | RTLD_LOCAL);
+        if (lib == nullptr) {
+            const char* why = dlerror();
+            Logf(LogLevel::Info, "本机没有视频处理引擎，画质增强不可用：%s", why != nullptr ? why : "");
+            return a;
+        }
+        bool all = true;
+        auto sym = [&](const char* name) {
+            void* p = dlsym(lib, name);
+            if (p == nullptr) {
+                Logf(LogLevel::Warn, "视频处理引擎缺少符号 %s", name);
+                all = false;
+            }
+            return p;
+        };
+#define VPE_FN(field, name) a.field = reinterpret_cast<decltype(a.field)>(sym(#name))
+        VPE_FN(InitializeEnvironment, OH_VideoProcessing_InitializeEnvironment);
+        VPE_FN(Create, OH_VideoProcessing_Create);
+        VPE_FN(Destroy, OH_VideoProcessing_Destroy);
+        VPE_FN(RegisterCallback, OH_VideoProcessing_RegisterCallback);
+        VPE_FN(SetSurface, OH_VideoProcessing_SetSurface);
+        VPE_FN(GetSurface, OH_VideoProcessing_GetSurface);
+        VPE_FN(SetParameter, OH_VideoProcessing_SetParameter);
+        VPE_FN(Start, OH_VideoProcessing_Start);
+        VPE_FN(Stop, OH_VideoProcessing_Stop);
+        VPE_FN(RenderOutputBuffer, OH_VideoProcessing_RenderOutputBuffer);
+        VPE_FN(CallbackCreate, OH_VideoProcessingCallback_Create);
+        VPE_FN(CallbackDestroy, OH_VideoProcessingCallback_Destroy);
+        VPE_FN(BindOnError, OH_VideoProcessingCallback_BindOnError);
+        VPE_FN(BindOnState, OH_VideoProcessingCallback_BindOnState);
+        VPE_FN(BindOnNewOutputBuffer, OH_VideoProcessingCallback_BindOnNewOutputBuffer);
+#undef VPE_FN
+        const void* type = sym("VIDEO_PROCESSING_TYPE_DETAIL_ENHANCER");
+        const void* key = sym("VIDEO_DETAIL_ENHANCER_PARAMETER_KEY_QUALITY_LEVEL");
+        if (!all) return a;
+        a.typeDetailEnhancer = *static_cast<const int32_t*>(type);
+        a.keyQualityLevel = *static_cast<const char* const*>(key);
+        a.ok = true;
+        return a;
+    }();
+    return api;
+}
+
 // 进程内只初始化一次运行环境（引擎的全局资源），之后一直保留
 bool EnsureEnvironment() {
-    static const bool ok = OH_VideoProcessing_InitializeEnvironment() == VIDEO_PROCESSING_SUCCESS;
+    static const bool ok = Vpe().ok && Vpe().InitializeEnvironment() == VIDEO_PROCESSING_SUCCESS;
     return ok;
 }
 
@@ -52,20 +123,21 @@ bool VideoEnhancer::Init(OHNativeWindow* outWindow, int level, std::string* erro
                    "picture enhancement is not supported on this device (video processing init failed)");
         return false;
     }
-    VideoProcessing_ErrorCode rc = OH_VideoProcessing_Create(&vp_, VIDEO_PROCESSING_TYPE_DETAIL_ENHANCER);
+    const VpeApi& vpe = Vpe();
+    VideoProcessing_ErrorCode rc = vpe.Create(&vp_, vpe.typeDetailEnhancer);
     if (rc != VIDEO_PROCESSING_SUCCESS || vp_ == nullptr) {
         vp_ = nullptr;
         *error = Format(L("本机不支持画质增强（%d）", "本機不支援畫質增強（%d）",
                           "picture enhancement is not supported on this device (%d)"), int(rc));
         return false;
     }
-    OH_VideoProcessingCallback_Create(&callback_);
-    OH_VideoProcessingCallback_BindOnError(callback_, &OnVpeError);
-    OH_VideoProcessingCallback_BindOnState(callback_, &OnVpeState);
-    OH_VideoProcessingCallback_BindOnNewOutputBuffer(callback_, &OnVpeOutput);
-    rc = OH_VideoProcessing_RegisterCallback(vp_, callback_, this);
-    if (rc == VIDEO_PROCESSING_SUCCESS) rc = OH_VideoProcessing_SetSurface(vp_, outWindow);
-    if (rc == VIDEO_PROCESSING_SUCCESS) rc = OH_VideoProcessing_GetSurface(vp_, &input_);
+    vpe.CallbackCreate(&callback_);
+    vpe.BindOnError(callback_, &OnVpeError);
+    vpe.BindOnState(callback_, &OnVpeState);
+    vpe.BindOnNewOutputBuffer(callback_, &OnVpeOutput);
+    rc = vpe.RegisterCallback(vp_, callback_, this);
+    if (rc == VIDEO_PROCESSING_SUCCESS) rc = vpe.SetSurface(vp_, outWindow);
+    if (rc == VIDEO_PROCESSING_SUCCESS) rc = vpe.GetSurface(vp_, &input_);
     if (rc != VIDEO_PROCESSING_SUCCESS || input_ == nullptr) {
         *error = Format(L("画质增强初始化失败（%d）", "畫質增強初始化失敗（%d）", "picture enhancement init failed (%d)"),
                         int(rc));
@@ -73,7 +145,7 @@ bool VideoEnhancer::Init(OHNativeWindow* outWindow, int level, std::string* erro
         return false;
     }
     SetLevel(level);
-    rc = OH_VideoProcessing_Start(vp_);
+    rc = vpe.Start(vp_);
     if (rc != VIDEO_PROCESSING_SUCCESS) {
         *error = Format(L("画质增强启动失败（%d）", "畫質增強啟動失敗（%d）", "picture enhancement failed to start (%d)"),
                         int(rc));
@@ -88,20 +160,20 @@ void VideoEnhancer::SetLevel(int level) {
     level_ = level;
     if (vp_ == nullptr) return;
     OH_AVFormat* p = OH_AVFormat_Create();
-    OH_AVFormat_SetIntValue(p, VIDEO_DETAIL_ENHANCER_PARAMETER_KEY_QUALITY_LEVEL, ToQualityLevel(level));
-    const VideoProcessing_ErrorCode rc = OH_VideoProcessing_SetParameter(vp_, p);
+    OH_AVFormat_SetIntValue(p, Vpe().keyQualityLevel, ToQualityLevel(level));
+    const VideoProcessing_ErrorCode rc = Vpe().SetParameter(vp_, p);
     OH_AVFormat_Destroy(p);
     if (rc != VIDEO_PROCESSING_SUCCESS) Logf(LogLevel::Warn, "设置画质增强档位失败：%d", int(rc));
 }
 
 void VideoEnhancer::Release() {
     if (vp_ != nullptr) {
-        OH_VideoProcessing_Stop(vp_);
-        OH_VideoProcessing_Destroy(vp_);
+        Vpe().Stop(vp_);
+        Vpe().Destroy(vp_);
         vp_ = nullptr;
     }
     if (callback_ != nullptr) {
-        OH_VideoProcessingCallback_Destroy(callback_);
+        Vpe().CallbackDestroy(callback_);
         callback_ = nullptr;
     }
     if (input_ != nullptr) {
@@ -122,7 +194,7 @@ void VideoEnhancer::OnFrameQueued() {
 
 void VideoEnhancer::HandleOutput(uint32_t index) {
     if (vp_ == nullptr) return;
-    OH_VideoProcessing_RenderOutputBuffer(vp_, index);
+    Vpe().RenderOutputBuffer(vp_, index);
     ++framesOut_;
     std::lock_guard<std::mutex> lock(mutex_);
     if (queuedNs_.empty()) return;

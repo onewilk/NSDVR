@@ -2,6 +2,7 @@ import { promptAction } from '@kit.ArkUI';
 import { checkHotspotConfig, HotspotService, randomPassphrase } from '../common/HotspotService';
 import { tr } from '../common/I18n';
 import { Card, NavRow, SettingRow, TipBar } from './Widgets';
+import { FOCUS_BOX } from '../common/Focus';
 
 /**
  * Switch 专用热点：卡片上只显示开关和一行状态（不直接露出网络名和密码）；
@@ -84,6 +85,8 @@ export struct HotspotCard {
         .height(40)
         .backgroundColor($r('app.color.chip_bg'))
         .accessibilityText(tr('cfg_hs_close'))
+        .focusable(true)
+        .focusBox(FOCUS_BOX)
         .onClick(() => {
           this.showSheet = false;
         })
@@ -118,6 +121,8 @@ export struct HotspotCard {
           // 关掉系统自动填充：否则密码保险箱会把“网络名 + 密码”当成登录表单弹出填充和人脸验证
           TextInput({ text: this.draftSsid, placeholder: tr('cfg_hs_ssid_hint') })
             .height(44)
+            .fontSize(16)
+            .placeholderFont({ size: 16 })
             .enableAutoFill(false)
             .onChange((v: string) => {
               this.draftSsid = v;
@@ -129,6 +134,8 @@ export struct HotspotCard {
               .showPasswordIcon(true)
               .maxLength(63)
               .height(44)
+              .fontSize(16)
+              .placeholderFont({ size: 16 })
               .layoutWeight(1)
               .enableAutoFill(false)
               .onChange((v: string) => {
@@ -180,7 +187,7 @@ export struct HotspotCard {
         icon: $r('sys.symbol.hotspot')
       }) {
         if (this.busy) {
-          LoadingProgress().width(28).height(28).color($r('app.color.accent'))
+          LoadingProgress().width(28).height(28).color($r('app.color.accent')).focusable(false)
         } else {
           Toggle({ type: ToggleType.Switch, isOn: this.on })
             .onChange((isOn: boolean) => {

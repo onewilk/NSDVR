@@ -1,7 +1,7 @@
 import { AbilityConstant, Configuration, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { BusinessError, commonEventManager } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { window } from '@kit.ArkUI';
+import { CustomTheme, ThemeControl, window } from '@kit.ArkUI';
 import { HotspotService } from '../common/HotspotService';
 import { followSystemLanguageNow, followsSystemLanguage, initI18n, notifyLanguageChanged } from '../common/I18n';
 import { takeShortcut } from '../common/LaunchShortcut';
@@ -74,6 +74,9 @@ export default class EntryAbility extends UIAbility {
   }
 
   onWindowStageCreate(windowStage: window.WindowStage): void {
+    // 系统组件（按钮、开关、下拉框、页签）的焦点框用强调色：电视上靠遥控器方向键操作，默认的灰色焦点框不显眼
+    const theme: CustomTheme = { colors: { interactiveFocus: $r('app.color.accent') } };
+    ThemeControl.setDefaultTheme(theme);
     windowStage.loadContent('pages/Index', (err) => {
       if (err.code) {
         hilog.error(DOMAIN, TAG, 'loadContent failed: %{public}s', JSON.stringify(err));

@@ -4,7 +4,8 @@ import { StreamTarget } from '../common/StreamTarget';
 import { RtspPanel } from './RtspPanel';
 import { TcpPanel } from './TcpPanel';
 import { UsbPanel } from './UsbPanel';
-import { Chip, TipBar } from './Widgets';
+import { Chip, Tappable, TipBar } from './Widgets';
+import { FOCUS_BOX } from '../common/Focus';
 import { PAGE_ANCHORS, ScrollAnchor } from '../common/ScrollAnchor';
 
 /**
@@ -58,78 +59,91 @@ export struct ConnectView {
   // 手机：纵向列表中的一行
   @Builder
   ModeRow(meta: ModeMeta) {
-    Row({ space: 12 }) {
-      Row() {
-        SymbolGlyph(meta.icon)
-          .fontSize(22)
-          .fontColor([this.mode === meta.mode ? $r('app.color.on_accent') : $r('app.color.accent')])
+    // 套一层 Tappable：Row 不能获焦，电视遥控器、键盘选不到
+    Tappable({
+      isDefaultFocus: this.mode === meta.mode,
+      onTap: () => {
+        this.mode = meta.mode;
       }
-      .width(40)
-      .height(40)
-      .justifyContent(FlexAlign.Center)
-      .borderRadius(20)
-      .backgroundColor(this.mode === meta.mode ? $r('app.color.accent') : $r('app.color.accent_soft'))
-      Column({ space: 2 }) {
-        Row({ space: 6 }) {
-          Text(meta.title)
-            .fontSize(16)
-            .fontWeight(FontWeight.Medium)
-            .fontColor($r('app.color.text_primary'))
+    }) {
+      Row({ space: 12 }) {
+        Row() {
+          SymbolGlyph(meta.icon)
+            .fontSize(22)
+            .fontColor([this.mode === meta.mode ? $r('app.color.on_accent') : $r('app.color.accent')])
+        }
+        .width(40)
+        .height(40)
+        .justifyContent(FlexAlign.Center)
+        .borderRadius(20)
+        .backgroundColor(this.mode === meta.mode ? $r('app.color.accent') : $r('app.color.accent_soft'))
+        Column({ space: 2 }) {
+          Row({ space: 6 }) {
+            Text(meta.title)
+              .fontSize(16)
+              .fontWeight(FontWeight.Medium)
+              .fontColor($r('app.color.text_primary'))
+            if (meta.mode === StreamMode.TCP) {
+              Chip({ text: tr('connect_recommended'), accent: true })
+            }
+          }
+          Text(`${meta.subtitle} · ${meta.desc}`)
+            .fontSize(12)
+            .fontColor($r('app.color.text_secondary'))
+            .maxLines(1)
+            .textOverflow({ overflow: TextOverflow.Ellipsis })
+        }
+        .alignItems(HorizontalAlign.Start)
+        .layoutWeight(1)
+
+        SymbolGlyph(this.mode === meta.mode ? $r('sys.symbol.checkmark_circle_fill') : $r('sys.symbol.circle'))
+          .fontSize(22)
+          .fontColor([this.mode === meta.mode ? $r('app.color.accent') : $r('app.color.text_tertiary')])
+      }
+      .width('100%')
+      .padding({ left: 12, right: 12, top: 10, bottom: 10 })
+      .accessibilityText(`${meta.title}, ${meta.subtitle}, ${meta.desc}`)
+    }
+  }
+
+  // 宽屏：横排卡片。外面是 Button：Column 这类容器没有可获焦的子组件时不能获焦，
+  // 电视遥控器、键盘就选不到；Button 本身能获焦，按确认键也会触发点击
+  @Builder
+  ModeCard(meta: ModeMeta) {
+    Button({ type: ButtonType.Normal, stateEffect: true }) {
+      Column({ space: 6 }) {
+        Row() {
+          SymbolGlyph(meta.icon)
+            .fontSize(24)
+            .fontColor([this.mode === meta.mode ? $r('app.color.accent') : $r('app.color.text_secondary')])
+          Blank()
           if (meta.mode === StreamMode.TCP) {
-            Chip({ text: tr('connect_recommended'), accent: true })
+            Chip({ text: tr('connect_recommended'), accent: this.mode === meta.mode })
           }
         }
+        .width('100%')
+
+        Text(meta.title)
+          .fontSize(16)
+          .fontWeight(FontWeight.Medium)
+          .fontColor(this.mode === meta.mode ? $r('app.color.accent') : $r('app.color.text_primary'))
         Text(`${meta.subtitle} · ${meta.desc}`)
           .fontSize(12)
           .fontColor($r('app.color.text_secondary'))
-          .maxLines(1)
-          .textOverflow({ overflow: TextOverflow.Ellipsis })
+          .maxLines(2)
       }
       .alignItems(HorizontalAlign.Start)
-      .layoutWeight(1)
-
-      SymbolGlyph(this.mode === meta.mode ? $r('sys.symbol.checkmark_circle_fill') : $r('sys.symbol.circle'))
-        .fontSize(22)
-        .fontColor([this.mode === meta.mode ? $r('app.color.accent') : $r('app.color.text_tertiary')])
-    }
-    .width('100%')
-    .padding({ left: 12, right: 12, top: 10, bottom: 10 })
-    .onClick(() => {
-      this.mode = meta.mode;
-    })
-    .accessibilityText(`${meta.title}, ${meta.subtitle}, ${meta.desc}`)
-  }
-
-  // 宽屏：横排卡片
-  @Builder
-  ModeCard(meta: ModeMeta) {
-    Column({ space: 6 }) {
-      Row() {
-        SymbolGlyph(meta.icon)
-          .fontSize(24)
-          .fontColor([this.mode === meta.mode ? $r('app.color.accent') : $r('app.color.text_secondary')])
-        Blank()
-        if (meta.mode === StreamMode.TCP) {
-          Chip({ text: tr('connect_recommended'), accent: this.mode === meta.mode })
-        }
-      }
       .width('100%')
-
-      Text(meta.title)
-        .fontSize(16)
-        .fontWeight(FontWeight.Medium)
-        .fontColor(this.mode === meta.mode ? $r('app.color.accent') : $r('app.color.text_primary'))
-      Text(`${meta.subtitle} · ${meta.desc}`)
-        .fontSize(12)
-        .fontColor($r('app.color.text_secondary'))
-        .maxLines(2)
+      .padding(14)
     }
-    .alignItems(HorizontalAlign.Start)
     .layoutWeight(1)
-    .padding(14)
-    .borderRadius(16)
+    .height('auto')
     .backgroundColor($r('app.color.card_bg'))
-    .border({ width: 1.5, color: this.mode === meta.mode ? $r('app.color.accent') : Color.Transparent })
+    // 圆角写在 border 里：单独的 borderRadius 会被后面不带 radius 的 border 覆盖成直角
+    .border({ width: 1.5, color: this.mode === meta.mode ? $r('app.color.accent') : Color.Transparent, radius: 16 })
+    .focusBox(FOCUS_BOX)
+    .defaultFocus(this.mode === meta.mode)
+    .id(`mode-card-${meta.mode}`)
     .onClick(() => {
       this.mode = meta.mode;
     })

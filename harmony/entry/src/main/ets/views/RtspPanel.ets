@@ -57,6 +57,9 @@ export struct RtspPanel {
           TextInput({ placeholder: tr('rtsp_ip_hint'), text: this.host })
             .layoutWeight(1)
             .height(40)
+            // 显式字号：电视主题的默认字号更大，固定高度里放不下，y、g 这类字母的下半截会被切掉
+            .fontSize(16)
+            .placeholderFont({ size: 16 })
             .type(InputType.URL)
             .onChange((value: string) => {
               this.host = value;
@@ -64,7 +67,7 @@ export struct RtspPanel {
             .onSubmit(() => {
               this.connect();
             })
-          Button(tr('connect_button')).height(40).onClick(() => {
+          Button(tr('connect_button')).height(40).fontSize(16).onClick(() => {
             this.connect();
           })
         }
@@ -76,7 +79,7 @@ export struct RtspPanel {
             .fontColor($r('app.color.text_tertiary'))
             .layoutWeight(1)
           if (this.probing) {
-            LoadingProgress().width(24).height(24).color($r('app.color.accent'))
+            LoadingProgress().width(24).height(24).color($r('app.color.accent')).focusable(false)
           } else {
             Button(tr('rtsp_probe_button'), { buttonStyle: ButtonStyleMode.TEXTUAL })
               .fontSize(13)

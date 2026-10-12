@@ -49,5 +49,5 @@ target_link_libraries(entry PUBLIC
     libnative_window.so
     libnative_vsync.so
     libnative_display_soloist.so
-    libvideo_processing.so
+    # libvideo_processing.so 不链接：有的设备（智慧屏）没有这个库，video_enhancer.cpp 用到时再 dlopen
 )

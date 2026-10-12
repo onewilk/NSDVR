@@ -31,6 +31,7 @@ import { AboutView } from '../views/AboutView';
 import { ConfigView } from '../views/ConfigView';
 import { ConnectView } from '../views/ConnectView';
 import { GuideView } from '../views/GuideView';
+import { FOCUS_BOX } from '../common/Focus';
 
 const DOMAIN = 0x5344;
 const TAG = 'SysDVR';
@@ -196,6 +197,28 @@ struct Index {
   // 本次会话是否已记进“最近连接”（TCP 收到视频、RTSP 开始播放后记一次）
   private hostRemembered: boolean = false;
 
+  // 电视：上次按返回键提示“再按一次断开”的时间
+  private tvBackHintAt: number = 0;
+
+  // 电视只能用遥控器：一打开就进入焦点模式（显示焦点框），焦点放在当前选中的模式卡片上。
+  // 不主动激活的话，焦点停在页面根节点，方向键没有反应
+  // 播放页同理：焦点交给播放器，确认键、菜单键、方向键才有反应
+  private focusForRemote(): void {
+    if (deviceInfo.deviceType !== 'tv' || deviceInfo.sdkApiVersion < 14) {
+      return;
+    }
+    setTimeout(() => {
+      try {
+        const focus = this.getUIContext().getFocusController();
+        focus.activate(true);
+        focus.requestFocus(this.playing ? 'player-root' :
+          `mode-card-${AppStorage.get<number>('sysdvr.mode') ?? StreamMode.TCP}`);
+      } catch (e) {
+        hilog.warn(DOMAIN, TAG, 'focusForRemote failed: %{public}s', JSON.stringify(e));
+      }
+    }, 300);
+  }
+
   aboutToAppear(): void {
     this.xController.onCreated = (surfaceId: string) => {
       this.onSurfaceReady(surfaceId);
@@ -346,6 +369,7 @@ struct Index {
   onPageShow(): void {
     this.pageHidden = false;
     this.cancelPipCheck();
+    this.focusForRemote();
     // 小窗开着时点桌面图标回来：系统不会自动收起小窗，播放页只剩黑底
     this.pip.restore();
     if (!this.inBackground) {
@@ -438,6 +462,21 @@ struct Index {
     }
     if (this.showPanel) {
       this.showPanel = false;
+      return true;
+    }
+    if (this.playing && deviceInfo.deviceType === 'tv') {
+      // 电视遥控器：返回键先收起控件，看全屏画面；控件收起时按返回，叫出控件并提示，3 秒内再按一次才断开，免得误按就断
+      const now = Date.now();
+      if (now - this.tvBackHintAt < 3000) {
+        this.tvBackHintAt = 0;
+        this.leavePlayer();
+      } else if (this.controlsVisible) {
+        this.controlsVisible = false;
+      } else {
+        this.controlsVisible = true;
+        this.tvBackHintAt = now;
+        promptAction.showToast({ message: tr('app_toast_back_again') });
+      }
       return true;
     }
     if (this.playing) {
@@ -574,6 +613,7 @@ struct Index {
     this.playing = true;
     this.connecting = false;
     this.setImmersive(true);
+    this.focusForRemote();
     if (target.mode === StreamMode.USB) {
       // 播放中拔线：及时退出并提示
       this.usbWatcher.start(() => {
@@ -1452,6 +1492,7 @@ struct Index {
         }
       }, 300);
     }
+    this.focusForRemote();
   }
 
   // 播放时全屏、常亮；手机（含折叠屏外屏）和平板强制横屏。其他时候（首页、折叠屏展开播放）跟随设备旋转，
@@ -1580,6 +1621,7 @@ struct Index {
     return style;
   }
 
+  // 没选中的标签页不能获焦：否则遥控器方向键会从当前页走进隐藏的页面，Tabs 跟着切过去
   @Builder
   TabPages() {
     TabContent() {
@@ -1595,12 +1637,14 @@ struct Index {
       })
     }
     .tabBar(this.tabBarStyle(0))
+    .focusable(this.tab === 0)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
 
     TabContent() {
       ConfigView({ bp: this.bp })
     }
     .tabBar(this.tabBarStyle(1))
+    .focusable(this.tab === 1)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
 
     TabContent() {
@@ -1612,6 +1656,7 @@ struct Index {
       })
     }
     .tabBar(this.tabBarStyle(2))
+    .focusable(this.tab === 2)
     .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
   }
 
@@ -1677,6 +1722,8 @@ struct Index {
       .padding({ left: 8, right: 8, top: 3, bottom: 3 })
       .borderRadius(10)
       .backgroundColor(index === this.statsTabIndex() ? '#33FFFFFF' : Color.Transparent)
+      .focusable(true)
+      .focusBox(FOCUS_BOX)
       .onClick(() => {
         this.statsTab = index;
       })
@@ -1777,7 +1824,7 @@ struct Index {
               } else if (this.statusText.length > 0) {
                 // 连接中的状态不受控件显隐影响，避免以为卡住了
                 Row({ space: 8 }) {
-                  LoadingProgress().width(18).height(18).color(Color.White)
+                  LoadingProgress().width(18).height(18).color(Color.White).focusable(false)
                   Text(this.statusText).fontSize(13).fontColor(Color.White)
                 }
                 .padding({ left: 12, right: 12, top: 6, bottom: 6 })
@@ -1813,7 +1860,8 @@ struct Index {
       }
 
       // 锁形按钮：解锁状态随控件一起显隐；锁定后常驻（变淡），这是唯一可点的元素
-      if (this.locked || this.controlsVisible) {
+      // 电视没有触屏，不需要防误触的锁定
+      if (deviceInfo.deviceType !== 'tv' && (this.locked || this.controlsVisible)) {
         Row() {
           this.LockButton()
         }
@@ -1844,10 +1892,29 @@ struct Index {
     })
     .focusable(true)
     .defaultFocus(true)
+    .id('player-root')
     .onKeyEvent((event: KeyEvent) => {
+      if (event.type !== KeyType.Down) {
+        return;
+      }
       // PC、平板外接键盘：Esc 相当于返回（锁定时不断开）
-      if (event.type === KeyType.Down && event.keyCode === KeyCode.KEYCODE_ESCAPE) {
+      if (event.keyCode === KeyCode.KEYCODE_ESCAPE) {
         this.onBackPress();
+        return;
+      }
+      // 电视遥控器、键盘：控件隐藏时按确认键叫出控件（相当于点画面）；控件显示时确认键交给获焦的按钮
+      const confirm = event.keyCode === KeyCode.KEYCODE_ENTER || event.keyCode === KeyCode.KEYCODE_DPAD_CENTER ||
+        event.keyCode === KeyCode.KEYCODE_NUMPAD_ENTER;
+      if (confirm && !this.controlsVisible) {
+        this.onPlayerTap();
+        event.stopPropagation();
+        return;
+      }
+      // 菜单键：打开/关闭快捷设置
+      if (event.keyCode === KeyCode.KEYCODE_MENU && !this.locked) {
+        this.controlsVisible = true;
+        this.showPanel = !this.showPanel;
+        event.stopPropagation();
       }
     })
   }
