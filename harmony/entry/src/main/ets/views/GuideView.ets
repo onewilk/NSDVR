@@ -121,6 +121,70 @@ export struct GuideView {
   @StorageProp('ui.safeBottom') safeBottom: number = 0;
   private scroller: Scroller = new Scroller();
   private sections: GuideSection[] = sections();
+  // 折叠屏展开/折叠、窗口变宽变窄后停在原来看到的内容上：记下顶部是第几项、滚到了这一项的几分之几。
+  // 变宽后 List 会先按旧的像素偏移重新排版（onScrollIndex 报出别的项），所以锚点只在用户滚动时更新，
+  // 并记下当时条目的宽度：宽度变了说明是重新排版，不覆盖锚点
+  private firstVisible: number = 0;
+  private topIndex: number = 0;
+  private topFrac: number = 0;
+  private anchorWidth: number = 0;
+  private listWidth: number = -1;
+  private restoreTimer: number = -1;
+
+  private rememberTop(): void {
+    if (this.restoreTimer >= 0) {
+      return;
+    }
+    let i = this.firstVisible;
+    let r = this.scroller.getItemRect(i);
+    if (this.anchorWidth > 0 && r.width > 0 && Math.abs(r.width - this.anchorWidth) >= 1) {
+      this.scheduleRestore();
+      return;
+    }
+    // onScrollIndex 和 onDidScroll 的先后不固定，按实际位置校正到真正在顶部的那一项
+    if (r.height > 0 && r.y + r.height <= 0) {
+      i += 1;
+      r = this.scroller.getItemRect(i);
+    } else if (r.y > 0 && i > 0) {
+      i -= 1;
+      r = this.scroller.getItemRect(i);
+    }
+    this.topIndex = i;
+    this.topFrac = r.height > 0 ? Math.min(1, Math.max(0, -r.y / r.height)) : 0;
+    this.anchorWidth = r.width;
+  }
+
+  private onListResize(area: Area): void {
+    const w = Number(area.width);
+    const changed = this.listWidth >= 0 && Math.abs(w - this.listWidth) >= 1;
+    this.listWidth = w;
+    if (changed) {
+      this.scheduleRestore();
+    }
+  }
+
+  private scheduleRestore(): void {
+    if (this.topIndex === 0 && this.topFrac === 0) {
+      return;
+    }
+    if (this.restoreTimer >= 0) {
+      clearTimeout(this.restoreTimer);
+    }
+    const index = this.topIndex;
+    const frac = this.topFrac;
+    // 等新宽度排完：先回到那一项的顶部，再按它的新高度补上比例
+    this.restoreTimer = setTimeout(() => {
+      this.scroller.scrollToIndex(index, false, ScrollAlign.START);
+      this.restoreTimer = setTimeout(() => {
+        const r = this.scroller.getItemRect(index);
+        if (r.height > 0 && frac > 0) {
+          this.scroller.scrollBy(0, frac * r.height);
+        }
+        this.anchorWidth = r.width;
+        this.restoreTimer = -1;
+      }, 50);
+    }, 120);
+  }
 
   @Builder
   SectionCard(s: GuideSection) {
@@ -216,7 +280,10 @@ export struct GuideView {
       .onScrollIndex((start: number) => {
         // 第 0 项是页头
         this.current = Math.max(0, Math.min(this.sections.length - 1, start - 1));
+        this.firstVisible = start;
       })
+      .onDidScroll(() => this.rememberTop())
+      .onAreaChange((_o: Area, n: Area) => this.onListResize(n))
     }
     .alignItems(VerticalAlign.Top)
     .width('100%')

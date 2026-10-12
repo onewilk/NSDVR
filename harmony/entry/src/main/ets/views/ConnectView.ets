@@ -5,6 +5,7 @@ import { RtspPanel } from './RtspPanel';
 import { TcpPanel } from './TcpPanel';
 import { UsbPanel } from './UsbPanel';
 import { Chip, TipBar } from './Widgets';
+import { PAGE_ANCHORS, ScrollAnchor } from '../common/ScrollAnchor';
 
 /**
  * “串流”页：选模式、看提示，列表最后是连接卡片（局域网内的设备 / USB 设备 / RTSP 地址）和最近连接。
@@ -22,6 +23,8 @@ export struct ConnectView {
   };
   onOpenGuide: () => void = () => {
   };
+  // 折叠屏展开/折叠后停在原来看到的位置
+  private anchor: ScrollAnchor = PAGE_ANCHORS[0];
 
   @Builder
   Header() {
@@ -49,6 +52,7 @@ export struct ConnectView {
       })
     }
     .width('100%')
+    .onAreaChange((_o: Area, n: Area) => this.anchor.report('header', n))
   }
 
   // 手机：纵向列表中的一行
@@ -147,6 +151,7 @@ export struct ConnectView {
       .padding({ top: 4, bottom: 4 })
       .borderRadius(16)
       .backgroundColor($r('app.color.card_bg'))
+      .onAreaChange((_o: Area, n: Area) => this.anchor.report('modes', n))
     } else {
       Row({ space: 12 }) {
         ForEach(modes(), (meta: ModeMeta) => {
@@ -154,29 +159,36 @@ export struct ConnectView {
         }, (meta: ModeMeta) => `card-${meta.mode}`)
       }
       .width('100%')
+      .onAreaChange((_o: Area, n: Area) => this.anchor.report('modes', n))
     }
   }
 
   build() {
     Column() {
-      Scroll() {
+      Scroll(this.anchor.scroller) {
         Column({ space: 16 }) {
           this.Header()
           this.ModeSelector()
           TipBar({ text: modeTip(this.mode) })
+            .onAreaChange((_o: Area, n: Area) => this.anchor.report('tip', n))
 
           // 手机 WLAN 与专用热点不在同一信道：串流时会周期性掉帧，在串流页也提醒一下
           if (this.mode !== StreamMode.USB && this.hotspotOn && this.hotspotWarn.length > 0) {
             TipBar({ text: this.hotspotWarn, warn: true })
+              .onAreaChange((_o: Area, n: Area) => this.anchor.report('warn', n))
+              .onDisAppear(() => this.anchor.forget('warn'))
           }
 
           // 连接卡片在列表最后：三个面板都保持挂载，只切换显示，切模式时授权状态、输入内容不会丢
           TcpPanel({ active: this.mode === StreamMode.TCP && !this.playing, onConnect: this.onConnect })
             .visibility(this.mode === StreamMode.TCP ? Visibility.Visible : Visibility.None)
+            .onAreaChange((_o: Area, n: Area) => this.anchor.report('tcp', n))
           UsbPanel({ active: this.mode === StreamMode.USB && !this.playing, onConnect: this.onConnect })
             .visibility(this.mode === StreamMode.USB ? Visibility.Visible : Visibility.None)
+            .onAreaChange((_o: Area, n: Area) => this.anchor.report('usb', n))
           RtspPanel({ onConnect: this.onConnect })
             .visibility(this.mode === StreamMode.RTSP ? Visibility.Visible : Visibility.None)
+            .onAreaChange((_o: Area, n: Area) => this.anchor.report('rtsp', n))
         }
         .width('100%')
         .padding({ left: 16, right: 16, top: 16, bottom: 16 + this.bottomReserve })
@@ -186,6 +198,9 @@ export struct ConnectView {
       .align(Alignment.Top)
       .scrollBar(BarState.Off)
       .edgeEffect(EdgeEffect.Spring)
+      .onDidScroll(() => this.anchor.onScrolled())
+      .onAreaChange((_o: Area, n: Area) => this.anchor.onResize(n))
+      .onAppear(() => this.anchor.onAppear())
       // 内容延伸到底部小白条下面，滚动时从悬浮导航栏和小白条下透过去
       .expandSafeArea([SafeAreaType.SYSTEM], [SafeAreaEdge.BOTTOM])
     }

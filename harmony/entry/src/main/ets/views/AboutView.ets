@@ -7,6 +7,7 @@ import { productViewManager } from '@kit.StoreKit';
 import { APP_NAME, Breakpoint, IJKPLAYER_REPO, PROJECT_GITHUB, SYSDVR_GITHUB } from '../common/Prefs';
 import { tr } from '../common/I18n';
 import { Card, NavRow } from './Widgets';
+import { PAGE_ANCHORS, ScrollAnchor } from '../common/ScrollAnchor';
 
 const DOMAIN = 0x5344;
 const TAG = 'SysDVR';
@@ -44,6 +45,8 @@ export struct AboutView {
   @State showLicense: boolean = false;
   @State licenseTitle: string = '';
   @State licenseText: string = '';
+  // 折叠屏展开/折叠后停在原来看到的位置
+  private anchor: ScrollAnchor = PAGE_ANCHORS[2];
   onOpenGuide: () => void = () => {
   };
 
@@ -150,7 +153,7 @@ export struct AboutView {
   }
 
   build() {
-    Scroll() {
+    Scroll(this.anchor.scroller) {
       Column({ space: 16 }) {
         Column({ space: 8 }) {
           Image($r('app.media.icon'))
@@ -175,88 +178,118 @@ export struct AboutView {
         }
         .width('100%')
         .padding({ top: 24, bottom: 8 })
+        .onAreaChange((_o: Area, n: Area) => this.anchor.report('header', n))
 
-        Card({ title: tr('about_source_title'), subtitle: tr('about_source_sub') }) {
-          this.LinkRow($r('sys.symbol.link'), tr('about_source_link'), PROJECT_GITHUB)
+        // 自定义组件带尾随闭包时后面不能接属性，套一层 Column 上报位置
+        Column() {
+          Card({ title: tr('about_source_title'), subtitle: tr('about_source_sub') }) {
+            this.LinkRow($r('sys.symbol.link'), tr('about_source_link'), PROJECT_GITHUB)
+          }
         }
+        .width('100%')
+        .onAreaChange((_o: Area, n: Area) => this.anchor.report('card1', n))
 
-        Card() {
-          NavRow({
-            title: tr('about_guide_title'),
-            desc: tr('about_guide_desc'),
-            icon: $r('sys.symbol.book'),
-            onTap: () => {
-              this.onOpenGuide();
-            }
-          })
-        }
-
-        Card({ title: tr('about_thanks_title'), subtitle: tr('about_thanks_sub') }) {
-          this.LinkRow($r('sys.symbol.link'), tr('about_sysdvr_link'), SYSDVR_GITHUB)
-          Text(tr('about_sysdvr_note'))
-            .fontSize(12)
-            .lineHeight(19)
-            .fontColor($r('app.color.text_tertiary'))
-          Divider().color($r('app.color.divider'))
-          this.LinkRow($r('sys.symbol.play'), tr('about_ijk_name'), IJKPLAYER_REPO)
-        }
-
-        Card({ title: tr('about_licenses_title') }) {
-          ForEach(this.licenses, (l: LicenseItem) => {
-            Row({ space: 8 }) {
-              Column({ space: 2 }) {
-                Text(l.name).fontSize(14).fontColor($r('app.color.text_primary'))
-                Text(l.note).fontSize(12).fontColor($r('app.color.text_secondary'))
-              }
-              .alignItems(HorizontalAlign.Start)
-              .layoutWeight(1)
-
-              if (l.textFile.length > 0) {
-                Column({ space: 2 }) {
-                  Text(l.license).fontSize(12).fontColor($r('app.color.text_secondary'))
-                  Text(tr('about_lic_view')).fontSize(12).fontColor($r('app.color.accent'))
-                }
-                .alignItems(HorizontalAlign.End)
-
-                SymbolGlyph($r('sys.symbol.chevron_right')).fontSize(16).fontColor([$r('app.color.text_tertiary')])
-              } else {
-                Text(l.license).fontSize(12).fontColor($r('app.color.text_secondary'))
-              }
-            }
-            .width('100%')
-            .onClick(() => {
-              if (l.textFile.length > 0) {
-                this.openLicense(l);
+        Column() {
+          Card() {
+            NavRow({
+              title: tr('about_guide_title'),
+              desc: tr('about_guide_desc'),
+              icon: $r('sys.symbol.book'),
+              onTap: () => {
+                this.onOpenGuide();
               }
             })
-          }, (l: LicenseItem) => l.name)
+          }
         }
+        .width('100%')
+        .onAreaChange((_o: Area, n: Area) => this.anchor.report('card2', n))
 
-        Card({ title: tr('about_privacy_title') }) {
-          Text(tr('about_privacy_body'))
-            .fontSize(13)
-            .lineHeight(21)
-            .fontColor($r('app.color.text_secondary'))
+        Column() {
+          Card({ title: tr('about_thanks_title'), subtitle: tr('about_thanks_sub') }) {
+            this.LinkRow($r('sys.symbol.link'), tr('about_sysdvr_link'), SYSDVR_GITHUB)
+            Text(tr('about_sysdvr_note'))
+              .fontSize(12)
+              .lineHeight(19)
+              .fontColor($r('app.color.text_tertiary'))
+            Divider().color($r('app.color.divider'))
+            this.LinkRow($r('sys.symbol.play'), tr('about_ijk_name'), IJKPLAYER_REPO)
+          }
         }
+        .width('100%')
+        .onAreaChange((_o: Area, n: Area) => this.anchor.report('card3', n))
 
-        Card({ title: tr('about_disclaimer_title') }) {
-          Text(tr('about_disclaimer_body'))
-            .fontSize(13)
-            .lineHeight(21)
-            .fontColor($r('app.color.text_secondary'))
-        }
+        Column() {
+          Card({ title: tr('about_licenses_title') }) {
+            ForEach(this.licenses, (l: LicenseItem) => {
+              Row({ space: 8 }) {
+                Column({ space: 2 }) {
+                  Text(l.name).fontSize(14).fontColor($r('app.color.text_primary'))
+                  Text(l.note).fontSize(12).fontColor($r('app.color.text_secondary'))
+                }
+                .alignItems(HorizontalAlign.Start)
+                .layoutWeight(1)
 
-        Card() {
-          NavRow({
-            title: tr('about_feedback_title'),
-            desc: tr('about_feedback_desc'),
-            icon: $r('sys.symbol.star'),
-            external: true,
-            onTap: () => {
-              this.openStore();
-            }
-          })
+                if (l.textFile.length > 0) {
+                  Column({ space: 2 }) {
+                    Text(l.license).fontSize(12).fontColor($r('app.color.text_secondary'))
+                    Text(tr('about_lic_view')).fontSize(12).fontColor($r('app.color.accent'))
+                  }
+                  .alignItems(HorizontalAlign.End)
+
+                  SymbolGlyph($r('sys.symbol.chevron_right')).fontSize(16).fontColor([$r('app.color.text_tertiary')])
+                } else {
+                  Text(l.license).fontSize(12).fontColor($r('app.color.text_secondary'))
+                }
+              }
+              .width('100%')
+              .onClick(() => {
+                if (l.textFile.length > 0) {
+                  this.openLicense(l);
+                }
+              })
+            }, (l: LicenseItem) => l.name)
+          }
         }
+        .width('100%')
+        .onAreaChange((_o: Area, n: Area) => this.anchor.report('card4', n))
+
+        Column() {
+          Card({ title: tr('about_privacy_title') }) {
+            Text(tr('about_privacy_body'))
+              .fontSize(13)
+              .lineHeight(21)
+              .fontColor($r('app.color.text_secondary'))
+          }
+        }
+        .width('100%')
+        .onAreaChange((_o: Area, n: Area) => this.anchor.report('card5', n))
+
+        Column() {
+          Card({ title: tr('about_disclaimer_title') }) {
+            Text(tr('about_disclaimer_body'))
+              .fontSize(13)
+              .lineHeight(21)
+              .fontColor($r('app.color.text_secondary'))
+          }
+        }
+        .width('100%')
+        .onAreaChange((_o: Area, n: Area) => this.anchor.report('card6', n))
+
+        Column() {
+          Card() {
+            NavRow({
+              title: tr('about_feedback_title'),
+              desc: tr('about_feedback_desc'),
+              icon: $r('sys.symbol.star'),
+              external: true,
+              onTap: () => {
+                this.openStore();
+              }
+            })
+          }
+        }
+        .width('100%')
+        .onAreaChange((_o: Area, n: Area) => this.anchor.report('card7', n))
       }
       .width('100%')
       .constraintSize({ maxWidth: 720 })
@@ -267,6 +300,9 @@ export struct AboutView {
     .align(Alignment.Top)
     .scrollBar(BarState.Off)
     .edgeEffect(EdgeEffect.Spring)
+    .onDidScroll(() => this.anchor.onScrolled())
+    .onAreaChange((_o: Area, n: Area) => this.anchor.onResize(n))
+    .onAppear(() => this.anchor.onAppear())
     .bindSheet($$this.showLicense, this.LicenseSheet(), {
       title: { title: this.licenseTitle },
       height: SheetSize.LARGE,
