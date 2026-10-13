@@ -155,9 +155,12 @@ export function supportsEnhance(mode: StreamMode): boolean {
   return mode !== StreamMode.RTSP && enhanceAvailable();
 }
 
-/** 画质增强靠系统的视频处理库（VPE），智慧屏系统里没有这个库，电视上整项隐藏 */
+/**
+ * 画质增强靠系统的视频处理引擎（VPE）：系统声明了这项能力才显示。
+ * 声明了却没有库的设备（例如智慧屏模拟器），打开后由 native 层提示“本机不支持”并退回直出
+ */
 export function enhanceAvailable(): boolean {
-  return deviceInfo.deviceType !== 'tv';
+  return canIUse('SystemCapability.Multimedia.VideoProcessingEngine');
 }
 
 /** 设备能力：部分 PC、平板没有 Wi-Fi 直连或 USB 主机能力，对应功能要隐藏或提示 */

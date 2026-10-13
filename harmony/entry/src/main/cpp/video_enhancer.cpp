@@ -23,7 +23,7 @@ int64_t NowNs() {
     return duration_cast<nanoseconds>(steady_clock::now().time_since_epoch()).count();
 }
 
-// 视频处理引擎（libvideo_processing.so）用到时才加载：有的设备没有这个库（例如智慧屏），
+// 视频处理引擎（libvideo_processing.so）用到时才加载：有的设备声明了这项能力却没有这个库（例如智慧屏模拟器），
 // 直接链接的话整个 libentry.so 都加载不了。拿不到任何一个符号就当作本机不支持画质增强
 struct VpeApi {
     bool ok = false;

@@ -6,6 +6,14 @@ Notable changes in each NSDVR release. Version numbers are the app's `versionNam
 unsigned build on GitHub with the matching section below as its release notes. The AppGallery version is built and
 signed separately from the same source.
 
+## 1.3.1 — 2026-10-13
+
+### Changed
+
+- Picture enhancement is shown when the system declares the video processing engine
+  (`SystemCapability.Multimedia.VideoProcessingEngine`) instead of being hidden on every TV. If a device declares it
+  but the library is missing, turning enhancement on reports that it is not supported and plays the stream directly.
+
 ## 1.3.0 — 2026-10-13
 
 ### Added
