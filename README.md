@@ -33,6 +33,8 @@ It works with the official SysDVR sysmodule; nothing needs to change on the Swit
   </tr>
 </table>
 
+<sub>Screenshots are taken on the DevEco Studio emulators. They have no Wi-Fi Direct (and the phone, tablet and PC emulators have no video processing engine), so the device hotspot and picture enhancement appear greyed out with the reason, as they do on any device that lacks the feature.</sub>
+
 | Mode | Transport | Playback pipeline | Notes |
 |---|---|---|---|
 | TCP Bridge (recommended) | Wi-Fi: TCP 9911 video + 9922 audio, UDP 19999 discovery | Own pipeline: low-latency hardware decoding + OHAudio | NAL replay, smoothing, network optimization, background streaming |
