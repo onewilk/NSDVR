@@ -2,32 +2,36 @@
 
 [English](README.md) | **简体中文**
 
-NSDVR 在 HarmonyOS NEXT 手机、平板、PC 和折叠屏上接收 Nintendo Switch 的 [SysDVR](https://github.com/exelix11/SysDVR) 串流。
+NSDVR 在 HarmonyOS NEXT 手机、平板、PC、折叠屏和电视上接收 Nintendo Switch 的 [SysDVR](https://github.com/exelix11/SysDVR) 串流。
 它完整支持 SysDVR 的三种串流模式，并利用鸿蒙系统能力做了多项体验优化：专用 5 GHz 热点、自适应平滑、丢帧定格、画质增强、网络加速，以及带实况窗的后台保持。
 配合官方 SysDVR sysmodule 使用，Switch 端不需要任何改动。
 
 > NSDVR 是非官方的第三方客户端，与任天堂及 SysDVR 项目没有隶属或背书关系。SysDVR 本身需要运行在装有自制系统的 Switch 上。
 
-<p align="center">
-  <img src="screenshot/zh_phone_1_stream.jpg" width="230" alt="串流页">
-  &nbsp;
-  <img src="screenshot/zh_phone_2_settings.jpg" width="230" alt="配置页">
-  <br><sub>手机</sub>
-</p>
-
-<p align="center">
-  <img src="screenshot/zh_tablet_1_stream.jpg" width="420" alt="串流页">
-  &nbsp;
-  <img src="screenshot/zh_tablet_2_settings.jpg" width="420" alt="配置页">
-  <br><sub>平板</sub>
-</p>
-
-<p align="center">
-  <img src="screenshot/zh_pc_1_stream.jpg" width="420" alt="串流页">
-  &nbsp;
-  <img src="screenshot/zh_pc_2_settings.jpg" width="420" alt="配置页">
-  <br><sub>PC</sub>
-</p>
+<table>
+  <tr>
+    <th width="8%">手机</th>
+    <td width="23%" align="center"><img src="screenshot/zh_phone_1_stream.jpg" width="100%" alt="手机: 串流"><br><sub>串流</sub></td>
+    <td width="23%" align="center"><img src="screenshot/zh_phone_2_settings.jpg" width="100%" alt="手机: 配置"><br><sub>配置</sub></td>
+    <td width="23%" align="center"><img src="screenshot/zh_phone_3_guide.jpg" width="100%" alt="手机: 使用说明"><br><sub>使用说明</sub></td>
+    <td width="23%" align="center"><img src="screenshot/zh_phone_4_about.jpg" width="100%" alt="手机: 关于"><br><sub>关于</sub></td>
+  </tr>
+  <tr>
+    <th>平板</th>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/zh_tablet_1_stream.jpg" width="100%" alt="平板: 串流"><br><sub>串流</sub></td>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/zh_tablet_2_settings.jpg" width="100%" alt="平板: 配置"><br><sub>配置</sub></td>
+  </tr>
+  <tr>
+    <th>PC</th>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/zh_pc_1_stream.jpg" width="100%" alt="PC: 串流"><br><sub>串流</sub></td>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/zh_pc_2_settings.jpg" width="100%" alt="PC: 配置"><br><sub>配置</sub></td>
+  </tr>
+  <tr>
+    <th>电视</th>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/zh_tv_1_stream.jpg" width="100%" alt="电视: 串流"><br><sub>串流</sub></td>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/zh_tv_2_settings.jpg" width="100%" alt="电视: 配置"><br><sub>配置</sub></td>
+  </tr>
+</table>
 
 | 模式 | 传输 | 播放管线 | 说明 |
 |---|---|---|---|
@@ -38,14 +42,14 @@ NSDVR 在 HarmonyOS NEXT 手机、平板、PC 和折叠屏上接收 Nintendo Swi
 ## 功能
 
 - **自动发现**局域网里的 Switch；手动输入的地址会记住。
-- **专用 5 GHz 热点**：手机直接在 36–48 信道建热点，让 Switch 一跳直连；手机连着 Wi-Fi 时优先用同一信道。可以设成打开 App 时自动开启，退出 App 时自动关闭。
+- **专用 5 GHz 热点**（可选，网络环境欠佳时可以尝试）：手机直接在 36–48 信道建热点，让 Switch 一跳直连；手机连着 Wi-Fi 时优先用同一信道。可以设成打开 App 时自动开启，退出 App 时自动关闭。
 - **平滑模式**（自适应抖动缓冲）：“延迟优先”（默认，缓冲 20–80 ms）、“流畅优先”（40–300 ms）或关闭，声音会跟着对齐。
 - **丢帧定格**：网络丢帧时画面停在最后一帧完好的画面，等下一个关键帧再继续，不再花屏（超过 3 秒放弃等待）。
 - **按屏幕刷新节奏上屏**：每帧排到 VSync 上，画面更均匀。
-- **画质增强**：用系统的细节增强把 720p 画面放大到屏幕实际分辨率（标准 / 高）。
+- **画质增强**：用系统的细节增强把 720p 画面放大到屏幕实际分辨率（标准 / 高）。电视系统没有视频处理库，电视上不提供。
 - **后台保持**：切到后台后继续接收 2 分钟或 5 分钟，通知栏显示实况窗；回到前台几百毫秒内追到最新画面。
 - **详细统计**：收/显帧率、码率、丢帧、定格、卡顿、上屏抖动、缓冲、Switch 剩余内存等，同时写入 CSV 文件。
-- **多设备自适应布局**（手机、平板、PC、折叠屏），浅色/深色主题，简体中文、繁体中文和英文界面。
+- **多设备自适应布局**（手机、平板、PC、折叠屏、电视），跟随屏幕尺寸和方向调整，电视上可用遥控器操作；浅色/深色主题，简体中文、繁体中文和英文界面。
 
 ## 架构
 
@@ -271,7 +275,22 @@ Live View Kit（自定义胶囊和卡片样式的实况窗）需要在 AppGaller
 
 ## 实验扩展
 
-客户端带有一个向后兼容的实验扩展协议，配合 SysDVR 实验版 [NSDVR-server](https://github.com/onewilk/NSDVR-server)（还没有在真机上测试过）使用：音频压缩（PCM 24 kHz、IMA ADPCM、Opus，运行中可切换）和服务端诊断数据。只有连接的 Switch 表明支持时，或者打开了开发者选项（关于页连点版本号 7 次），这些选项才会显示；使用官方 SysDVR 时一切照旧。详见 [docs/nsdvr-ext-protocol.zh-CN.md](docs/nsdvr-ext-protocol.zh-CN.md)。没有 Switch 时，`tools/test_e2e.sh` 用该仓库里的模拟服务器做端到端测试（克隆到本仓库旁边，目录名 `../NSDVR-server`）。
+客户端带有一个向后兼容的实验扩展协议，配合 SysDVR 实验版 [NSDVR-server](https://github.com/onewilk/NSDVR-server)（目前在一台真机上测试过）使用：音频压缩（PCM 24 kHz、IMA ADPCM、Opus，播放中可切换）和服务端诊断数据。使用官方 SysDVR 时一切照旧。详见 [docs/nsdvr-ext-protocol.zh-CN.md](docs/nsdvr-ext-protocol.zh-CN.md)。
+
+实验选项默认隐藏，下面两种情况会显示出来：
+
+- **自动显示**：用 TCP Bridge 连上表明支持扩展的服务端后，App 会记住这台游戏机的地址，之后一直显示实验选项。
+- **开发者选项**：在「关于」页连续点应用名下面的版本号 7 次（每次间隔不超过 1.5 秒，从第 4 次起会提示还差几次），看到“开发者选项已开启”即可。再连点 7 次，或者关掉实验功能卡片最下面的“开发者选项”开关，就会重新隐藏。这一步需要触屏或鼠标；电视上连上支持扩展的服务端后会自动显示。
+
+显示后可以用到：
+
+- 「配置」页的**实验功能**卡片：音频编码，Opus 码率、复杂度、帧长，以及**自动轮换对比**（播放时按列表里的组合依次切换，统计浮层和 `stats.csv` 按组合分别记录，方便对比）；
+- 播放页快捷设置里的实验区（仅 TCP Bridge），即时切换编码，不断开连接；
+- 统计浮层里的扩展统计：当前编码、实际码率、游戏机编码耗时和服务端诊断数据。
+
+开发者选项只是把界面显示出来。连接官方 SysDVR 时编码设置不会生效，统计浮层会提示当前服务端不支持。
+
+没有 Switch 时，`tools/test_e2e.sh` 用 NSDVR-server 里的模拟服务器做端到端测试（克隆到本仓库旁边，目录名 `../NSDVR-server`）。
 
 ## 已知限制
 

@@ -2,32 +2,36 @@
 
 **English** | [简体中文](README.zh-CN.md)
 
-NSDVR receives the [SysDVR](https://github.com/exelix11/SysDVR) stream from a Nintendo Switch on HarmonyOS NEXT phones, tablets, PCs and foldables.
+NSDVR receives the [SysDVR](https://github.com/exelix11/SysDVR) stream from a Nintendo Switch on HarmonyOS NEXT phones, tablets, PCs, foldables and TVs.
 It supports all three SysDVR streaming modes and adds HarmonyOS-specific improvements: a dedicated 5 GHz hotspot, adaptive smoothing, freeze on frame loss, picture enhancement, network acceleration and background streaming with a live notification.
 It works with the official SysDVR sysmodule; nothing needs to change on the Switch.
 
 > NSDVR is an unofficial third-party client. It is not affiliated with or endorsed by Nintendo or the SysDVR project. SysDVR itself runs on a Switch with custom firmware.
 
-<p align="center">
-  <img src="screenshot/en_phone_1_stream.jpg" width="230" alt="Stream page">
-  &nbsp;
-  <img src="screenshot/en_phone_2_settings.jpg" width="230" alt="Settings page">
-  <br><sub>Phone</sub>
-</p>
-
-<p align="center">
-  <img src="screenshot/en_tablet_1_stream.jpg" width="420" alt="Stream page">
-  &nbsp;
-  <img src="screenshot/en_tablet_2_settings.jpg" width="420" alt="Settings page">
-  <br><sub>Tablet</sub>
-</p>
-
-<p align="center">
-  <img src="screenshot/en_pc_1_stream.jpg" width="420" alt="Stream page">
-  &nbsp;
-  <img src="screenshot/en_pc_2_settings.jpg" width="420" alt="Settings page">
-  <br><sub>PC</sub>
-</p>
+<table>
+  <tr>
+    <th width="8%">Phone</th>
+    <td width="23%" align="center"><img src="screenshot/en_phone_1_stream.jpg" width="100%" alt="Phone: Stream"><br><sub>Stream</sub></td>
+    <td width="23%" align="center"><img src="screenshot/en_phone_2_settings.jpg" width="100%" alt="Phone: Settings"><br><sub>Settings</sub></td>
+    <td width="23%" align="center"><img src="screenshot/en_phone_3_guide.jpg" width="100%" alt="Phone: Guide"><br><sub>Guide</sub></td>
+    <td width="23%" align="center"><img src="screenshot/en_phone_4_about.jpg" width="100%" alt="Phone: About"><br><sub>About</sub></td>
+  </tr>
+  <tr>
+    <th>Tablet</th>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/en_tablet_1_stream.jpg" width="100%" alt="Tablet: Stream"><br><sub>Stream</sub></td>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/en_tablet_2_settings.jpg" width="100%" alt="Tablet: Settings"><br><sub>Settings</sub></td>
+  </tr>
+  <tr>
+    <th>PC</th>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/en_pc_1_stream.jpg" width="100%" alt="PC: Stream"><br><sub>Stream</sub></td>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/en_pc_2_settings.jpg" width="100%" alt="PC: Settings"><br><sub>Settings</sub></td>
+  </tr>
+  <tr>
+    <th>TV</th>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/en_tv_1_stream.jpg" width="100%" alt="TV: Stream"><br><sub>Stream</sub></td>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/en_tv_2_settings.jpg" width="100%" alt="TV: Settings"><br><sub>Settings</sub></td>
+  </tr>
+</table>
 
 | Mode | Transport | Playback pipeline | Notes |
 |---|---|---|---|
@@ -38,14 +42,14 @@ It works with the official SysDVR sysmodule; nothing needs to change on the Swit
 ## Features
 
 - **Automatic discovery** of Switch consoles on the local network; the last manually entered address is remembered.
-- **Dedicated 5 GHz hotspot**: the phone creates a hotspot on channels 36–48 for the Switch to join directly, preferring the channel of the phone's current Wi-Fi. It can start automatically when the app opens and stops when the app exits.
+- **Dedicated 5 GHz hotspot** (optional, worth trying when the network is poor): the phone creates a hotspot on channels 36–48 for the Switch to join directly, preferring the channel of the phone's current Wi-Fi. It can start automatically when the app opens and stops when the app exits.
 - **Smoothing** (adaptive jitter buffer): *Low latency* (default, 20–80 ms buffer), *Smooth* (40–300 ms) or off. Audio stays aligned with video.
 - **Freeze on frame loss**: when frames are lost on the network, the picture holds the last good frame until the next keyframe instead of breaking up (gives up after 3 s).
 - **VSync-aligned presentation**: frames are scheduled to the display refresh for even motion.
-- **Picture enhancement**: the system detail enhancer upscales the 720p stream to the real on-screen resolution (Standard / High).
+- **Picture enhancement**: the system detail enhancer upscales the 720p stream to the real on-screen resolution (Standard / High). Not available on TVs, whose system lacks the video processing library.
 - **Background streaming**: keeps receiving in the background for 2 or 5 minutes with a live notification, and catches up to the newest frame within a few hundred ms when you return.
 - **Detailed stats**: receive/display frame rate, bitrate, frame loss, freezes, stutter, present jitter, buffers and the Switch's free memory, also logged to a CSV file.
-- **Adaptive layouts** for phones, tablets, PCs and foldables, light and dark themes, and Simplified Chinese, Traditional Chinese and English.
+- **Adaptive layouts** for phones, tablets, PCs, foldables and TVs that follow screen size and rotation, remote-control navigation on TVs, light and dark themes, and Simplified Chinese, Traditional Chinese and English.
 
 ## Architecture
 
@@ -274,7 +278,22 @@ Live View Kit (custom capsule and card live views) requires per-scenario entitle
 
 ## Experimental extension
 
-The client includes an experimental, backward-compatible protocol extension (audio compression with PCM 24 kHz, IMA ADPCM or Opus, switchable at runtime, plus server-side diagnostics) for an experimental SysDVR build, [NSDVR-server](https://github.com/onewilk/NSDVR-server) (not tested on real hardware yet). These options stay hidden unless the connected console advertises support, or developer options are enabled (tap the version number in About seven times). With the official SysDVR nothing changes. See [docs/nsdvr-ext-protocol.md](docs/nsdvr-ext-protocol.md). For end-to-end tests without a Switch, `tools/test_e2e.sh` uses the simulated server from that repository, cloned next to this one as `../NSDVR-server`.
+The client includes an experimental, backward-compatible protocol extension for an experimental SysDVR build, [NSDVR-server](https://github.com/onewilk/NSDVR-server) (tested on one real console so far): audio compression (PCM 24 kHz, IMA ADPCM or Opus, switchable while playing) and server-side diagnostics. With the official SysDVR nothing changes. See [docs/nsdvr-ext-protocol.md](docs/nsdvr-ext-protocol.md).
+
+The experimental options are hidden by default. They appear in either of these cases:
+
+- **Automatically**: after a TCP Bridge connection to a server that advertises the extension, the app remembers that console's address and keeps showing the options for it.
+- **Developer options**: on the **About** page, tap the version number under the app name seven times in a row (at most 1.5 s between taps; from the fourth tap a toast counts down) until "Developer options on" appears. Tap seven times again, or turn off **Developer options** at the bottom of the Experimental card, to hide them again. This needs touch or a mouse; on a TV the options appear automatically once you connect to a supporting server.
+
+Once they are shown, you get:
+
+- an **Experimental** card on the **Settings** page: audio codec, Opus bitrate, complexity and frame size, and **Auto rotation**, which cycles through a list of codec combinations while playing so the stats overlay and `stats.csv` can compare them;
+- an experimental section in the player's quick settings (TCP Bridge only) that switches the codec instantly without reconnecting;
+- extension statistics in the stats overlay: current codec, actual bitrate, the console's encoding time and server diagnostics.
+
+Developer options only reveal the interface. With the official SysDVR the codec settings have no effect, and the stats overlay says the server does not support the extension.
+
+For end-to-end tests without a Switch, `tools/test_e2e.sh` uses the simulated server from NSDVR-server, cloned next to this repository as `../NSDVR-server`.
 
 ## Known limitations
 
