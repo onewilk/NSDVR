@@ -6,6 +6,30 @@ Notable changes in each NSDVR release. Version numbers are the app's `versionNam
 unsigned build on GitHub with the matching section below as its release notes. The AppGallery version is built and
 signed separately from the same source.
 
+## 1.3.0 — 2026-10-13
+
+### Added
+
+- TV (smart screen) support. Everything works with a remote control: the arrow keys move a focus ring between mode
+  cards, rows and buttons, and OK activates. In the player, OK shows the controls and Menu opens quick settings. Back
+  closes the panel, then hides the controls, then asks you to press Back again within 3 s to disconnect. Picture
+  enhancement is hidden on TVs because the system there lacks the video processing library.
+- The home pages follow device rotation on phones, foldables (cover and inner screen) and tablets, and respect the
+  rotation lock in the control centre. While streaming, phones and tablets still lock to landscape.
+
+### Changed
+
+- The dedicated hotspot is described as optional: try it when your network is poor. Its setting description, the TCP
+  Bridge tip and the guide were updated.
+- IP and hotspot input boxes use a fixed 16 fp font, so the bottoms of letters like y and g in the placeholder are no
+  longer cut off.
+
+### Fixed
+
+- Folding or unfolding a foldable kept the old pixel offset, so the page jumped to other content (reported in the
+  1.2.0 AppGallery review). The Connect, Settings, About and Guide pages now stay on what was at the top.
+- The picture enhancement library is loaded at runtime, so the app starts on systems that don't ship it.
+
 ## 1.2.0 — 2026-10-11
 
 ### Added

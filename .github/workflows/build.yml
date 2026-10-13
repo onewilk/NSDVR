@@ -22,7 +22,7 @@ jobs:
     name: Core tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Resource check
         run: python3 tools/i18n_check.py
       # Unit tests + end-to-end against tools/mock_sysdvr.py. The experimental extension end-to-end test needs the
@@ -46,7 +46,7 @@ jobs:
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Version
         id: version
@@ -90,7 +90,7 @@ jobs:
             "dist/NSDVR-${{ steps.version.outputs.version }}-unsigned.hap"
           cd dist && sha256sum -- * > SHA256SUMS.txt && cat SHA256SUMS.txt
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: NSDVR-${{ steps.version.outputs.version }}-unsigned
           path: dist/
@@ -104,14 +104,14 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           sparse-checkout: |
             CHANGELOG.md
             CHANGELOG.zh-CN.md
           sparse-checkout-cone-mode: false
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: NSDVR-${{ needs.build.outputs.version }}-unsigned
           path: dist
