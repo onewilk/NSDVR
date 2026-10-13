@@ -74,7 +74,11 @@ export struct Card {
 export struct SettingRow {
   @Prop title: string = '';
   @Prop desc: string = '';
-  @Prop disabledNote: string = '';
+  /**
+   * 本机不支持时的原因：这一项照常显示（让用户知道 App 有这个功能），原因用警示色写在说明下面，
+   * 右侧控件置灰、不可操作（遥控器焦点也会跳过）
+   */
+  @Prop unsupported: string = '';
   /** 适用范围标签，如“仅 TCP Bridge”“RTSP 不可用” */
   @Prop scope: string = '';
   icon: Resource | null = null;
@@ -86,7 +90,7 @@ export struct SettingRow {
         SymbolGlyph(this.icon)
           .fontSize(22)
           .fontColor([$r('app.color.accent')])
-          .opacity(this.disabledNote.length > 0 ? 0.4 : 1)
+          .opacity(this.unsupported.length > 0 ? 0.4 : 1)
       }
       Column({ space: 2 }) {
         Row({ space: 6 }) {
@@ -97,17 +101,26 @@ export struct SettingRow {
             Chip({ text: this.scope })
           }
         }
-        Text(this.disabledNote.length > 0 ? this.disabledNote : this.desc)
+        .opacity(this.unsupported.length > 0 ? 0.6 : 1)
+        Text(this.desc)
           .fontSize(12)
-          .fontColor(this.disabledNote.length > 0 ? $r('app.color.warn') : $r('app.color.text_secondary'))
+          .fontColor($r('app.color.text_secondary'))
+          .opacity(this.unsupported.length > 0 ? 0.6 : 1)
+        if (this.unsupported.length > 0) {
+          Text(this.unsupported)
+            .fontSize(12)
+            .fontColor($r('app.color.warn'))
+        }
       }
       .alignItems(HorizontalAlign.Start)
       .layoutWeight(1)
-      .opacity(this.disabledNote.length > 0 ? 0.6 : 1)
 
-      if (this.disabledNote.length === 0) {
+      // 系统的下拉框禁用后看不出变化，统一再调淡一些
+      Row() {
         this.trailing()
       }
+      .enabled(this.unsupported.length === 0)
+      .opacity(this.unsupported.length > 0 ? 0.5 : 1)
     }
     .width('100%')
     .constraintSize({ minHeight: 48 })

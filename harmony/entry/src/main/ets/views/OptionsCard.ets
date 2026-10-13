@@ -64,21 +64,21 @@ export struct OptionsCard {
           })
       }
 
-      if (enhanceAvailable()) {
-        SettingRow({
-          title: tr('cfg_opt_enhance'),
-          desc: tr('cfg_opt_enhance_desc'),
-          scope: scopeNotRtsp(),
-          icon: $r('sys.symbol.wand_and_stars')
-        }) {
-          Select(selectOptions(enhanceLabels()))
-            .selected(this.enhanceLevel)
-            .value(enhanceLabels()[this.enhanceLevel])
-            .font({ size: 14 })
-            .onSelect((index: number) => {
-              this.enhanceLevel = index;
-            })
-        }
+      // 本机不支持的功能也照常列出，置灰并写明原因
+      SettingRow({
+        title: tr('cfg_opt_enhance'),
+        desc: tr('cfg_opt_enhance_desc'),
+        scope: scopeNotRtsp(),
+        unsupported: enhanceAvailable() ? '' : tr('cfg_unsupported_enhance'),
+        icon: $r('sys.symbol.wand_and_stars')
+      }) {
+        Select(selectOptions(enhanceLabels()))
+          .selected(enhanceAvailable() ? this.enhanceLevel : 0)
+          .value(enhanceLabels()[enhanceAvailable() ? this.enhanceLevel : 0])
+          .font({ size: 14 })
+          .onSelect((index: number) => {
+            this.enhanceLevel = index;
+          })
       }
 
       SettingRow({
@@ -120,18 +120,17 @@ export struct OptionsCard {
           })
       }
 
-      if (PipSession.supported()) {
-        SettingRow({
-          title: tr('cfg_opt_pip'),
-          desc: tr('cfg_opt_pip_desc'),
-          scope: scopeNotRtsp(),
-          icon: $r('sys.symbol.rectangle_on_square')
-        }) {
-          Toggle({ type: ToggleType.Switch, isOn: this.pipAuto })
-            .onChange((isOn: boolean) => {
-              this.pipAuto = isOn;
-            })
-        }
+      SettingRow({
+        title: tr('cfg_opt_pip'),
+        desc: tr('cfg_opt_pip_desc'),
+        scope: scopeNotRtsp(),
+        unsupported: PipSession.supported() ? '' : tr('cfg_unsupported_pip'),
+        icon: $r('sys.symbol.rectangle_on_square')
+      }) {
+        Toggle({ type: ToggleType.Switch, isOn: PipSession.supported() && this.pipAuto })
+          .onChange((isOn: boolean) => {
+            this.pipAuto = isOn;
+          })
       }
 
       SettingRow({

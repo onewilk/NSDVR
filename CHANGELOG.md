@@ -6,6 +6,14 @@ Notable changes in each NSDVR release. Version numbers are the app's `versionNam
 unsigned build on GitHub with the matching section below as its release notes. The AppGallery version is built and
 signed separately from the same source.
 
+## Unreleased
+
+### Changed
+
+- Settings that this device cannot use are listed anyway, greyed out with the reason, instead of being hidden: the
+  device hotspot (no Wi-Fi Direct), picture enhancement (no video processing engine) and the mini window (no
+  picture-in-picture). The guide always describes picture enhancement.
+
 ## 1.3.1 — 2026-10-13
 
 ### Changed

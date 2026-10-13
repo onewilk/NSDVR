@@ -1,5 +1,5 @@
 import { tr } from '../common/I18n';
-import { Breakpoint, enhanceAvailable } from '../common/Prefs';
+import { Breakpoint } from '../common/Prefs';
 import { Card, Step, Tappable, TipBar } from './Widgets';
 import { FOCUS_BOX } from '../common/Focus';
 
@@ -21,28 +21,6 @@ interface GuideSection {
 function item(title: string, body: string): GuideItem {
   const it: GuideItem = { title: title, body: body };
   return it;
-}
-
-function optionItems(): GuideItem[] {
-  const items: GuideItem[] = [
-    item(tr('guide_opt_audio_title'), tr('guide_opt_audio_body')),
-    item(tr('guide_opt_smooth_title'), tr('guide_opt_smooth_body')),
-    item(tr('guide_opt_freeze_title'), tr('guide_opt_freeze_body'))
-  ];
-  if (enhanceAvailable()) {
-    items.push(item(tr('guide_opt_enhance_title'), tr('guide_opt_enhance_body')));
-  }
-  items.push(
-    item(tr('guide_opt_net_title'), tr('guide_opt_net_body')),
-    item(tr('guide_opt_hotspot_title'), tr('guide_opt_hotspot_body')),
-    item(tr('guide_opt_screen_title'), tr('guide_opt_screen_body')),
-    item(tr('guide_opt_keep_title'), tr('guide_opt_keep_body')),
-    item(tr('guide_opt_stats_title'), tr('guide_opt_stats_body')),
-    item(tr('guide_opt_lock_title'), tr('guide_opt_lock_body')),
-    item(tr('guide_opt_dark_title'), tr('guide_opt_dark_body')),
-    item(tr('guide_opt_lang_title'), tr('guide_opt_lang_body'))
-  );
-  return items;
 }
 
 /** 使用说明的全部内容；每次构建页面时按当前语言取词 */
@@ -102,7 +80,20 @@ function sections(): GuideSection[] {
       icon: $r('sys.symbol.slider_horizontal_2'),
       intro: tr('guide_opt_intro'),
       steps: [],
-      items: optionItems(),
+      items: [
+        item(tr('guide_opt_audio_title'), tr('guide_opt_audio_body')),
+        item(tr('guide_opt_smooth_title'), tr('guide_opt_smooth_body')),
+        item(tr('guide_opt_freeze_title'), tr('guide_opt_freeze_body')),
+        item(tr('guide_opt_enhance_title'), tr('guide_opt_enhance_body')),
+        item(tr('guide_opt_net_title'), tr('guide_opt_net_body')),
+        item(tr('guide_opt_hotspot_title'), tr('guide_opt_hotspot_body')),
+        item(tr('guide_opt_screen_title'), tr('guide_opt_screen_body')),
+        item(tr('guide_opt_keep_title'), tr('guide_opt_keep_body')),
+        item(tr('guide_opt_stats_title'), tr('guide_opt_stats_body')),
+        item(tr('guide_opt_lock_title'), tr('guide_opt_lock_body')),
+        item(tr('guide_opt_dark_title'), tr('guide_opt_dark_body')),
+        item(tr('guide_opt_lang_title'), tr('guide_opt_lang_body'))
+      ],
       tip: ''
     },
     {

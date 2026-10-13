@@ -46,7 +46,7 @@ It works with the official SysDVR sysmodule; nothing needs to change on the Swit
 - **Smoothing** (adaptive jitter buffer): *Low latency* (default, 20–80 ms buffer), *Smooth* (40–300 ms) or off. Audio stays aligned with video.
 - **Freeze on frame loss**: when frames are lost on the network, the picture holds the last good frame until the next keyframe instead of breaking up (gives up after 3 s).
 - **VSync-aligned presentation**: frames are scheduled to the display refresh for even motion.
-- **Picture enhancement**: the system detail enhancer upscales the 720p stream to the real on-screen resolution (Standard / High). Shown only where the system declares the video processing engine (`SystemCapability.Multimedia.VideoProcessingEngine`).
+- **Picture enhancement**: the system detail enhancer upscales the 720p stream to the real on-screen resolution (Standard / High). Available where the system declares the video processing engine (`SystemCapability.Multimedia.VideoProcessingEngine`); elsewhere the option is shown greyed out with the reason.
 - **Background streaming**: keeps receiving in the background for 2 or 5 minutes with a live notification, and catches up to the newest frame within a few hundred ms when you return.
 - **Detailed stats**: receive/display frame rate, bitrate, frame loss, freezes, stutter, present jitter, buffers and the Switch's free memory, also logged to a CSV file.
 - **Adaptive layouts** for phones, tablets, PCs, foldables and TVs that follow screen size and rotation, remote-control navigation on TVs, light and dark themes, and Simplified Chinese, Traditional Chinese and English.

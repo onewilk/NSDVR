@@ -283,6 +283,18 @@
     {
       "name": "cfg_opt_refresh_desc",
       "value": "游戏画面最高 30 帧，播放时请求 60Hz 屏幕刷新率：支持动态刷新率的屏幕更省电、发热更低，画面看不出区别。关闭后由系统决定（常为 90/120Hz）。统计信息里可以看到实际刷新率"
+    },
+    {
+      "name": "cfg_unsupported_enhance",
+      "value": "本机系统没有提供视频处理引擎，无法使用画质增强"
+    },
+    {
+      "name": "cfg_unsupported_pip",
+      "value": "本机系统不支持小窗（画中画），无法使用"
+    },
+    {
+      "name": "cfg_unsupported_hotspot",
+      "value": "本机不支持 Wi-Fi 直连，无法创建专用热点"
     }
   ]
 }

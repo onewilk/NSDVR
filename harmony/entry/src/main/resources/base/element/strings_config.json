@@ -283,6 +283,18 @@
     {
       "name": "cfg_opt_refresh_desc",
       "value": "The game picture is at most 30 fps, so the player asks for a 60 Hz screen refresh rate while streaming. Screens with adaptive refresh use less power and run cooler, with no visible difference. When off, the system decides (often 90/120 Hz). The statistics overlay shows the actual rate"
+    },
+    {
+      "name": "cfg_unsupported_enhance",
+      "value": "Not available: this device's system has no video processing engine"
+    },
+    {
+      "name": "cfg_unsupported_pip",
+      "value": "Not available: this device's system doesn't support mini windows (picture-in-picture)"
+    },
+    {
+      "name": "cfg_unsupported_hotspot",
+      "value": "Not available: this device doesn't support Wi-Fi Direct, so it can't create the hotspot"
     }
   ]
 }

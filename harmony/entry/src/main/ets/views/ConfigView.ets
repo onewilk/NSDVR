@@ -4,7 +4,7 @@ import { ExtAudioCard } from './ExtAudioCard';
 import { HotspotCard } from './HotspotCard';
 import { OptionsCard } from './OptionsCard';
 import { OtherSettingsCard } from './OtherSettingsCard';
-import { PageTitle } from './Widgets';
+import { Card, PageTitle, SettingRow } from './Widgets';
 import { PAGE_ANCHORS, ScrollAnchor } from '../common/ScrollAnchor';
 
 /** “配置”页：专用热点、串流选项、其他设置。所有屏幕都是单栏列表，每张卡片占满可用宽度 */
@@ -29,6 +29,22 @@ export struct ConfigView {
           HotspotCard()
             .width('100%')
             .onAreaChange((_o: Area, n: Area) => this.anchor.report('hotspot', n))
+        } else {
+          // 没有 Wi-Fi 直连的设备（部分 PC 等）：专用热点照常列出，置灰并写明原因
+          Column() {
+            Card() {
+              SettingRow({
+                title: tr('cfg_hs_title'),
+                desc: tr('cfg_hs_desc'),
+                unsupported: tr('cfg_unsupported_hotspot'),
+                icon: $r('sys.symbol.hotspot')
+              }) {
+                Toggle({ type: ToggleType.Switch, isOn: false })
+              }
+            }
+          }
+          .width('100%')
+          .onAreaChange((_o: Area, n: Area) => this.anchor.report('hotspot', n))
         }
 
         OptionsCard()

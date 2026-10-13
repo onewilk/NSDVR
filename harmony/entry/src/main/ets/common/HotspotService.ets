@@ -87,7 +87,7 @@ export class HotspotService {
     }
     this.initialized = true;
     if (!canIUse('SystemCapability.Communication.WiFi.P2P')) {
-      return; // 本设备没有 Wi-Fi 直连（部分 PC），专用热点功能整体隐藏
+      return; // 本设备没有 Wi-Fi 直连（部分 PC），配置页的专用热点置灰并写明原因
     }
     const alive = await this.hotspot.refresh();
     if (alive) {
