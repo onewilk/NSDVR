@@ -42,7 +42,7 @@
     },
     {
       "name": "app_tip_tcp",
-      "value": "Recommended: turn on the device hotspot in Settings so the console connects directly to your phone (5 GHz). Keep WLAN on, but don't join another Wi-Fi network."
+      "value": "Just put the console and your phone on the same network. If the network is poor, try turning on the device hotspot in Settings so the console connects directly to your phone (5 GHz); while it's on, keep WLAN on but don't join another Wi-Fi network."
     },
     {
       "name": "app_off",

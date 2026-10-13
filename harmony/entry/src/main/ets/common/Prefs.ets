@@ -152,7 +152,12 @@ export function supportsFreeze(mode: StreamMode): boolean {
 }
 
 export function supportsEnhance(mode: StreamMode): boolean {
-  return mode !== StreamMode.RTSP;
+  return mode !== StreamMode.RTSP && enhanceAvailable();
+}
+
+/** 画质增强靠系统的视频处理库（VPE），智慧屏系统里没有这个库，电视上整项隐藏 */
+export function enhanceAvailable(): boolean {
+  return deviceInfo.deviceType !== 'tv';
 }
 
 /** 设备能力：部分 PC、平板没有 Wi-Fi 直连或 USB 主机能力，对应功能要隐藏或提示 */

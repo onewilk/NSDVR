@@ -58,7 +58,7 @@
     },
     {
       "name": "cfg_hs_desc",
-      "value": "Your phone creates a 5 GHz hotspot for the console (channels 36–48, WPA2). No router in between, so the connection is more stable with lower latency."
+      "value": "Optional — try it if your network is poor. Your phone creates a 5 GHz hotspot for the console (channels 36–48, WPA2) with no router in between, for smoother streaming and lower latency."
     },
     {
       "name": "cfg_hs_settings",

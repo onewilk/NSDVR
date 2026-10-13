@@ -1,6 +1,6 @@
 import { tr } from '../common/I18n';
 import { PipSession } from '../common/PipSession';
-import { enhanceLabels, keepAliveLabels, scopeNotRtsp, scopeTcpOnly, smoothLabels } from '../common/Prefs';
+import { enhanceAvailable, enhanceLabels, keepAliveLabels, scopeNotRtsp, scopeTcpOnly, smoothLabels } from '../common/Prefs';
 import { Card, SettingRow } from './Widgets';
 
 function selectOptions(labels: string[]): SelectOption[] {
@@ -64,19 +64,21 @@ export struct OptionsCard {
           })
       }
 
-      SettingRow({
-        title: tr('cfg_opt_enhance'),
-        desc: tr('cfg_opt_enhance_desc'),
-        scope: scopeNotRtsp(),
-        icon: $r('sys.symbol.wand_and_stars')
-      }) {
-        Select(selectOptions(enhanceLabels()))
-          .selected(this.enhanceLevel)
-          .value(enhanceLabels()[this.enhanceLevel])
-          .font({ size: 14 })
-          .onSelect((index: number) => {
-            this.enhanceLevel = index;
-          })
+      if (enhanceAvailable()) {
+        SettingRow({
+          title: tr('cfg_opt_enhance'),
+          desc: tr('cfg_opt_enhance_desc'),
+          scope: scopeNotRtsp(),
+          icon: $r('sys.symbol.wand_and_stars')
+        }) {
+          Select(selectOptions(enhanceLabels()))
+            .selected(this.enhanceLevel)
+            .value(enhanceLabels()[this.enhanceLevel])
+            .font({ size: 14 })
+            .onSelect((index: number) => {
+              this.enhanceLevel = index;
+            })
+        }
       }
 
       SettingRow({

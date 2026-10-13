@@ -58,7 +58,7 @@
     },
     {
       "name": "guide_tcp_step1",
-      "value": "Put the device and your phone on the same network. Recommended: turn on “Device hotspot” on the Settings tab, tap “Hotspot settings” to see the network name and password, then join it from System Settings → Internet on the device"
+      "value": "Put the device and your phone on the same network (your home router is fine). If the network is poor, try turning on “Device hotspot” on the Settings tab, tap “Hotspot settings” to see the network name and password, then join it from System Settings → Internet on the device"
     },
     {
       "name": "guide_tcp_step2",
@@ -70,15 +70,15 @@
     },
     {
       "name": "guide_tcp_item1_title",
-      "value": "Why use the device hotspot"
+      "value": "When to use the device hotspot"
     },
     {
       "name": "guide_tcp_item1_body",
-      "value": "On 5 GHz the device only supports channels 36–48, so it can't join many phone hotspots and routers that default to other channels, and 2.4 GHz is so congested that we measured only a dozen or so fps. The device hotspot uses Wi-Fi Direct to create a 5 GHz network (channels 36–48, WPA2), so the device connects straight to your phone without a router — a steady 30 fps in our tests."
+      "value": "The device hotspot is optional — if streaming is smooth on your current network, you don't need it. On 5 GHz the device only supports channels 36–48, so it can't join many phone hotspots and routers that default to other channels, and 2.4 GHz is so congested that we measured only a dozen or so fps. When the network is poor like this, try the device hotspot to improve things: it uses Wi-Fi Direct to create a 5 GHz network (channels 36–48, WPA2), so the device connects straight to your phone without a router — a steady 30 fps in our tests."
     },
     {
       "name": "guide_tcp_item2_title",
-      "value": "Don't join another Wi-Fi at the same time"
+      "value": "With the hotspot on, don't join another Wi-Fi"
     },
     {
       "name": "guide_tcp_item2_body",
@@ -206,7 +206,7 @@
     },
     {
       "name": "guide_opt_hotspot_body",
-      "value": "Creates a 5 GHz hotspot the device can see, in one tap. Once it's on, tap “Hotspot settings” to view or customize the network name and password (they're remembered, so the device reconnects automatically next time), and optionally start the hotspot whenever the app opens."
+      "value": "Optional — try it if your network is poor. Creates a 5 GHz hotspot the device can see, in one tap. Once it's on, tap “Hotspot settings” to view or customize the network name and password (they're remembered, so the device reconnects automatically next time), and optionally start the hotspot whenever the app opens."
     },
     {
       "name": "guide_opt_screen_title",
@@ -274,7 +274,7 @@
     },
     {
       "name": "guide_faq_a2",
-      "value": "Turn on statistics and check the “received” frame rate. Below 30 means the network can't keep up — switch to the device hotspot or USB. Turning off sound saves bandwidth; for occasional drops, switch Smoothing to “Smoothness” (the default is “Low latency”)."
+      "value": "Turn on statistics and check the “received” frame rate. Below 30 means the network can't keep up — try the device hotspot or switch to USB. Turning off sound saves bandwidth; for occasional drops, switch Smoothing to “Smoothness” (the default is “Low latency”)."
     },
     {
       "name": "guide_faq_q3",
