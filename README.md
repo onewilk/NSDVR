@@ -6,7 +6,7 @@ NSDVR receives the [SysDVR](https://github.com/exelix11/SysDVR) stream from a Ni
 It supports all three SysDVR streaming modes and adds HarmonyOS-specific improvements: a dedicated 5 GHz hotspot, adaptive smoothing, freeze on frame loss, picture enhancement, network acceleration and background streaming with a live notification.
 It works with the official SysDVR sysmodule; nothing needs to change on the Switch.
 
-> NSDVR is an unofficial third-party client. It is not affiliated with or endorsed by Nintendo or the SysDVR project. SysDVR itself runs on a Switch with custom firmware.
+> NSDVR is an independent, unofficial client. It is not affiliated with, endorsed by or sponsored by Nintendo or the SysDVR project. NSDVR only receives the SysDVR stream; it does not include or modify SysDVR. To use it, your Switch must run custom firmware (such as Atmosphère) with SysDVR installed, and by default only games that allow video recording can be streamed. Nintendo Switch is a trademark of Nintendo.
 
 <table>
   <tr>

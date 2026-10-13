@@ -6,7 +6,7 @@ NSDVR 在 HarmonyOS NEXT 手机、平板、PC、折叠屏和电视上接收 Nint
 它完整支持 SysDVR 的三种串流模式，并利用鸿蒙系统能力做了多项体验优化：专用 5 GHz 热点、自适应平滑、丢帧定格、画质增强、网络加速，以及带实况窗的后台保持。
 配合官方 SysDVR sysmodule 使用，Switch 端不需要任何改动。
 
-> NSDVR 是非官方的第三方客户端，与任天堂及 SysDVR 项目没有隶属或背书关系。SysDVR 本身需要运行在装有自制系统的 Switch 上。
+> NSDVR 是独立开发的非官方客户端，与任天堂及 SysDVR 项目没有隶属、授权或赞助关系。NSDVR 只接收 SysDVR 的串流，不包含也不修改 SysDVR。使用前需要 Switch 运行自制系统（如 Atmosphère）并安装 SysDVR；默认只有允许录像的游戏可以串流。Nintendo Switch 是任天堂的商标。
 
 <table>
   <tr>
