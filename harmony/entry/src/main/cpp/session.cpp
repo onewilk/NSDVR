@@ -24,7 +24,11 @@ int64_t NowMs() {
 Session::~Session() { Stop(); }
 
 namespace {
-// 画质增强的输出尺寸：屏幕窗口里 16:9 画面区域的实际像素（放大 + 增强都由系统完成）
+// 视频细节增强的输出宽高都不能超过 2000 像素（开发指南“视频缩放”的约束与限制）
+constexpr int32_t kMaxEnhanceOutput = 2000;
+
+// 画质增强的输出尺寸：屏幕窗口里 16:9 画面区域的实际像素（放大 + 增强都由系统完成）。
+// 区域超过 2000 像素时（4K 电视、宽屏平板和 PC）按 16:9 缩到上限以内，剩下的放大交给系统合成
 void FitVideoGeometry(OHNativeWindow* w, int32_t* outW, int32_t* outH) {
     int32_t h = 0, wd = 0;
     OH_NativeWindow_NativeWindowHandleOpt(w, GET_BUFFER_GEOMETRY, &h, &wd);
@@ -37,6 +41,10 @@ void FitVideoGeometry(OHNativeWindow* w, int32_t* outW, int32_t* outH) {
         tw = int32_t(int64_t(h) * 16 / 9);
     } else {
         th = int32_t(int64_t(wd) * 9 / 16);
+    }
+    if (tw > kMaxEnhanceOutput) {
+        tw = kMaxEnhanceOutput;
+        th = int32_t(int64_t(tw) * 9 / 16);
     }
     *outW = tw & ~1;
     *outH = th & ~1;

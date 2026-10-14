@@ -6,6 +6,15 @@ Notable changes in each NSDVR release. Version numbers are the app's `versionNam
 unsigned build on GitHub with the matching section below as its release notes. The AppGallery version is built and
 signed separately from the same source.
 
+## Unreleased
+
+### Fixed
+
+- Picture enhancement keeps its output within the 2000-pixel limit of the system video detail enhancer. On screens
+  whose 16:9 picture area is wider than 2000 pixels (4K TVs, wide tablets and PCs, phones in landscape) the enhanced
+  picture is produced at 2000 × 1124 and the system scales it the rest of the way, instead of requesting a size the
+  enhancer does not support.
+
 ## 1.3.2 — 2026-10-13
 
 ### Changed
