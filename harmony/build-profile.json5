@@ -31,6 +31,20 @@
         },
         targetSdkVersion: '26.0.0',
       },
+      {
+        // 应用市场提审包：构建目标 appgallery 不声明 tv（见 entry/build-profile.json5）；签名同 release，在本地添加
+        name: 'appgallery',
+        compatibleSdkVersion: '5.0.0(12)',
+        runtimeOS: 'HarmonyOS',
+        buildOption: {
+          strictMode: {
+            caseSensitiveCheck: true,
+            useNormalizedOHMUrl: true,
+          },
+          nativeCompiler: 'BiSheng',
+        },
+        targetSdkVersion: '26.0.0',
+      },
     ],
     buildModeSet: [
       {
@@ -51,6 +65,12 @@
           applyToProducts: [
             'default',
             'release',
+          ],
+        },
+        {
+          name: 'appgallery',
+          applyToProducts: [
+            'appgallery',
           ],
         },
       ],

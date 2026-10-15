@@ -6,6 +6,13 @@ Notable changes in each NSDVR release. Version numbers are the app's `versionNam
 unsigned build on GitHub with the matching section below as its release notes. The AppGallery version is built and
 signed separately from the same source.
 
+## Unreleased
+
+### Changed
+
+- The GitHub packages declare the TV device type again. AppGallery submissions are built from a separate `appgallery`
+  product (`hvigorw assembleApp -p product=appgallery`) whose target leaves TV out.
+
 ## 1.3.4 — 2026-10-15
 
 ### Changed

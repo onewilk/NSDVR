@@ -2,7 +2,7 @@
 
 [English](README.md) | **简体中文**
 
-NSDVR 在 HarmonyOS NEXT 手机、平板、PC 和折叠屏上接收 Nintendo Switch 的 [SysDVR](https://github.com/exelix11/SysDVR) 串流。
+NSDVR 在 HarmonyOS NEXT 手机、平板、PC 和折叠屏上接收 Nintendo Switch 的 [SysDVR](https://github.com/exelix11/SysDVR) 串流，GitHub 发布的安装包还支持智慧屏。
 它完整支持 SysDVR 的三种串流模式，并利用鸿蒙系统能力做了多项体验优化：专用 5 GHz 热点、自适应平滑、丢帧定格、画质增强、网络加速，以及带实况窗的后台保持。
 配合官方 SysDVR sysmodule 使用，Switch 端不需要任何改动。
 
@@ -27,13 +27,13 @@ NSDVR 在 HarmonyOS NEXT 手机、平板、PC 和折叠屏上接收 Nintendo Swi
     <td colspan="2" width="46%" align="center"><img src="screenshot/zh_pc_2_settings.jpg" width="100%" alt="PC: 配置"><br><sub>配置</sub></td>
   </tr>
   <tr>
-    <th>电视*</th>
-    <td colspan="2" width="46%" align="center"><img src="screenshot/zh_tv_1_stream.jpg" width="100%" alt="电视: 串流"><br><sub>串流</sub></td>
-    <td colspan="2" width="46%" align="center"><img src="screenshot/zh_tv_2_settings.jpg" width="100%" alt="电视: 配置"><br><sub>配置</sub></td>
+    <th>智慧屏*</th>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/zh_tv_1_stream.jpg" width="100%" alt="智慧屏: 串流"><br><sub>串流</sub></td>
+    <td colspan="2" width="46%" align="center"><img src="screenshot/zh_tv_2_settings.jpg" width="100%" alt="智慧屏: 配置"><br><sub>配置</sub></td>
   </tr>
 </table>
 
-<sub>\* 电视（智慧屏）支持（含遥控器操作）已经实现，但当前安装包没有启用：应用市场要求大屏应用提供广电备案号。想自己试用，可以在 `harmony/entry/src/main/module.json5` 的 `deviceTypes` 里加上 `"tv"` 后自行构建。</sub>
+<sub>\* 智慧屏支持（含遥控器操作）只在 GitHub 发布的安装包里；应用市场版本不包含，因为应用市场要求大屏应用提供广电备案号。</sub>
 
 <sub>截图拍自 DevEco Studio 模拟器。模拟器不支持 Wi-Fi 直连（手机、平板、PC 模拟器也没有视频处理引擎），所以专用热点和画质增强显示为置灰并写明原因；任何不支持这些功能的设备都会这样显示。</sub>
 
@@ -53,7 +53,7 @@ NSDVR 在 HarmonyOS NEXT 手机、平板、PC 和折叠屏上接收 Nintendo Swi
 - **画质增强**：用系统的细节增强把 720p 画面放大到屏幕实际分辨率（标准 / 高）。系统声明支持视频处理引擎（`SystemCapability.Multimedia.VideoProcessingEngine`）的设备上可用，其他设备上这一项置灰并写明原因。
 - **后台保持**：切到后台后继续接收 2 分钟或 5 分钟，通知栏显示实况窗；回到前台几百毫秒内追到最新画面。
 - **详细统计**：收/显帧率、码率、丢帧、定格、卡顿、上屏抖动、缓冲、Switch 剩余内存等，同时写入 CSV 文件。
-- **多设备自适应布局**（手机、平板、PC、折叠屏），跟随屏幕尺寸和方向调整；浅色/深色主题，简体中文、繁体中文和英文界面。
+- **多设备自适应布局**（手机、平板、PC、折叠屏，GitHub 安装包另含智慧屏），跟随屏幕尺寸和方向调整，智慧屏上可用遥控器操作；浅色/深色主题，简体中文、繁体中文和英文界面。
 
 ## 架构
 
@@ -284,7 +284,7 @@ Live View Kit（自定义胶囊和卡片样式的实况窗）需要在 AppGaller
 实验选项默认隐藏，下面两种情况会显示出来：
 
 - **自动显示**：用 TCP Bridge 连上表明支持扩展的服务端后，App 会记住这台游戏机的地址，之后一直显示实验选项。
-- **开发者选项**：在「关于」页连续点应用名下面的版本号 7 次（每次间隔不超过 1.5 秒，从第 4 次起会提示还差几次），看到“开发者选项已开启”即可。再连点 7 次，或者关掉实验功能卡片最下面的“开发者选项”开关，就会重新隐藏。这一步需要触屏或鼠标；电视上连上支持扩展的服务端后会自动显示。
+- **开发者选项**：在「关于」页连续点应用名下面的版本号 7 次（每次间隔不超过 1.5 秒，从第 4 次起会提示还差几次），看到“开发者选项已开启”即可。再连点 7 次，或者关掉实验功能卡片最下面的“开发者选项”开关，就会重新隐藏。这一步需要触屏或鼠标；智慧屏上连上支持扩展的服务端后会自动显示。
 
 显示后可以用到：
 

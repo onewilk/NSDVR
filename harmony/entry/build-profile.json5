@@ -26,7 +26,10 @@
       }
     }
   ],
+  // default：GitHub 的未签名包，设备类型按 module.json5（含 tv）。
+  // appgallery：应用市场提审包，不声明 tv（大屏应用要广电备案号，托管隐私弹窗也不支持智慧屏）
   "targets": [
-    { "name": "default" }
+    { "name": "default" },
+    { "name": "appgallery", "config": { "deviceType": ["phone", "tablet", "2in1"] } }
   ]
 }
