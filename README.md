@@ -2,7 +2,7 @@
 
 **English** | [简体中文](README.zh-CN.md)
 
-NSDVR receives the [SysDVR](https://github.com/exelix11/SysDVR) stream from a Nintendo Switch on HarmonyOS NEXT phones, tablets, PCs, foldables and TVs.
+NSDVR receives the [SysDVR](https://github.com/exelix11/SysDVR) stream from a Nintendo Switch on HarmonyOS NEXT phones, tablets, PCs and foldables.
 It supports all three SysDVR streaming modes and adds HarmonyOS-specific improvements: a dedicated 5 GHz hotspot, adaptive smoothing, freeze on frame loss, picture enhancement, network acceleration and background streaming with a live notification.
 It works with the official SysDVR sysmodule; nothing needs to change on the Switch.
 
@@ -27,11 +27,13 @@ It works with the official SysDVR sysmodule; nothing needs to change on the Swit
     <td colspan="2" width="46%" align="center"><img src="screenshot/en_pc_2_settings.jpg" width="100%" alt="PC: Settings"><br><sub>Settings</sub></td>
   </tr>
   <tr>
-    <th>TV</th>
+    <th>TV*</th>
     <td colspan="2" width="46%" align="center"><img src="screenshot/en_tv_1_stream.jpg" width="100%" alt="TV: Stream"><br><sub>Stream</sub></td>
     <td colspan="2" width="46%" align="center"><img src="screenshot/en_tv_2_settings.jpg" width="100%" alt="TV: Settings"><br><sub>Settings</sub></td>
   </tr>
 </table>
+
+<sub>\* TV (smart screen) support, including remote-control navigation, is implemented but not enabled in the current packages, because AppGallery requires a broadcasting filing number for TV apps. To try it, add `"tv"` to `deviceTypes` in `harmony/entry/src/main/module.json5` and build it yourself.</sub>
 
 <sub>Screenshots are taken on the DevEco Studio emulators. They have no Wi-Fi Direct (and the phone, tablet and PC emulators have no video processing engine), so the device hotspot and picture enhancement appear greyed out with the reason, as they do on any device that lacks the feature.</sub>
 
@@ -51,7 +53,7 @@ It works with the official SysDVR sysmodule; nothing needs to change on the Swit
 - **Picture enhancement**: the system detail enhancer upscales the 720p stream to the real on-screen resolution (Standard / High). Available where the system declares the video processing engine (`SystemCapability.Multimedia.VideoProcessingEngine`); elsewhere the option is shown greyed out with the reason.
 - **Background streaming**: keeps receiving in the background for 2 or 5 minutes with a live notification, and catches up to the newest frame within a few hundred ms when you return.
 - **Detailed stats**: receive/display frame rate, bitrate, frame loss, freezes, stutter, present jitter, buffers and the Switch's free memory, also logged to a CSV file.
-- **Adaptive layouts** for phones, tablets, PCs, foldables and TVs that follow screen size and rotation, remote-control navigation on TVs, light and dark themes, and Simplified Chinese, Traditional Chinese and English.
+- **Adaptive layouts** for phones, tablets, PCs and foldables that follow screen size and rotation, light and dark themes, and Simplified Chinese, Traditional Chinese and English.
 
 ## Architecture
 

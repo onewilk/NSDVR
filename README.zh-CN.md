@@ -2,7 +2,7 @@
 
 [English](README.md) | **简体中文**
 
-NSDVR 在 HarmonyOS NEXT 手机、平板、PC、折叠屏和电视上接收 Nintendo Switch 的 [SysDVR](https://github.com/exelix11/SysDVR) 串流。
+NSDVR 在 HarmonyOS NEXT 手机、平板、PC 和折叠屏上接收 Nintendo Switch 的 [SysDVR](https://github.com/exelix11/SysDVR) 串流。
 它完整支持 SysDVR 的三种串流模式，并利用鸿蒙系统能力做了多项体验优化：专用 5 GHz 热点、自适应平滑、丢帧定格、画质增强、网络加速，以及带实况窗的后台保持。
 配合官方 SysDVR sysmodule 使用，Switch 端不需要任何改动。
 
@@ -27,11 +27,13 @@ NSDVR 在 HarmonyOS NEXT 手机、平板、PC、折叠屏和电视上接收 Nint
     <td colspan="2" width="46%" align="center"><img src="screenshot/zh_pc_2_settings.jpg" width="100%" alt="PC: 配置"><br><sub>配置</sub></td>
   </tr>
   <tr>
-    <th>电视</th>
+    <th>电视*</th>
     <td colspan="2" width="46%" align="center"><img src="screenshot/zh_tv_1_stream.jpg" width="100%" alt="电视: 串流"><br><sub>串流</sub></td>
     <td colspan="2" width="46%" align="center"><img src="screenshot/zh_tv_2_settings.jpg" width="100%" alt="电视: 配置"><br><sub>配置</sub></td>
   </tr>
 </table>
+
+<sub>\* 电视（智慧屏）支持（含遥控器操作）已经实现，但当前安装包没有启用：应用市场要求大屏应用提供广电备案号。想自己试用，可以在 `harmony/entry/src/main/module.json5` 的 `deviceTypes` 里加上 `"tv"` 后自行构建。</sub>
 
 <sub>截图拍自 DevEco Studio 模拟器。模拟器不支持 Wi-Fi 直连（手机、平板、PC 模拟器也没有视频处理引擎），所以专用热点和画质增强显示为置灰并写明原因；任何不支持这些功能的设备都会这样显示。</sub>
 
@@ -51,7 +53,7 @@ NSDVR 在 HarmonyOS NEXT 手机、平板、PC、折叠屏和电视上接收 Nint
 - **画质增强**：用系统的细节增强把 720p 画面放大到屏幕实际分辨率（标准 / 高）。系统声明支持视频处理引擎（`SystemCapability.Multimedia.VideoProcessingEngine`）的设备上可用，其他设备上这一项置灰并写明原因。
 - **后台保持**：切到后台后继续接收 2 分钟或 5 分钟，通知栏显示实况窗；回到前台几百毫秒内追到最新画面。
 - **详细统计**：收/显帧率、码率、丢帧、定格、卡顿、上屏抖动、缓冲、Switch 剩余内存等，同时写入 CSV 文件。
-- **多设备自适应布局**（手机、平板、PC、折叠屏、电视），跟随屏幕尺寸和方向调整，电视上可用遥控器操作；浅色/深色主题，简体中文、繁体中文和英文界面。
+- **多设备自适应布局**（手机、平板、PC、折叠屏），跟随屏幕尺寸和方向调整；浅色/深色主题，简体中文、繁体中文和英文界面。
 
 ## 架构
 

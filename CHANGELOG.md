@@ -6,6 +6,14 @@ Notable changes in each NSDVR release. Version numbers are the app's `versionNam
 unsigned build on GitHub with the matching section below as its release notes. The AppGallery version is built and
 signed separately from the same source.
 
+## 1.3.4 — 2026-10-15
+
+### Changed
+
+- The package no longer declares the TV (smart screen) device type, so AppGallery does not distribute it to smart
+  screens: TV apps there need a broadcasting filing number. The TV support code stays in the app; add `"tv"` to
+  `deviceTypes` in `harmony/entry/src/main/module.json5` to build it yourself.
+
 ## 1.3.3 — 2026-10-15
 
 ### Fixed
