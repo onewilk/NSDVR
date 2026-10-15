@@ -6,7 +6,7 @@ Notable changes in each NSDVR release. Version numbers are the app's `versionNam
 unsigned build on GitHub with the matching section below as its release notes. The AppGallery version is built and
 signed separately from the same source.
 
-## Unreleased
+## 1.3.3 — 2026-10-15
 
 ### Fixed
 
